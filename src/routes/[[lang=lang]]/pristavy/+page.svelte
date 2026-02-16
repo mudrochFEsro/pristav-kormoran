@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { PageData } from './$types';
 	import { t } from '$lib/i18n';
+	import { SEO } from '$lib/seo';
 	import Divider from '$lib/components/ui/Divider.svelte';
 
 	interface Props {
@@ -12,9 +13,11 @@
 	const translations = $derived(t(data.lang));
 </script>
 
-<svelte:head>
-	<title>{translations.ports.title} - {translations.site.title}</title>
-</svelte:head>
+<SEO
+	title={translations.ports.title}
+	description={translations.seo.ports}
+	lang={data.lang}
+/>
 
 <img class="main-img" src="/images/kormoran-i2.jpg" alt="" />
 <h1 class="static-title">{translations.ports.port1Title}</h1>

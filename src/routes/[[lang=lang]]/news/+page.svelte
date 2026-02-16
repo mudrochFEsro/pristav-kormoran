@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { PageData } from './$types';
 	import { t } from '$lib/i18n';
+	import { SEO } from '$lib/seo';
 	import Divider from '$lib/components/ui/Divider.svelte';
 
 	interface Props {
@@ -12,9 +13,13 @@
 	const translations = $derived(t(data.lang));
 </script>
 
-<svelte:head>
-	<title>{translations.news.title} - {translations.site.title}</title>
-</svelte:head>
+<SEO
+	title={translations.news.title}
+	description={translations.seo.news}
+	lang={data.lang}
+	type="article"
+	article={{ publishedTime: '2020-11-03' }}
+/>
 
 <h1 class="static-title static-title-no-img">{translations.news.articleTitle}</h1>
 <Divider />

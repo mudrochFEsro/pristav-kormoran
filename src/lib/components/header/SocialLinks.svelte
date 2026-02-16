@@ -29,7 +29,7 @@
 				href={link.href}
 				target="_blank"
 				rel="noopener noreferrer"
-				class="social-icons__link social-icons__link--{link.icon} shine-effect"
+				class="social-icons__link social-icons__link--{link.icon}"
 				style={link.bgColor ? `background-color: ${link.bgColor}` : ''}
 				aria-label={link.name}
 				title={link.name}
@@ -77,16 +77,8 @@
 	}
 
 	/* Brand-specific styling */
-	.social-icons__link--facebook:hover {
-		box-shadow: 0 4px 12px rgba(24, 119, 242, 0.5);
-	}
-
 	.social-icons__link--instagram {
 		background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
-	}
-
-	.social-icons__link--instagram:hover {
-		box-shadow: 0 4px 12px rgba(225, 48, 108, 0.5);
 	}
 
 	.social-icons__svg {

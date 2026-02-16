@@ -7,6 +7,17 @@ export const en: Translations = {
 			'Kormoran Ports are located in beautiful places that offer many opportunities to discover their culture, nature, relaxation, traditions, and sports exactly as you imagine.'
 	},
 
+	seo: {
+		home: 'Kormoran Ports - marinas on the Danube in Bratislava, Čilistov and Štúrovo, Slovakia. Boat trips, botel accommodation, corporate events and weddings on board.',
+		about: 'About Kormoran Ports - operating marinas on the Danube since 2012. Ports in Bratislava, Čilistov near Hotel Kormoran and Štúrovo, Slovakia.',
+		news: 'News and updates from Kormoran Ports. Current information about cruises, events and news from the Danube river.',
+		region: 'Žitný ostrov - the largest river island in Europe. Thermal spas, cycling routes, Gabčíkovo Dam and Hotel Kormoran in Šamorín-Čilistov.',
+		ports: 'Kormoran Ports on the Danube - 6 marinas in Bratislava, Čilistov and Štúrovo. Services for cabin vessels, cruise ships and small boats.',
+		botel: 'Botel Kormoran - accommodation on a boat in Bratislava. 49 beds, restaurant, bar with terrace, conference hall. Ideal for corporate events.',
+		boatTrips: 'Boat trips on the Danube - cruises from Bratislava and Čilistov. Corporate team buildings, weddings, celebrations and private cruises.',
+		contact: 'Contact Kormoran Ports. Port manager, operator, billing information. Marina reservations and boat trip bookings.'
+	},
+
 	nav: {
 		about: 'About us',
 		news: 'News',

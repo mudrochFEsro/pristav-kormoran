@@ -5,6 +5,18 @@ export interface Translations {
 		description: string;
 	};
 
+	// SEO meta descriptions for each page
+	seo: {
+		home: string;
+		about: string;
+		news: string;
+		region: string;
+		ports: string;
+		botel: string;
+		boatTrips: string;
+		contact: string;
+	};
+
 	// Navigation
 	nav: {
 		about: string;

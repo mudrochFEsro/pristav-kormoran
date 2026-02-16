@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { PageData } from './$types';
 	import { t } from '$lib/i18n';
+	import { SEO } from '$lib/seo';
 	import PageTitle from '$lib/components/ui/PageTitle.svelte';
 	import Divider from '$lib/components/ui/Divider.svelte';
 
@@ -13,9 +14,11 @@
 	const translations = $derived(t(data.lang));
 </script>
 
-<svelte:head>
-	<title>{translations.region.title} - {translations.site.title}</title>
-</svelte:head>
+<SEO
+	title={translations.region.title}
+	description={translations.seo.region}
+	lang={data.lang}
+/>
 
 <PageTitle title={translations.region.title} hasImage={false} />
 <Divider />

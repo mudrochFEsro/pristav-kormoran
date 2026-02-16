@@ -27,13 +27,36 @@
 		isMobileMenuOpen = false;
 	}
 
-	// Scroll to absolute top after every navigation
+	// Helper to get path without language prefix
+	function getPathWithoutLang(pathname: string): string {
+		const langPrefixes = ['/en/', '/ru/', '/en', '/ru'];
+		for (const prefix of langPrefixes) {
+			if (pathname.startsWith(prefix)) {
+				return pathname.slice(prefix.length - (prefix.endsWith('/') ? 1 : 0)) || '/';
+			}
+		}
+		return pathname;
+	}
+
+	// Scroll to absolute top after every navigation (except language changes)
 	afterNavigate((navigation) => {
 		// Close mobile menu on navigation
 		isMobileMenuOpen = false;
 
 		// Skip hash links (anchor navigation)
 		if (navigation.to?.url.hash) return;
+
+		// Skip scroll for language changes (same page, different language)
+		const fromPath = navigation.from?.url.pathname;
+		const toPath = navigation.to?.url.pathname;
+		if (fromPath && toPath) {
+			const fromWithoutLang = getPathWithoutLang(fromPath);
+			const toWithoutLang = getPathWithoutLang(toPath);
+			if (fromWithoutLang === toWithoutLang) {
+				// Language change only - don't scroll
+				return;
+			}
+		}
 
 		// Force scroll to absolute top using multiple methods for reliability
 		document.documentElement.scrollTop = 0;
