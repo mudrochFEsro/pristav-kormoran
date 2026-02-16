@@ -708,11 +708,11 @@ fieldset {
 	animation: none;
 }
 
-/* Header, Nav, Footer - NO animation (stay completely static) */
-::view-transition-old(layout-header),
-::view-transition-new(layout-header),
-::view-transition-old(layout-nav),
-::view-transition-new(layout-nav),
+/* Weather, Sticky header+nav, Footer - NO animation (stay completely static) */
+::view-transition-old(layout-weather),
+::view-transition-new(layout-weather),
+::view-transition-old(layout-sticky),
+::view-transition-new(layout-sticky),
 ::view-transition-old(layout-footer),
 ::view-transition-new(layout-footer) {
 	animation: none;

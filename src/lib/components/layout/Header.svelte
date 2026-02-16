@@ -1,7 +1,6 @@
 <script lang="ts">
 	import SocialLinks from '$lib/components/header/SocialLinks.svelte';
 	import LanguageSelector from '$lib/components/header/LanguageSelector.svelte';
-	import WeatherWidget from '$lib/components/header/WeatherWidget.svelte';
 	import type { LanguageCode } from '$lib/i18n';
 
 	interface Props {
@@ -18,7 +17,6 @@
 			<LanguageSelector currentLang={lang} />
 		</div>
 	</div>
-	<WeatherWidget {lang} />
 </header>
 
 <style>
@@ -35,20 +33,11 @@
 		padding-bottom: 4px;
 	}
 
-	/* Tablet */
+	/* Mobile - keep social links and language side by side */
 	@media (max-width: 768px) {
 		.header-top :global(.wrapper) {
-			flex-wrap: wrap;
-			gap: 8px;
-		}
-	}
-
-	/* Mobile */
-	@media (max-width: 480px) {
-		.header-top :global(.wrapper) {
-			flex-direction: column;
-			gap: 8px;
-			padding: 8px 15px;
+			gap: 12px;
+			padding: 6px 15px;
 		}
 	}
 </style>

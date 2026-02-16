@@ -6,6 +6,7 @@
 	import MainNav from '$lib/components/layout/MainNav.svelte';
 	import MobileMenu from '$lib/components/layout/MobileMenu.svelte';
 	import Footer from '$lib/components/layout/Footer.svelte';
+	import WeatherWidget from '$lib/components/header/WeatherWidget.svelte';
 	import type { LayoutData } from './$types';
 
 	interface Props {
@@ -70,10 +71,13 @@
 	{data.lang === 'sk' ? 'Preskočiť na obsah' : data.lang === 'ru' ? 'Перейти к содержанию' : 'Skip to content'}
 </a>
 <div class="site-wrapper">
-	<div class="layout-header">
-		<Header lang={data.lang} />
+	<!-- Weather widget - not sticky -->
+	<div class="layout-weather">
+		<WeatherWidget lang={data.lang} />
 	</div>
-	<div class="layout-nav">
+	<!-- Sticky header + nav -->
+	<div class="layout-sticky">
+		<Header lang={data.lang} />
 		<MainNav lang={data.lang} {isMobileMenuOpen} onToggleMobileMenu={toggleMobileMenu} />
 	</div>
 	<main id="main-content" class="main-content" tabindex="-1">
@@ -128,13 +132,14 @@
 		background: var(--color-white);
 	}
 
-	/* View Transitions - header/nav/footer stay static, only content animates */
-	.layout-header {
-		view-transition-name: layout-header;
+	/* Weather widget - not sticky */
+	.layout-weather {
+		view-transition-name: layout-weather;
 	}
 
-	.layout-nav {
-		view-transition-name: layout-nav;
+	/* Sticky header + nav combined */
+	.layout-sticky {
+		view-transition-name: layout-sticky;
 		position: sticky;
 		top: 0;
 		z-index: 100;
