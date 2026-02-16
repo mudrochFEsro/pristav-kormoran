@@ -1,9 +1,10 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte';
-	import { onNavigate } from '$app/navigation';
+	import { onNavigate, afterNavigate } from '$app/navigation';
 	import { browser } from '$app/environment';
 	import Header from '$lib/components/layout/Header.svelte';
 	import MainNav from '$lib/components/layout/MainNav.svelte';
+	import MobileMenu from '$lib/components/layout/MobileMenu.svelte';
 	import Footer from '$lib/components/layout/Footer.svelte';
 	import type { LayoutData } from './$types';
 
@@ -14,7 +15,32 @@
 
 	let { children, data }: Props = $props();
 
-	// Use View Transitions API for smooth page transitions
+	// Mobile menu state - managed at layout level to render outside view-transition wrappers
+	let isMobileMenuOpen = $state(false);
+
+	function toggleMobileMenu() {
+		isMobileMenuOpen = !isMobileMenuOpen;
+	}
+
+	function closeMobileMenu() {
+		isMobileMenuOpen = false;
+	}
+
+	// Scroll to absolute top after every navigation
+	afterNavigate((navigation) => {
+		// Close mobile menu on navigation
+		isMobileMenuOpen = false;
+
+		// Skip hash links (anchor navigation)
+		if (navigation.to?.url.hash) return;
+
+		// Force scroll to absolute top using multiple methods for reliability
+		document.documentElement.scrollTop = 0;
+		document.body.scrollTop = 0;
+		window.scrollTo(0, 0);
+	});
+
+	// Use View Transitions API for smooth content transitions only
 	onNavigate((navigation) => {
 		if (!browser) return;
 
@@ -25,37 +51,39 @@
 
 		// Check if View Transitions API is supported
 		if (!document.startViewTransition) {
-			navigation.complete.then(() => {
-				window.scrollTo({ top: 0, behavior: 'instant' });
-			});
 			return;
 		}
 
 		return new Promise((resolve) => {
-			const transition = document.startViewTransition(async () => {
+			document.startViewTransition(async () => {
 				resolve();
 				await navigation.complete;
-			});
-
-			transition.finished.then(() => {
-				window.scrollTo({ top: 0, behavior: 'instant' });
 			});
 		});
 	});
 </script>
 
+<!-- Mobile menu rendered outside view-transition wrappers for position: fixed to work -->
+<MobileMenu lang={data.lang} bind:isOpen={isMobileMenuOpen} onClose={closeMobileMenu} />
+
 <a href="#main-content" class="skip-link">
 	{data.lang === 'sk' ? 'Preskočiť na obsah' : data.lang === 'ru' ? 'Перейти к содержанию' : 'Skip to content'}
 </a>
 <div class="site-wrapper">
-	<Header lang={data.lang} />
-	<MainNav lang={data.lang} />
+	<div class="layout-header">
+		<Header lang={data.lang} />
+	</div>
+	<div class="layout-nav">
+		<MainNav lang={data.lang} {isMobileMenuOpen} onToggleMobileMenu={toggleMobileMenu} />
+	</div>
 	<main id="main-content" class="main-content" tabindex="-1">
 		<div class="container page-content">
 			{@render children()}
 		</div>
 	</main>
-	<Footer lang={data.lang} />
+	<div class="layout-footer">
+		<Footer lang={data.lang} />
+	</div>
 </div>
 
 <style>
@@ -100,7 +128,22 @@
 		background: var(--color-white);
 	}
 
-	/* View Transition - only content fades, not header/nav/footer */
+	/* View Transitions - header/nav/footer stay static, only content animates */
+	.layout-header {
+		view-transition-name: layout-header;
+	}
+
+	.layout-nav {
+		view-transition-name: layout-nav;
+		position: sticky;
+		top: 0;
+		z-index: 100;
+	}
+
+	.layout-footer {
+		view-transition-name: layout-footer;
+	}
+
 	.page-content {
 		view-transition-name: page-content;
 	}

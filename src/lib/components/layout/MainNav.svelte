@@ -2,13 +2,14 @@
 	import { page } from '$app/stores';
 	import { resolve } from '$app/paths';
 	import { t, getNavRoutes, type LanguageCode } from '$lib/i18n';
-	import MobileMenu from './MobileMenu.svelte';
 
 	interface Props {
 		lang: LanguageCode;
+		isMobileMenuOpen?: boolean;
+		onToggleMobileMenu?: () => void;
 	}
 
-	let { lang }: Props = $props();
+	let { lang, isMobileMenuOpen = false, onToggleMobileMenu }: Props = $props();
 
 	const translations = $derived(t(lang));
 	const routes = $derived(getNavRoutes(lang));
@@ -16,8 +17,6 @@
 
 	// Scroll state for glassmorphism effect
 	let isScrolled = $state(false);
-	// Mobile menu state
-	let isMobileMenuOpen = $state(false);
 
 	$effect(() => {
 		let ticking = false;
@@ -59,11 +58,7 @@
 	);
 
 	function toggleMobileMenu() {
-		isMobileMenuOpen = !isMobileMenuOpen;
-	}
-
-	function closeMobileMenu() {
-		isMobileMenuOpen = false;
+		onToggleMobileMenu?.();
 	}
 </script>
 
@@ -119,13 +114,8 @@
 	</div>
 </nav>
 
-<MobileMenu {lang} bind:isOpen={isMobileMenuOpen} onClose={closeMobileMenu} />
-
 <style>
 	.nav {
-		position: sticky;
-		top: 0;
-		z-index: 100;
 		background-color: var(--color-white);
 		border-bottom: 1px solid var(--color-border-light);
 		transition:

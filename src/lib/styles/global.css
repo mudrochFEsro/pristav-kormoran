@@ -261,7 +261,7 @@ fieldset {
 [class^='icon-'],
 [class*=' icon-'] {
 	font-family: 'icomoon';
-	speak: none;
+	speak: never;
 	font-style: normal;
 	font-weight: normal;
 	font-variant: normal;
@@ -692,14 +692,14 @@ fieldset {
 /* --------------------------------------------------------------------------
    View Transitions API - Content only (header/nav/footer stay static)
    -------------------------------------------------------------------------- */
-@keyframes fade-in {
-	from { opacity: 0; }
-	to { opacity: 1; }
+@keyframes content-fade-in {
+	from { opacity: 0; transform: translateY(8px); }
+	to { opacity: 1; transform: translateY(0); }
 }
 
-@keyframes fade-out {
-	from { opacity: 1; }
-	to { opacity: 0; }
+@keyframes content-fade-out {
+	from { opacity: 1; transform: translateY(0); }
+	to { opacity: 0; transform: translateY(-8px); }
 }
 
 /* Disable root transition to prevent full page flash */
@@ -708,13 +708,23 @@ fieldset {
 	animation: none;
 }
 
-/* Only animate page content - fast transition */
+/* Header, Nav, Footer - NO animation (stay completely static) */
+::view-transition-old(layout-header),
+::view-transition-new(layout-header),
+::view-transition-old(layout-nav),
+::view-transition-new(layout-nav),
+::view-transition-old(layout-footer),
+::view-transition-new(layout-footer) {
+	animation: none;
+}
+
+/* Only animate page content - smooth slide fade */
 ::view-transition-old(page-content) {
-	animation: 150ms ease-out fade-out;
+	animation: 200ms ease-out content-fade-out;
 }
 
 ::view-transition-new(page-content) {
-	animation: 150ms ease-in fade-in;
+	animation: 200ms ease-out content-fade-in;
 }
 
 @media (prefers-reduced-motion: reduce) {
