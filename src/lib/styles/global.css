@@ -1,0 +1,883 @@
+/* ==========================================================================
+   Prístav Kormorán - Global Styles
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   CSS Custom Properties
+   -------------------------------------------------------------------------- */
+:root {
+	/* Colors */
+	--color-primary: #f60;
+	--color-primary-dark: #ee5800;
+	--color-text-dark: #000;
+	--color-text-primary: #646464;
+	--color-text-secondary: #58595b;
+	--color-text-footer: #7e7e7e;
+	--color-border-light: #f1f2f2;
+	--color-bg-light: #fcfcfc;
+	--color-bg-footer: #333;
+	--color-social-instagram: #bf835f;
+	--color-social-facebook: #3b5998;
+	--color-white: #fff;
+
+	/* Typography */
+	--font-primary: 'ralewayregular', 'Raleway', sans-serif;
+	--font-light: 'ralewaylight', 'Raleway', sans-serif;
+	--font-medium: 'ralewaymedium', 'Raleway', sans-serif;
+	--font-bold: 'ralewaybold', 'Raleway', sans-serif;
+
+	/* Font Sizes */
+	--size-heading-xl: 35px;
+	--size-heading-lg: 28px;
+	--size-body: 16px;
+	--size-small: 13px;
+
+	/* Layout */
+	--layout-max-width: 820px;
+	--layout-nav-height: 75px;
+	--layout-footer-height: 199px;
+
+	/* Spacing */
+	--space-xs: 4px;
+	--space-sm: 10px;
+	--space-md: 15px;
+	--space-lg: 25px;
+	--space-xl: 45px;
+}
+
+/* --------------------------------------------------------------------------
+   Font Faces
+   -------------------------------------------------------------------------- */
+@font-face {
+	font-family: 'ralewaybold';
+	src: url('/fonts/raleway/raleway-bold-webfont.eot');
+	src:
+		url('/fonts/raleway/raleway-bold-webfont.eot?#iefix') format('embedded-opentype'),
+		url('/fonts/raleway/raleway-bold-webfont.woff2') format('woff2'),
+		url('/fonts/raleway/raleway-bold-webfont.woff') format('woff'),
+		url('/fonts/raleway/raleway-bold-webfont.ttf') format('truetype'),
+		url('/fonts/raleway/raleway-bold-webfont.svg#ralewaybold') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'ralewayregular';
+	src: url('/fonts/raleway/raleway-regular-webfont.eot');
+	src:
+		url('/fonts/raleway/raleway-regular-webfont.eot?#iefix') format('embedded-opentype'),
+		url('/fonts/raleway/raleway-regular-webfont.woff2') format('woff2'),
+		url('/fonts/raleway/raleway-regular-webfont.woff') format('woff'),
+		url('/fonts/raleway/raleway-regular-webfont.ttf') format('truetype'),
+		url('/fonts/raleway/raleway-regular-webfont.svg#ralewayregular') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'ralewaylight';
+	src: url('/fonts/raleway/raleway-light-webfont.eot');
+	src:
+		url('/fonts/raleway/raleway-light-webfont.eot?#iefix') format('embedded-opentype'),
+		url('/fonts/raleway/raleway-light-webfont.woff2') format('woff2'),
+		url('/fonts/raleway/raleway-light-webfont.woff') format('woff'),
+		url('/fonts/raleway/raleway-light-webfont.ttf') format('truetype'),
+		url('/fonts/raleway/raleway-light-webfont.svg#ralewaylight') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'ralewaymedium';
+	src: url('/fonts/raleway/raleway-medium-webfont.eot');
+	src:
+		url('/fonts/raleway/raleway-medium-webfont.eot?#iefix') format('embedded-opentype'),
+		url('/fonts/raleway/raleway-medium-webfont.woff2') format('woff2'),
+		url('/fonts/raleway/raleway-medium-webfont.woff') format('woff'),
+		url('/fonts/raleway/raleway-medium-webfont.ttf') format('truetype'),
+		url('/fonts/raleway/raleway-medium-webfont.svg#ralewaymedium') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+/* Icon Font */
+@font-face {
+	font-family: 'icomoon';
+	src: url('/fonts/icons/icomoon.eot?7kpl5e');
+	src:
+		url('/fonts/icons/icomoon.eot?#iefix7kpl5e') format('embedded-opentype'),
+		url('/fonts/icons/icomoon.woff?7kpl5e') format('woff'),
+		url('/fonts/icons/icomoon.ttf?7kpl5e') format('truetype'),
+		url('/fonts/icons/icomoon.svg?7kpl5e#icomoon') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+/* --------------------------------------------------------------------------
+   Reset / Normalize (simplified)
+   -------------------------------------------------------------------------- */
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+html,
+body {
+	height: 100%;
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	font-family: var(--font-primary);
+	background-color: var(--color-bg-light);
+	min-width: 960px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	margin: 0;
+	padding: 0;
+}
+
+ul,
+li {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+a {
+	text-decoration: none;
+	color: inherit;
+}
+
+a:hover {
+	cursor: pointer;
+}
+
+img {
+	border: 0;
+	max-width: 100%;
+}
+
+button {
+	margin: 0;
+	padding: 0;
+	box-shadow: none;
+	border: 0 none;
+	background: transparent;
+	cursor: pointer;
+}
+
+input,
+select,
+button,
+a {
+	outline: 0;
+}
+
+input:focus,
+select:focus,
+button:focus,
+a:focus {
+	outline: 0;
+}
+
+fieldset {
+	border: 0;
+}
+
+/* --------------------------------------------------------------------------
+   Icon Classes
+   -------------------------------------------------------------------------- */
+[class^='icon-'],
+[class*=' icon-'] {
+	font-family: 'icomoon';
+	speak: none;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+.icon-custom-facebook:before {
+	content: '\e900';
+}
+.icon-custom-instagram:before {
+	content: '\e901';
+}
+.icon-instagram-with-circle:before {
+	content: '\e902';
+}
+.icon-facebook-with-circle:before {
+	content: '\e903';
+}
+.icon-beach:before {
+	content: '\e904';
+}
+.icon-earth:before {
+	content: '\e905';
+}
+.icon-anchor:before {
+	content: '\e906';
+}
+.icon-ship:before {
+	content: '\e907';
+}
+.icon-mail:before {
+	content: '\e908';
+}
+.icon-life-wheel:before {
+	content: '\e909';
+}
+.icon-camera:before {
+	content: '\e90a';
+}
+.icon-tennis:before {
+	content: '\e90b';
+}
+.icon-award:before {
+	content: '\e90c';
+}
+.icon-water-level:before {
+	content: '\e90f';
+}
+.icon-wheel:before {
+	content: '\e910';
+}
+.icon-sailor:before {
+	content: '\e911';
+}
+.icon-triangle-down:before {
+	content: '\e912';
+}
+.icon-phone:before {
+	content: '\e913';
+}
+.icon-chevron-thin-down:before {
+	content: '\e914';
+}
+.icon-place:before {
+	content: '\e915';
+}
+.icon-destination:before {
+	content: '\e916';
+}
+.icon-calendar:before {
+	content: '\e917';
+}
+.icon-chevron-thin-right:before {
+	content: '\e918';
+}
+.icon-chevron-thin-left:before {
+	content: '\e919';
+}
+.icon-mist:before {
+	content: '\e91a';
+}
+.icon-snow:before {
+	content: '\e91b';
+}
+.icon-thunderstorm:before {
+	content: '\e91c';
+}
+.icon-rain:before {
+	content: '\e91d';
+}
+.icon-shower-rain:before {
+	content: '\e91e';
+}
+.icon-broken-clouds:before {
+	content: '\e91f';
+}
+.icon-scattered-clouds:before {
+	content: '\e920';
+}
+.icon-few-clouds:before {
+	content: '\e921';
+}
+.icon-clear-sky:before {
+	content: '\e922';
+}
+
+/* --------------------------------------------------------------------------
+   Layout
+   -------------------------------------------------------------------------- */
+#layout {
+	clear: both;
+	min-height: 100%;
+	height: auto !important;
+	margin-bottom: calc(-1 * var(--layout-footer-height));
+}
+
+#layout #layout-footer {
+	height: var(--layout-footer-height);
+}
+
+#footer {
+	clear: both;
+	position: relative;
+	height: var(--layout-footer-height);
+}
+
+.wrapper {
+	max-width: var(--layout-max-width);
+	margin: 0 auto;
+}
+
+.wrapper::after {
+	content: '';
+	display: table;
+	clear: both;
+}
+
+/* --------------------------------------------------------------------------
+   Social & Language Header
+   -------------------------------------------------------------------------- */
+.social-language-header {
+	color: var(--color-white);
+	background: var(--color-primary);
+}
+
+.social-header {
+	float: left;
+	font-size: 25px;
+	padding: 4px 0;
+}
+
+.social-header a {
+	display: inline-block;
+}
+
+.language-header {
+	float: right;
+}
+
+.language-header .custom-select {
+	background: var(--color-primary-dark);
+}
+
+.language-header .custom-select select {
+	text-transform: uppercase;
+	color: var(--color-white);
+}
+
+.language-header .custom-select::after {
+	content: '\e912';
+}
+
+/* --------------------------------------------------------------------------
+   Custom Select
+   -------------------------------------------------------------------------- */
+.custom-select {
+	position: relative;
+}
+
+.custom-select select {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	border: 0 none;
+	background: transparent;
+	padding: 0 30px 0 20px;
+	line-height: 36px;
+	height: 36px;
+	position: relative;
+	z-index: 2;
+}
+
+.custom-select::after {
+	position: absolute;
+	font-family: 'icomoon';
+	right: 10px;
+	top: 8px;
+	z-index: 1;
+}
+
+/* --------------------------------------------------------------------------
+   Weather Header
+   -------------------------------------------------------------------------- */
+.weather-header {
+	background: var(--color-border-light);
+	padding: 10px 0;
+}
+
+.weather-location {
+	float: left;
+	width: 33%;
+}
+
+.weather-location h1,
+.weather-location h2,
+.weather-location div,
+.weather-location span {
+	display: inline-block;
+	vertical-align: middle;
+}
+
+.weather-location h1,
+.weather-location h2,
+.weather-location h4,
+.weather-location h5 {
+	font-weight: normal;
+	font-family: var(--font-light);
+}
+
+.weather-location h1 {
+	font-size: 28px;
+}
+
+.weather-location h2 {
+	margin-left: 5px;
+	display: inline-block;
+	font-size: 28px;
+	vertical-align: top;
+	margin-top: -4px;
+}
+
+.weather-location h4 {
+	margin-top: 2px;
+}
+
+.weather-location h5 {
+	display: inline-block;
+	vertical-align: top;
+	font-size: 17px;
+}
+
+.weather-location span.weather-icon {
+	font-size: 35px;
+}
+
+.weather-location span.water-icon {
+	font-size: 20px;
+	vertical-align: top;
+}
+
+.weather-location .water-level-wrapper {
+	margin-left: 10px;
+}
+
+.weather-location .location-weather-wrapper {
+	text-align: center;
+}
+
+.weather-location:nth-child(1) {
+	text-align: left;
+}
+
+.weather-location:nth-child(2) {
+	text-align: center;
+}
+
+.weather-location:nth-child(3) {
+	text-align: right;
+}
+
+/* --------------------------------------------------------------------------
+   Main Navigation
+   -------------------------------------------------------------------------- */
+.main-nav {
+	padding: 15px 0 0;
+	position: relative;
+	text-align: center;
+	background-color: var(--color-white);
+}
+
+.main-nav a:not(.main-logo) {
+	display: inline-block;
+	float: left;
+	text-transform: uppercase;
+	margin-right: 1px;
+	padding: 15px 12px;
+	border-left: 2px solid var(--color-border-light);
+	box-sizing: border-box;
+	color: var(--color-text-secondary);
+	font-size: 0;
+	height: var(--layout-nav-height);
+	margin-bottom: 15px;
+}
+
+.main-nav a:not(.main-logo):hover {
+	border-bottom: 3px solid var(--color-primary);
+}
+
+.main-nav a:not(.main-logo):last-child {
+	border-right: 2px solid var(--color-border-light);
+}
+
+.main-nav a.main-nav-active {
+	color: var(--color-text-dark);
+}
+
+.main-nav span {
+	display: block;
+}
+
+.main-nav .main-nav-item {
+	font-size: 12px;
+}
+
+.main-nav [class^='icon-'],
+.main-nav [class*=' icon-'] {
+	font-size: 17px;
+	margin-bottom: 5px;
+}
+
+.main-nav-left {
+	float: left;
+}
+
+.main-nav-right {
+	float: right;
+}
+
+a.main-logo {
+	display: block;
+	width: 130px;
+	position: absolute;
+	top: 15px;
+	left: 0;
+	right: 0;
+	margin: 0 auto;
+	z-index: 11;
+}
+
+a.main-logo img {
+	max-width: 100%;
+	width: 100%;
+	height: auto;
+}
+
+/* --------------------------------------------------------------------------
+   Content
+   -------------------------------------------------------------------------- */
+.content {
+	background: url('/images/background.jpg');
+	background-repeat: no-repeat;
+	padding-bottom: 65px;
+	background-size: contain;
+	position: relative;
+}
+
+.content .wrapper {
+	background: var(--color-white);
+	position: relative;
+	z-index: 9;
+}
+
+.content-border {
+	background-image: url('/images/border.png');
+	background-repeat: no-repeat;
+	background-size: contain;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100px;
+	z-index: 10;
+}
+
+.main-img {
+	display: block;
+	width: 100%;
+}
+
+/* --------------------------------------------------------------------------
+   Titles
+   -------------------------------------------------------------------------- */
+.main-title,
+.static-title {
+	text-align: center;
+	font-family: var(--font-light);
+	font-weight: normal;
+	background: var(--color-primary);
+	color: var(--color-white);
+	padding: 25px 70px 25px;
+	font-size: var(--size-heading-xl);
+}
+
+.static-title {
+	background: var(--color-white);
+	color: var(--color-text-dark);
+}
+
+.static-title-no-img {
+	padding-top: 65px;
+}
+
+/* --------------------------------------------------------------------------
+   Text Content
+   -------------------------------------------------------------------------- */
+.main-text,
+.static-text {
+	padding: 40px 75px;
+	text-align: center;
+}
+
+.main-text p,
+.static-text p {
+	line-height: 30px;
+	font-size: var(--size-body);
+	font-family: var(--font-light);
+	font-weight: normal;
+	color: var(--color-text-primary);
+}
+
+.static-date {
+	text-align: center;
+	margin-top: 35px;
+	color: var(--color-text-primary);
+}
+
+.static-text {
+	padding: 10px 0 40px;
+	width: 670px;
+	margin: 0 auto;
+	text-align: center;
+}
+
+.static-text img {
+	max-width: 100%;
+	margin-bottom: 15px;
+}
+
+.static-text p {
+	text-align: justify;
+}
+
+/* --------------------------------------------------------------------------
+   Address / Contact
+   -------------------------------------------------------------------------- */
+.address {
+	padding: 50px 0 30px;
+}
+
+.address strong {
+	display: block;
+	font-size: 15px;
+	font-family: var(--font-medium);
+	font-weight: normal;
+}
+
+.address span {
+	font-size: 17px;
+}
+
+.address p {
+	margin-top: 25px;
+	font-size: var(--size-small);
+	line-height: 20px;
+}
+
+.address .icon-phone,
+.address .icon-mail {
+	display: inline-block;
+	margin-right: 10px;
+	position: relative;
+	top: 2px;
+}
+
+/* --------------------------------------------------------------------------
+   Divider
+   -------------------------------------------------------------------------- */
+.divider {
+	border-bottom: 2px solid var(--color-border-light);
+	box-sizing: border-box;
+	position: relative;
+	width: 80%;
+	margin: 0 auto;
+}
+
+.divider div {
+	position: absolute;
+	top: -15px;
+	right: -99999px;
+	left: -99999px;
+	margin: 0 auto;
+	text-align: center;
+	width: 70px;
+	height: 30px;
+	line-height: 30px;
+	font-size: 20px;
+	background: var(--color-white);
+	color: var(--color-text-secondary);
+}
+
+.divider div span {
+	position: relative;
+	top: 2px;
+}
+
+/* --------------------------------------------------------------------------
+   Categories
+   -------------------------------------------------------------------------- */
+.categories {
+	padding-top: 65px;
+}
+
+.categories::after {
+	content: '';
+	display: table;
+	clear: both;
+}
+
+.category {
+	float: left;
+	width: 25%;
+}
+
+.category:last-child .category-text {
+	border-right: 1px solid var(--color-border-light);
+}
+
+.category-text {
+	position: relative;
+	padding: 35px 11px 15px;
+	text-align: center;
+	border-bottom: 1px solid var(--color-border-light);
+	border-left: 1px solid var(--color-border-light);
+}
+
+.category-text [class^='icon-'],
+.category-text [class*=' icon-'] {
+	font-size: 50px;
+	position: absolute;
+	top: -30px;
+	left: 0;
+	right: 0;
+	margin: 0 auto;
+	color: var(--color-primary);
+}
+
+.category-text [class^='icon-']::before,
+.category-text [class*=' icon-']::before {
+	border-radius: 50%;
+	background: var(--color-white);
+}
+
+.category-text h3 {
+	font-weight: normal;
+	font-family: var(--font-primary);
+	color: var(--color-primary);
+	text-transform: uppercase;
+}
+
+.category-text p {
+	font-size: var(--size-small);
+	line-height: 18px;
+}
+
+/* --------------------------------------------------------------------------
+   Footer
+   -------------------------------------------------------------------------- */
+#footer {
+	font-size: 14px;
+}
+
+#footer .footer-main {
+	background: var(--color-border-light);
+}
+
+#footer .footer-cred {
+	background: var(--color-bg-footer);
+	color: var(--color-white);
+	text-transform: uppercase;
+	padding: 10px 0;
+}
+
+.footer-nav {
+	float: left;
+	width: 50%;
+}
+
+.footer-nav ul {
+	width: 150px;
+}
+
+.footer-nav li {
+	border-bottom: 1px solid var(--color-text-secondary);
+	color: var(--color-text-footer);
+	padding: 5px 0;
+	text-transform: uppercase;
+}
+
+.footer-info {
+	float: right;
+	text-align: right;
+	width: 50%;
+}
+
+.footer-info address {
+	margin-top: 35px;
+	color: var(--color-text-footer);
+	font-style: normal;
+	display: inline-block;
+	text-align: left;
+}
+
+.footer-info address strong {
+	display: inline-block;
+	padding-bottom: 10px;
+}
+
+.footer-info address div {
+	padding-bottom: 2px;
+}
+
+.footer-info address div .icon-instagram-with-circle,
+.footer-info address div .icon-facebook-with-circle {
+	margin-top: 8px;
+	font-size: 30px;
+	display: inline-block;
+}
+
+.footer-info address div .icon-instagram-with-circle {
+	color: var(--color-social-instagram);
+}
+
+.footer-info address div .icon-facebook-with-circle {
+	color: var(--color-social-facebook);
+}
+
+.footer-info img {
+	max-width: 160px;
+	display: inline-block;
+	vertical-align: top;
+	margin-top: -10px;
+}
+
+/* --------------------------------------------------------------------------
+   Buttons
+   -------------------------------------------------------------------------- */
+.button-wrapper {
+	text-align: right;
+}
+
+.button {
+	display: inline-block;
+	padding: 10px 15px;
+	font-family: var(--font-medium);
+	font-weight: normal;
+	text-transform: uppercase;
+	font-size: 14px;
+	color: var(--color-text-primary);
+	border: 2px solid var(--color-text-primary);
+	background: var(--color-white);
+}
+
+.button:hover {
+	color: var(--color-primary);
+	border: 2px solid var(--color-primary);
+}
