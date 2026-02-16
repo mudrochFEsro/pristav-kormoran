@@ -20,11 +20,15 @@
 	--color-social-facebook: #3b5998;
 	--color-white: #fff;
 
-	/* Typography */
-	--font-primary: 'ralewayregular', 'Raleway', sans-serif;
-	--font-light: 'ralewaylight', 'Raleway', sans-serif;
-	--font-medium: 'ralewaymedium', 'Raleway', sans-serif;
-	--font-bold: 'ralewaybold', 'Raleway', sans-serif;
+	/* Typography - Inter (supports Latin Extended + Cyrillic) */
+	--font-primary: 'Inter', sans-serif;
+	--font-light: 'Inter', sans-serif;
+	--font-medium: 'Inter', sans-serif;
+	--font-bold: 'Inter', sans-serif;
+	--font-weight-light: 300;
+	--font-weight-regular: 400;
+	--font-weight-medium: 500;
+	--font-weight-bold: 700;
 
 	/* Font Sizes */
 	--size-heading-xl: 35px;
@@ -87,65 +91,8 @@
 }
 
 /* --------------------------------------------------------------------------
-   Font Faces
+   Font Faces - Icon Font only (Inter loaded via Google Fonts)
    -------------------------------------------------------------------------- */
-@font-face {
-	font-family: 'ralewaybold';
-	src: url('/fonts/raleway/raleway-bold-webfont.eot');
-	src:
-		url('/fonts/raleway/raleway-bold-webfont.eot?#iefix') format('embedded-opentype'),
-		url('/fonts/raleway/raleway-bold-webfont.woff2') format('woff2'),
-		url('/fonts/raleway/raleway-bold-webfont.woff') format('woff'),
-		url('/fonts/raleway/raleway-bold-webfont.ttf') format('truetype'),
-		url('/fonts/raleway/raleway-bold-webfont.svg#ralewaybold') format('svg');
-	font-weight: normal;
-	font-style: normal;
-	font-display: swap;
-}
-
-@font-face {
-	font-family: 'ralewayregular';
-	src: url('/fonts/raleway/raleway-regular-webfont.eot');
-	src:
-		url('/fonts/raleway/raleway-regular-webfont.eot?#iefix') format('embedded-opentype'),
-		url('/fonts/raleway/raleway-regular-webfont.woff2') format('woff2'),
-		url('/fonts/raleway/raleway-regular-webfont.woff') format('woff'),
-		url('/fonts/raleway/raleway-regular-webfont.ttf') format('truetype'),
-		url('/fonts/raleway/raleway-regular-webfont.svg#ralewayregular') format('svg');
-	font-weight: normal;
-	font-style: normal;
-	font-display: swap;
-}
-
-@font-face {
-	font-family: 'ralewaylight';
-	src: url('/fonts/raleway/raleway-light-webfont.eot');
-	src:
-		url('/fonts/raleway/raleway-light-webfont.eot?#iefix') format('embedded-opentype'),
-		url('/fonts/raleway/raleway-light-webfont.woff2') format('woff2'),
-		url('/fonts/raleway/raleway-light-webfont.woff') format('woff'),
-		url('/fonts/raleway/raleway-light-webfont.ttf') format('truetype'),
-		url('/fonts/raleway/raleway-light-webfont.svg#ralewaylight') format('svg');
-	font-weight: normal;
-	font-style: normal;
-	font-display: swap;
-}
-
-@font-face {
-	font-family: 'ralewaymedium';
-	src: url('/fonts/raleway/raleway-medium-webfont.eot');
-	src:
-		url('/fonts/raleway/raleway-medium-webfont.eot?#iefix') format('embedded-opentype'),
-		url('/fonts/raleway/raleway-medium-webfont.woff2') format('woff2'),
-		url('/fonts/raleway/raleway-medium-webfont.woff') format('woff'),
-		url('/fonts/raleway/raleway-medium-webfont.ttf') format('truetype'),
-		url('/fonts/raleway/raleway-medium-webfont.svg#ralewaymedium') format('svg');
-	font-weight: normal;
-	font-style: normal;
-	font-display: swap;
-}
-
-/* Icon Font */
 @font-face {
 	font-family: 'icomoon';
 	src: url('/fonts/icons/icomoon.eot?7kpl5e');
@@ -430,8 +377,8 @@ fieldset {
 .main-title,
 .static-title {
 	text-align: center;
-	font-family: var(--font-light);
-	font-weight: normal;
+	font-family: var(--font-primary);
+	font-weight: var(--font-weight-light);
 	background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
 	color: var(--color-white);
 	padding: var(--space-7) var(--space-9);
@@ -467,8 +414,8 @@ fieldset {
 .static-text p {
 	line-height: 1.875;
 	font-size: var(--size-body);
-	font-family: var(--font-light);
-	font-weight: normal;
+	font-family: var(--font-primary);
+	font-weight: var(--font-weight-light);
 	color: var(--color-text-primary);
 }
 
@@ -516,8 +463,8 @@ fieldset {
 .address strong {
 	display: block;
 	font-size: 15px;
-	font-family: var(--font-medium);
-	font-weight: normal;
+	font-family: var(--font-primary);
+	font-weight: var(--font-weight-medium);
 }
 
 .address span {
@@ -655,8 +602,8 @@ fieldset {
 .button {
 	display: inline-block;
 	padding: var(--space-3) var(--space-4);
-	font-family: var(--font-medium);
-	font-weight: normal;
+	font-family: var(--font-primary);
+	font-weight: var(--font-weight-medium);
 	text-transform: uppercase;
 	font-size: 14px;
 	color: var(--color-text-primary);
