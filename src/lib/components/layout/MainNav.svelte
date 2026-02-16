@@ -57,6 +57,11 @@
 		lang === 'sk' ? ['Výlety', 'loďou'] : lang === 'ru' ? ['Прогулки', 'на лодке'] : ['Boat', 'trips']
 	);
 
+	// Botel label with line break - translated for Russian
+	const botelLabel = $derived(
+		lang === 'ru' ? ['Ботель', 'Корморан'] : ['Botel', 'Kormorán']
+	);
+
 	function toggleMobileMenu() {
 		onToggleMobileMenu?.();
 	}
@@ -100,7 +105,7 @@
 			</a>
 			<a href={resolve(routes.botel)} class="nav__link" class:nav__link--active={isActive(routes.botel)} aria-current={isActive(routes.botel) ? 'page' : undefined}>
 				<span class="nav__icon icon-life-wheel" aria-hidden="true"></span>
-				<span class="nav__label">Botel<br />Kormorán</span>
+				<span class="nav__label">{botelLabel[0]}<br />{botelLabel[1]}</span>
 			</a>
 			<a href={resolve(routes.boatTrips)} class="nav__link" class:nav__link--active={isActive(routes.boatTrips)} aria-current={isActive(routes.boatTrips) ? 'page' : undefined}>
 				<span class="nav__icon icon-ship" aria-hidden="true"></span>

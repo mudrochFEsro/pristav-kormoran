@@ -18,6 +18,7 @@
 	title={translations.boatTrips.title}
 	description={translations.seo.boatTrips}
 	lang={data.lang}
+	includeHowTo={true}
 />
 
 <img class="main-img" src="/images/plavby-lodou-ondava-neng.png" alt="" />

@@ -19,6 +19,7 @@
 	title={translations.site.title}
 	description={translations.seo.home}
 	lang={data.lang}
+	includeFaq={true}
 />
 
 <img class="main-img" src="/images/static-main.jpg" alt="" />

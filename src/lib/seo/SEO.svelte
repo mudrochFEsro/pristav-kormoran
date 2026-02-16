@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import { siteConfig, locations, openingHours, services, keywords } from './config';
+	import { siteConfig, locations, services, keywords, faq, howToBookBoatTrip, speakableSelectors } from './config';
 	import type { LanguageCode } from '$lib/i18n';
 
 	interface Props {
@@ -10,6 +10,8 @@
 		type?: 'website' | 'article' | 'place';
 		image?: string;
 		noindex?: boolean;
+		includeFaq?: boolean;
+		includeHowTo?: boolean;
 		article?: {
 			publishedTime?: string;
 			modifiedTime?: string;
@@ -24,6 +26,8 @@
 		type = 'website',
 		image = siteConfig.defaultImage,
 		noindex = false,
+		includeFaq = false,
+		includeHowTo = false,
 		article
 	}: Props = $props();
 
@@ -222,10 +226,77 @@
 		})
 	});
 
-	// Combined JSON-LD graph
-	const jsonLdGraph = $derived({
+	// JSON-LD: FAQ Schema (AEO - Answer Engine Optimization)
+	const faqSchema = $derived(includeFaq ? {
 		'@context': 'https://schema.org',
-		'@graph': [organizationSchema, localBusinessSchema, websiteSchema, webPageSchema]
+		'@type': 'FAQPage',
+		'@id': `${canonicalUrl}/#faq`,
+		mainEntity: faq[lang].map((item) => ({
+			'@type': 'Question',
+			name: item.question,
+			acceptedAnswer: {
+				'@type': 'Answer',
+				text: item.answer
+			}
+		}))
+	} : null);
+
+	// JSON-LD: HowTo Schema (AEO - Featured Snippets)
+	const howToSchema = $derived(includeHowTo ? {
+		'@context': 'https://schema.org',
+		'@type': 'HowTo',
+		'@id': `${canonicalUrl}/#howto`,
+		name: howToBookBoatTrip[lang].name,
+		description: howToBookBoatTrip[lang].description,
+		step: howToBookBoatTrip[lang].steps.map((step, index) => ({
+			'@type': 'HowToStep',
+			position: index + 1,
+			name: step.name,
+			text: step.text
+		})),
+		totalTime: 'PT10M'
+	} : null);
+
+	// JSON-LD: Speakable Schema (AEO - Voice Search)
+	const speakableSchema = $derived({
+		'@context': 'https://schema.org',
+		'@type': 'WebPage',
+		speakable: {
+			'@type': 'SpeakableSpecification',
+			cssSelector: speakableSelectors
+		}
+	});
+
+	// JSON-LD: BreadcrumbList (GEO - Navigation understanding)
+	const breadcrumbSchema = $derived({
+		'@context': 'https://schema.org',
+		'@type': 'BreadcrumbList',
+		'@id': `${canonicalUrl}/#breadcrumb`,
+		itemListElement: [
+			{
+				'@type': 'ListItem',
+				position: 1,
+				name: 'Domov',
+				item: siteConfig.url
+			},
+			{
+				'@type': 'ListItem',
+				position: 2,
+				name: title,
+				item: canonicalUrl
+			}
+		]
+	});
+
+	// Combined JSON-LD graph
+	const jsonLdGraph = $derived(() => {
+		const graph: Record<string, unknown>[] = [organizationSchema, localBusinessSchema, websiteSchema, webPageSchema, breadcrumbSchema];
+		if (faqSchema) graph.push(faqSchema);
+		if (howToSchema) graph.push(howToSchema);
+		return {
+			'@context': 'https://schema.org',
+			'@graph': graph
+		};
 	});
 
 	const keywordString = $derived(keywords[lang].join(', '));
@@ -294,6 +365,8 @@
 	<meta name="format-detection" content="telephone=yes" />
 	<meta name="contact" content={siteConfig.email} />
 
-	<!-- JSON-LD Structured Data -->
-	{@html `<script type="application/ld+json">${JSON.stringify(jsonLdGraph)}</script>`}
+	<!-- JSON-LD Structured Data (SEO + AEO + GEO) -->
+	{@html `<script type="application/ld+json">${JSON.stringify(jsonLdGraph())}</script>`}
+	<!-- Speakable Schema for Voice Assistants -->
+	{@html `<script type="application/ld+json">${JSON.stringify(speakableSchema)}</script>`}
 </svelte:head>

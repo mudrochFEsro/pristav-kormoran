@@ -128,7 +128,7 @@
 				onclick={handleLinkClick}
 			>
 				<span class="icon-life-wheel" aria-hidden="true"></span>
-				Botel Kormorán
+				{translations.nav.botel}
 			</a>
 			<a
 				href={resolve(routes.boatTrips)}
