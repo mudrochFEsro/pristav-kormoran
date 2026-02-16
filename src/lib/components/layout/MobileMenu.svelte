@@ -2,6 +2,8 @@
 	import { t, getNavRoutes, type LanguageCode } from '$lib/i18n';
 	import { page } from '$app/stores';
 	import { resolve } from '$app/paths';
+	import { fade } from 'svelte/transition';
+	import { cubicOut } from 'svelte/easing';
 
 	interface Props {
 		lang: LanguageCode;
@@ -10,6 +12,43 @@
 	}
 
 	let { lang, isOpen = $bindable(), onClose }: Props = $props();
+
+	// Custom bounce easing for open animation
+	function bounceOut(t: number): number {
+		const c1 = 1.70158;
+		const c3 = c1 + 1;
+		return 1 + c3 * Math.pow(t - 1, 3) + c1 * Math.pow(t - 1, 2);
+	}
+
+	// Check for reduced motion preference
+	const prefersReducedMotion = typeof window !== 'undefined'
+		? window.matchMedia('(prefers-reduced-motion: reduce)').matches
+		: false;
+
+	// Scale + fade transition with bounce
+	function scaleBounce(node: Element, { duration = 300, direction = 'in' }: { duration?: number; direction?: 'in' | 'out' }) {
+		// Simplified animation for reduced motion
+		if (prefersReducedMotion) {
+			return {
+				duration: 150,
+				css: (t: number) => `opacity: ${t};`
+			};
+		}
+
+		return {
+			duration,
+			easing: direction === 'in' ? bounceOut : cubicOut,
+			css: (t: number) => {
+				const scale = direction === 'in'
+					? 0.9 + (t * 0.1)  // 0.9 -> 1.0 (bounce will overshoot)
+					: 0.9 + (t * 0.1); // 1.0 -> 0.9
+				return `
+					opacity: ${t};
+					transform: scale(${scale});
+				`;
+			}
+		};
+	}
 
 	const translations = $derived(t(lang));
 	const routes = $derived(getNavRoutes(lang));
@@ -74,8 +113,18 @@
 
 {#if isOpen}
 	<div class="mobile-menu" role="dialog" aria-modal="true" aria-label="Navigation menu">
-		<div class="mobile-menu__backdrop" onclick={handleLinkClick} role="presentation"></div>
-		<nav class="mobile-menu__content" bind:this={menuNav}>
+		<div
+			class="mobile-menu__backdrop"
+			onclick={handleLinkClick}
+			role="presentation"
+			transition:fade={{ duration: 250 }}
+		></div>
+		<nav
+			class="mobile-menu__content"
+			bind:this={menuNav}
+			in:scaleBounce={{ duration: 400, direction: 'in' }}
+			out:scaleBounce={{ duration: 200, direction: 'out' }}
+		>
 			<a
 				href={resolve(routes.home)}
 				class="mobile-menu__link"
@@ -186,24 +235,13 @@
 		box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
 		max-height: calc(100dvh - 160px);
 		overflow-y: auto;
-		animation: slideIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+		transform-origin: top center;
 	}
 
 	/* Fallback for browsers without dvh support */
 	@supports not (max-height: 100dvh) {
 		.mobile-menu__content {
 			max-height: calc(100vh - 160px);
-		}
-	}
-
-	@keyframes slideIn {
-		from {
-			opacity: 0;
-			transform: translateY(-20px);
-		}
-		to {
-			opacity: 1;
-			transform: translateY(0);
 		}
 	}
 

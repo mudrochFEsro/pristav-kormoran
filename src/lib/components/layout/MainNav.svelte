@@ -179,6 +179,9 @@
 		align-items: center;
 		justify-content: center;
 		gap: var(--space-1);
+		flex: 1 1 0;
+		min-width: 80px;
+		max-width: 130px;
 		padding: var(--space-4) var(--space-5);
 		color: var(--color-text-secondary);
 		text-transform: uppercase;

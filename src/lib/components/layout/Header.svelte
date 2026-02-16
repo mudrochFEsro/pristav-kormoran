@@ -29,15 +29,15 @@
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
-		padding-top: 4px;
-		padding-bottom: 4px;
+		padding-top: var(--space-1);
+		padding-bottom: var(--space-1);
 	}
 
 	/* Mobile - keep social links and language side by side */
 	@media (max-width: 768px) {
 		.header-top :global(.wrapper) {
-			gap: 12px;
-			padding: 6px 15px;
+			gap: var(--space-3);
+			padding: var(--space-2) var(--space-4);
 		}
 	}
 </style>
