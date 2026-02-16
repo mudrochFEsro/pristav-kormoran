@@ -21,23 +21,6 @@
 <PageTitle title={translations.boatTrips.title} hasImage={true} />
 <Divider />
 <div class="static-text">
-	{#if data.lang === 'sk'}
-		<p>
-			Momentálne vieme výlety loďou zabezpečiť len pre veľké skupiny - firemné teambuildingy,
-			rodinné oslavy, svadby.
-		</p>
-		<p>Kontakt: <a href="tel:+421903727168">+421 903 727 168</a></p>
-	{:else if data.lang === 'en'}
-		<p>
-			Currently we can only provide boat trips for large groups - corporate team buildings,
-			family celebrations, weddings.
-		</p>
-		<p>Contact: <a href="tel:+421903727168">+421 903 727 168</a></p>
-	{:else}
-		<p>
-			В настоящее время мы можем организовать прогулки на лодке только для больших групп -
-			корпоративные тимбилдинги, семейные праздники, свадьбы.
-		</p>
-		<p>Контакт: <a href="tel:+421903727168">+421 903 727 168</a></p>
-	{/if}
+	<p>{translations.boatTrips.description}</p>
+	<p>{translations.boatTrips.contactLabel}: <a href="tel:+421903727168">+421 903 727 168</a></p>
 </div>

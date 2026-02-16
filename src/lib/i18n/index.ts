@@ -14,22 +14,57 @@ const translations: Record<LanguageCode, Translations> = {
 	ru
 };
 
-export function t(lang: LanguageCode): Translations {
-	return translations[lang] ?? translations[DEFAULT_LANGUAGE];
+export function t(lang: LanguageCode | undefined): Translations {
+	if (!lang || !translations[lang]) {
+		return translations[DEFAULT_LANGUAGE];
+	}
+	return translations[lang];
 }
+
+// Route slugs per language
+const routeSlugs: Record<LanguageCode, {
+	about: string;
+	news: string;
+	ports: string;
+	boatTrips: string;
+	contact: string;
+}> = {
+	sk: {
+		about: 'o-nas',
+		news: 'novinky',
+		ports: 'pristavy',
+		boatTrips: 'vylety-lodou',
+		contact: 'kontakt'
+	},
+	en: {
+		about: 'about-us',
+		news: 'news',
+		ports: 'ports',
+		boatTrips: 'boat-trips',
+		contact: 'contact'
+	},
+	ru: {
+		about: 'o-nas',
+		news: 'novosti',
+		ports: 'porty',
+		boatTrips: 'progulki-na-lodke',
+		contact: 'kontakt'
+	}
+};
 
 export function getNavRoutes(lang: LanguageCode) {
 	const isDefault = lang === DEFAULT_LANGUAGE;
 	const prefix = isDefault ? '' : `/${lang}`;
+	const slugs = routeSlugs[lang];
 
 	return {
 		home: prefix || '/',
-		about: `${prefix}/${lang === 'en' ? 'about-us' : 'o-nas'}`,
-		news: `${prefix}/${lang === 'en' ? 'news' : lang === 'ru' ? 'novosti' : 'novinky'}`,
+		about: `${prefix}/${slugs.about}`,
+		news: `${prefix}/${slugs.news}`,
 		region: `${prefix}/region`,
-		ports: `${prefix}/${lang === 'en' ? 'ports' : lang === 'ru' ? 'porty' : 'pristavy'}`,
+		ports: `${prefix}/${slugs.ports}`,
 		botel: `${prefix}/botel-kormoran`,
-		boatTrips: `${prefix}/${lang === 'en' ? 'boat-trips' : lang === 'ru' ? 'progulki-na-lodke' : 'vylety-lodou'}`,
-		contact: `${prefix}/${lang === 'en' ? 'contact' : 'kontakt'}`
+		boatTrips: `${prefix}/${slugs.boatTrips}`,
+		contact: `${prefix}/${slugs.contact}`
 	};
 }

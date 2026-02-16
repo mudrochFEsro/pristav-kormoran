@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/stores';
+	import { resolve } from '$app/paths';
 	import { t, getNavRoutes, type LanguageCode } from '$lib/i18n';
 	import MobileMenu from './MobileMenu.svelte';
 
@@ -19,12 +20,20 @@
 	let isMobileMenuOpen = $state(false);
 
 	$effect(() => {
+		let ticking = false;
+
 		const handleScroll = () => {
-			isScrolled = window.scrollY > 50;
+			if (!ticking) {
+				requestAnimationFrame(() => {
+					isScrolled = window.scrollY > 50;
+					ticking = false;
+				});
+				ticking = true;
+			}
 		};
 
 		// Check initial scroll position
-		handleScroll();
+		isScrolled = window.scrollY > 50;
 
 		window.addEventListener('scroll', handleScroll, { passive: true });
 
@@ -72,37 +81,37 @@
 		</button>
 
 		<!-- Logo - first on left -->
-		<a href={routes.home} class="nav__logo" aria-label="Homepage">
+		<a href={resolve(routes.home)} class="nav__logo" aria-label="Homepage">
 			<img src="/images/logo-pristav.svg" alt="Prístav Kormorán" width="90" height="90" />
 		</a>
 
 		<!-- Navigation items -->
 		<div class="nav__group">
-			<a href={routes.about} class="nav__link" class:nav__link--active={isActive(routes.about)} aria-current={isActive(routes.about) ? 'page' : undefined}>
+			<a href={resolve(routes.about)} class="nav__link" class:nav__link--active={isActive(routes.about)} aria-current={isActive(routes.about) ? 'page' : undefined}>
 				<span class="nav__icon icon-wheel" aria-hidden="true"></span>
 				<span class="nav__label">{translations.nav.about}</span>
 			</a>
-			<a href={routes.news} class="nav__link" class:nav__link--active={isActive(routes.news)} aria-current={isActive(routes.news) ? 'page' : undefined}>
+			<a href={resolve(routes.news)} class="nav__link" class:nav__link--active={isActive(routes.news)} aria-current={isActive(routes.news) ? 'page' : undefined}>
 				<span class="nav__icon icon-sailor" aria-hidden="true"></span>
 				<span class="nav__label">{translations.nav.news}</span>
 			</a>
-			<a href={routes.region} class="nav__link" class:nav__link--active={isActive(routes.region)} aria-current={isActive(routes.region) ? 'page' : undefined}>
+			<a href={resolve(routes.region)} class="nav__link" class:nav__link--active={isActive(routes.region)} aria-current={isActive(routes.region) ? 'page' : undefined}>
 				<span class="nav__icon icon-earth" aria-hidden="true"></span>
 				<span class="nav__label">{translations.nav.region}</span>
 			</a>
-			<a href={routes.ports} class="nav__link" class:nav__link--active={isActive(routes.ports)} aria-current={isActive(routes.ports) ? 'page' : undefined}>
+			<a href={resolve(routes.ports)} class="nav__link" class:nav__link--active={isActive(routes.ports)} aria-current={isActive(routes.ports) ? 'page' : undefined}>
 				<span class="nav__icon icon-anchor" aria-hidden="true"></span>
 				<span class="nav__label">{translations.nav.ports}</span>
 			</a>
-			<a href={routes.botel} class="nav__link" class:nav__link--active={isActive(routes.botel)} aria-current={isActive(routes.botel) ? 'page' : undefined}>
+			<a href={resolve(routes.botel)} class="nav__link" class:nav__link--active={isActive(routes.botel)} aria-current={isActive(routes.botel) ? 'page' : undefined}>
 				<span class="nav__icon icon-life-wheel" aria-hidden="true"></span>
 				<span class="nav__label">Botel<br />Kormorán</span>
 			</a>
-			<a href={routes.boatTrips} class="nav__link" class:nav__link--active={isActive(routes.boatTrips)} aria-current={isActive(routes.boatTrips) ? 'page' : undefined}>
+			<a href={resolve(routes.boatTrips)} class="nav__link" class:nav__link--active={isActive(routes.boatTrips)} aria-current={isActive(routes.boatTrips) ? 'page' : undefined}>
 				<span class="nav__icon icon-ship" aria-hidden="true"></span>
 				<span class="nav__label">{boatTripsLabel[0]}<br />{boatTripsLabel[1]}</span>
 			</a>
-			<a href={routes.contact} class="nav__link" class:nav__link--active={isActive(routes.contact)} aria-current={isActive(routes.contact) ? 'page' : undefined}>
+			<a href={resolve(routes.contact)} class="nav__link" class:nav__link--active={isActive(routes.contact)} aria-current={isActive(routes.contact) ? 'page' : undefined}>
 				<span class="nav__icon icon-mail" aria-hidden="true"></span>
 				<span class="nav__label">{translations.nav.contact}</span>
 			</a>
@@ -320,6 +329,31 @@
 		.nav__logo img {
 			width: 70px;
 			height: 70px;
+		}
+	}
+
+	/* ===== Responsive - Intermediate (smoother transition) ===== */
+	@media (max-width: 900px) and (min-width: 769px) {
+		.nav__link {
+			padding: var(--space-2) var(--space-2);
+		}
+
+		.nav__label {
+			font-size: 9px;
+			letter-spacing: 0.3px;
+		}
+
+		.nav__icon {
+			font-size: 16px;
+		}
+
+		.nav__logo {
+			margin-right: var(--space-2);
+		}
+
+		.nav__logo img {
+			width: 60px;
+			height: 60px;
 		}
 	}
 

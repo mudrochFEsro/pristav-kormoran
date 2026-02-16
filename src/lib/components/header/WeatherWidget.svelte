@@ -90,7 +90,7 @@
 
 		try {
 			error = null;
-			const data = await Promise.all(
+			const results = await Promise.allSettled(
 				CITIES.map(async (city) => {
 					const url = `https://api.open-meteo.com/v1/forecast?latitude=${city.lat}&longitude=${city.lon}&current=temperature_2m,relative_humidity_2m,weather_code,wind_speed_10m&timezone=Europe/Bratislava`;
 					const response = await fetch(url, { signal });
@@ -109,7 +109,18 @@
 					};
 				})
 			);
-			weatherData = data;
+
+			// Filter only successful results
+			const successfulData = results
+				.filter((result): result is PromiseFulfilledResult<WeatherData> => result.status === 'fulfilled')
+				.map((result) => result.value);
+
+			if (successfulData.length > 0) {
+				weatherData = successfulData;
+				error = null;
+			} else {
+				error = 'Failed to load weather';
+			}
 		} catch (err) {
 			if (err instanceof Error && err.name === 'AbortError') return;
 			console.error('Failed to fetch weather data:', err);
@@ -138,7 +149,19 @@
 <div class="weather-bar" role="region" aria-label="Weather information">
 	<div class="weather-bar__container">
 		{#if isLoading}
-			<div class="weather-bar__loading">Loading...</div>
+			<div class="weather-bar__loading">
+				<div class="weather-bar__skeleton">
+					{#each [0, 1, 2] as i (i)}
+						<div class="weather-bar__skeleton-item">
+							<div class="skeleton-temp"></div>
+							<div class="skeleton-details">
+								<div class="skeleton-icon"></div>
+								<div class="skeleton-text"></div>
+							</div>
+						</div>
+					{/each}
+				</div>
+			</div>
 		{:else if error}
 			<div class="weather-bar__error">{error}</div>
 		{:else}
@@ -152,7 +175,7 @@
 						></span>
 						<span class="weather-bar__city">{getCityName(data.city)}</span>
 						<span class="weather-bar__extra">
-							💧 {data.humidity}% | 💨 {data.windSpeed} km/h
+							<span aria-label="Humidity" role="img">💧</span> {data.humidity}% | <span aria-label="Wind speed" role="img">💨</span> {data.windSpeed} km/h
 						</span>
 					</div>
 				</div>
@@ -230,6 +253,75 @@
 		text-align: center;
 		color: var(--color-text-secondary);
 		font-size: 13px;
+	}
+
+	/* Skeleton loader styles */
+	.weather-bar__skeleton {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: var(--space-4);
+		width: 100%;
+	}
+
+	.weather-bar__skeleton-item {
+		display: flex;
+		align-items: center;
+		gap: var(--space-2);
+	}
+
+	.weather-bar__skeleton-item:nth-child(1) {
+		justify-content: flex-start;
+	}
+
+	.weather-bar__skeleton-item:nth-child(2) {
+		justify-content: center;
+	}
+
+	.weather-bar__skeleton-item:nth-child(3) {
+		justify-content: flex-end;
+	}
+
+	.skeleton-temp {
+		width: 50px;
+		height: 24px;
+		background: linear-gradient(90deg, var(--color-border-light) 25%, #e8e8e8 50%, var(--color-border-light) 75%);
+		background-size: 200% 100%;
+		animation: shimmer 1.5s infinite;
+		border-radius: var(--radius-sm);
+	}
+
+	.skeleton-details {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 4px;
+	}
+
+	.skeleton-icon {
+		width: 28px;
+		height: 28px;
+		background: linear-gradient(90deg, var(--color-border-light) 25%, #e8e8e8 50%, var(--color-border-light) 75%);
+		background-size: 200% 100%;
+		animation: shimmer 1.5s infinite;
+		border-radius: 50%;
+	}
+
+	.skeleton-text {
+		width: 60px;
+		height: 12px;
+		background: linear-gradient(90deg, var(--color-border-light) 25%, #e8e8e8 50%, var(--color-border-light) 75%);
+		background-size: 200% 100%;
+		animation: shimmer 1.5s infinite;
+		border-radius: var(--radius-sm);
+	}
+
+	@keyframes shimmer {
+		0% {
+			background-position: -200% 0;
+		}
+		100% {
+			background-position: 200% 0;
+		}
 	}
 
 	/* Tablet & Mobile - show ALL cities */

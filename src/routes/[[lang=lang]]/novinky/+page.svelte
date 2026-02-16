@@ -16,15 +16,11 @@
 	<title>{translations.news.title} - {translations.site.title}</title>
 </svelte:head>
 
-<h1 class="static-title static-title-no-img">Sladké pokušenie počas prechádzky</h1>
+<h1 class="static-title static-title-no-img">{translations.news.articleTitle}</h1>
 <Divider />
 <div class="static-date">3.11.2020</div>
 <div class="static-text">
-	<p>
-		Aj keď už plavby loďou v tejto sezóne skončili, prechádzky popri Prístave Kormorán v
-		Čilistove sú vždy pekným zážitkom. Počas prechádzky si môžete objednať v Hoteli Kormorán
-		úžasné domáce pečivo.
-	</p>
-	<p>Kontakt pre objednávky sladkých koláčikov: +421 903 614 663</p>
+	<p>{translations.news.articleText}</p>
+	<p>{translations.news.contactOrders}: +421 903 614 663</p>
 	<p><img src="/images/ondava-2.jpg" alt="Ondava" /></p>
 </div>

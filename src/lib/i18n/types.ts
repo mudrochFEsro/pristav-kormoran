@@ -21,6 +21,10 @@ export interface Translations {
 		bratislava: string;
 		samarin: string;
 		cilistov: string;
+		loading: string;
+		error: string;
+		humidity: string;
+		windSpeed: string;
 	};
 
 	// Homepage
@@ -51,35 +55,80 @@ export interface Translations {
 	// About page
 	about: {
 		title: string;
+		intro: string;
+		introText: string;
+		events: string;
+		eventsText: string;
+		corporateEvents: string;
+		corporateEventsText: string;
 	};
 
 	// News page
 	news: {
 		title: string;
+		articleTitle: string;
+		articleText: string;
+		contactOrders: string;
 	};
 
 	// Region page
 	region: {
 		title: string;
+		zitnyOstrov: string;
+		zitnyOstrovText: string;
+		cyclePath: string;
 	};
 
 	// Ports page
 	ports: {
 		title: string;
+		port1Title: string;
+		port1Text: string;
+		port2Title: string;
+		port2Text: string;
+		port3Title: string;
+		port3Text: string;
+		port4Title: string;
+		port4Text: string;
+		port5Title: string;
+		port5Text: string;
+		port6Title: string;
+		port6Text: string;
+		moreInfo: string;
 	};
 
 	// Botel page
 	botel: {
 		title: string;
+		description: string;
+		contactInfo: string;
+		roomTypes: string;
 	};
 
 	// Boat trips page
 	boatTrips: {
 		title: string;
+		description: string;
+		contactLabel: string;
+	};
+
+	// Error page
+	error: {
+		title: string;
+		message: string;
+		backHome: string;
 	};
 
 	// Footer
 	footer: {
 		copyright: string;
+	};
+
+	// Common
+	common: {
+		moreInfo: string;
+		contact: string;
+		phone: string;
+		email: string;
 	};
 }

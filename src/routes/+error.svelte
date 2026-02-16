@@ -1,15 +1,28 @@
 <script lang="ts">
 	import { page } from '$app/stores';
+	import { resolve } from '$app/paths';
+	import { t, type LanguageCode } from '$lib/i18n';
+
+	// Extract language from URL
+	function getLang(): LanguageCode {
+		const pathname = $page.url.pathname;
+		if (pathname.startsWith('/en/') || pathname === '/en') return 'en';
+		if (pathname.startsWith('/ru/') || pathname === '/ru') return 'ru';
+		return 'sk';
+	}
+
+	const lang = $derived(getLang());
+	const translations = $derived(t(lang));
 </script>
 
 <svelte:head>
-	<title>Error {$page.status}</title>
+	<title>{translations.error.title} {$page.status}</title>
 </svelte:head>
 
 <div class="error-page">
 	<h1>{$page.status}</h1>
-	<p>{$page.error?.message ?? 'Something went wrong'}</p>
-	<a href="/">Back to homepage</a>
+	<p>{$page.error?.message ?? translations.error.message}</p>
+	<a href={resolve(lang === 'sk' ? '/' : `/${lang}/`)}>{translations.error.backHome}</a>
 </div>
 
 <style>

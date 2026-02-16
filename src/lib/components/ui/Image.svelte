@@ -1,6 +1,4 @@
 <script lang="ts">
-	import type { Snippet } from 'svelte';
-
 	interface Props {
 		src: string;
 		alt: string;
@@ -20,6 +18,19 @@
 		width,
 		height
 	}: Props = $props();
+
+	const aspectRatioStyle = $derived(
+		width && height ? `aspect-ratio: ${width} / ${height};` : ''
+	);
 </script>
 
-<img {src} {alt} class={className} {loading} {decoding} {width} {height} />
+<img
+	{src}
+	{alt}
+	class={className}
+	{loading}
+	{decoding}
+	{width}
+	{height}
+	style={aspectRatioStyle}
+/>

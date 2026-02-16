@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/stores';
+	import { resolve } from '$app/paths';
 	import { LANGUAGES, type LanguageCode } from '$lib/i18n';
 
 	interface Props {
@@ -41,7 +42,7 @@
 		{#each LANGUAGES as langConfig (langConfig.code)}
 			<li>
 				<a
-					href={getLanguageHref(langConfig.code, $page.url.pathname)}
+					href={resolve(getLanguageHref(langConfig.code, $page.url.pathname))}
 					class="lang-switcher__link"
 					class:lang-switcher__link--active={currentLang === langConfig.code}
 					aria-current={currentLang === langConfig.code ? 'page' : undefined}

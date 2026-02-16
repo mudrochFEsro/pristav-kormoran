@@ -16,15 +16,11 @@
 	<title>{translations.news.title} - {translations.site.title}</title>
 </svelte:head>
 
-<h1 class="static-title static-title-no-img">Sweet temptation during a walk</h1>
+<h1 class="static-title static-title-no-img">{translations.news.articleTitle}</h1>
 <Divider />
 <div class="static-date">3.11.2020</div>
 <div class="static-text">
-	<p>
-		Even though boat trips have ended this season, walks along Kormoran Port in Čilistov are
-		always a nice experience. During your walk you can order amazing homemade pastries at
-		Hotel Kormorán.
-	</p>
-	<p>Contact for sweet pastry orders: +421 903 614 663</p>
+	<p>{translations.news.articleText}</p>
+	<p>{translations.news.contactOrders}: +421 903 614 663</p>
 	<p><img src="/images/ondava-2.jpg" alt="Ondava" /></p>
 </div>

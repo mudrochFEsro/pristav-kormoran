@@ -23,13 +23,13 @@
 </script>
 
 <ul class="social-icons" role="list" aria-label="Social media">
-	{#each socialLinks as link}
+	{#each socialLinks as link (link.name)}
 		<li>
 			<a
 				href={link.href}
 				target="_blank"
 				rel="noopener noreferrer"
-				class="social-icons__link social-icons__link--{link.icon}"
+				class="social-icons__link social-icons__link--{link.icon} shine-effect"
 				style={link.bgColor ? `background-color: ${link.bgColor}` : ''}
 				aria-label={link.name}
 				title={link.name}
@@ -66,24 +66,6 @@
 		color: var(--color-white);
 		border-radius: var(--radius-md);
 		transition: all 0.3s var(--ease-out-expo);
-		position: relative;
-		overflow: hidden;
-	}
-
-	/* Shine effect on hover */
-	.social-icons__link::before {
-		content: '';
-		position: absolute;
-		top: 0;
-		left: -100%;
-		width: 100%;
-		height: 100%;
-		background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-		transition: left 0.4s ease;
-	}
-
-	.social-icons__link:hover::before {
-		left: 100%;
 	}
 
 	.social-icons__link:hover {
@@ -122,10 +104,6 @@
 
 		.social-icons__link:hover {
 			transform: none;
-		}
-
-		.social-icons__link::before {
-			display: none;
 		}
 	}
 </style>

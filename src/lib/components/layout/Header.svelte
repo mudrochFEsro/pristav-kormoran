@@ -11,7 +11,7 @@
 	let { lang }: Props = $props();
 </script>
 
-<header id="header">
+<header id="header" class="header-static">
 	<div class="header-top">
 		<div class="wrapper">
 			<SocialLinks />

@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { t, getNavRoutes, type LanguageCode } from '$lib/i18n';
 	import { page } from '$app/stores';
+	import { resolve } from '$app/paths';
 
 	interface Props {
 		lang: LanguageCode;
@@ -13,6 +14,8 @@
 	const translations = $derived(t(lang));
 	const routes = $derived(getNavRoutes(lang));
 	const currentPath = $derived($page.url.pathname);
+
+	let menuNav: HTMLElement | undefined = $state();
 
 	function normalizePath(path: string): string {
 		return path.endsWith('/') ? path.slice(0, -1) : path;
@@ -29,13 +32,42 @@
 		onClose();
 	}
 
-	// Close on escape key
+	// Focus trap and keyboard handling
 	function handleKeydown(event: KeyboardEvent) {
-		if (event.key === 'Escape' && isOpen) {
+		if (!isOpen) return;
+
+		if (event.key === 'Escape') {
 			isOpen = false;
 			onClose();
+			return;
+		}
+
+		// Focus trap - trap Tab within menu
+		if (event.key === 'Tab' && menuNav) {
+			const focusableElements = menuNav.querySelectorAll<HTMLElement>(
+				'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
+			);
+			const firstElement = focusableElements[0];
+			const lastElement = focusableElements[focusableElements.length - 1];
+
+			if (event.shiftKey && document.activeElement === firstElement) {
+				event.preventDefault();
+				lastElement?.focus();
+			} else if (!event.shiftKey && document.activeElement === lastElement) {
+				event.preventDefault();
+				firstElement?.focus();
+			}
 		}
 	}
+
+	// Auto-focus first link when menu opens
+	$effect(() => {
+		if (isOpen && menuNav) {
+			const firstLink = menuNav.querySelector<HTMLElement>('a[href]');
+			// Small delay to ensure animation started
+			setTimeout(() => firstLink?.focus(), 50);
+		}
+	});
 </script>
 
 <svelte:window onkeydown={handleKeydown} />
@@ -43,9 +75,9 @@
 {#if isOpen}
 	<div class="mobile-menu" role="dialog" aria-modal="true" aria-label="Navigation menu">
 		<div class="mobile-menu__backdrop" onclick={handleLinkClick} role="presentation"></div>
-		<nav class="mobile-menu__content">
+		<nav class="mobile-menu__content" bind:this={menuNav}>
 			<a
-				href={routes.home}
+				href={resolve(routes.home)}
 				class="mobile-menu__link"
 				class:mobile-menu__link--active={isActive(routes.home)}
 				onclick={handleLinkClick}
@@ -54,7 +86,7 @@
 				{translations.home.title}
 			</a>
 			<a
-				href={routes.about}
+				href={resolve(routes.about)}
 				class="mobile-menu__link"
 				class:mobile-menu__link--active={isActive(routes.about)}
 				onclick={handleLinkClick}
@@ -63,7 +95,7 @@
 				{translations.nav.about}
 			</a>
 			<a
-				href={routes.news}
+				href={resolve(routes.news)}
 				class="mobile-menu__link"
 				class:mobile-menu__link--active={isActive(routes.news)}
 				onclick={handleLinkClick}
@@ -72,7 +104,7 @@
 				{translations.nav.news}
 			</a>
 			<a
-				href={routes.region}
+				href={resolve(routes.region)}
 				class="mobile-menu__link"
 				class:mobile-menu__link--active={isActive(routes.region)}
 				onclick={handleLinkClick}
@@ -81,7 +113,7 @@
 				{translations.nav.region}
 			</a>
 			<a
-				href={routes.ports}
+				href={resolve(routes.ports)}
 				class="mobile-menu__link"
 				class:mobile-menu__link--active={isActive(routes.ports)}
 				onclick={handleLinkClick}
@@ -90,7 +122,7 @@
 				{translations.nav.ports}
 			</a>
 			<a
-				href={routes.botel}
+				href={resolve(routes.botel)}
 				class="mobile-menu__link"
 				class:mobile-menu__link--active={isActive(routes.botel)}
 				onclick={handleLinkClick}
@@ -99,7 +131,7 @@
 				Botel Kormorán
 			</a>
 			<a
-				href={routes.boatTrips}
+				href={resolve(routes.boatTrips)}
 				class="mobile-menu__link"
 				class:mobile-menu__link--active={isActive(routes.boatTrips)}
 				onclick={handleLinkClick}
@@ -108,7 +140,7 @@
 				{translations.nav.boatTrips}
 			</a>
 			<a
-				href={routes.contact}
+				href={resolve(routes.contact)}
 				class="mobile-menu__link"
 				class:mobile-menu__link--active={isActive(routes.contact)}
 				onclick={handleLinkClick}
@@ -152,9 +184,16 @@
 		border-radius: 12px;
 		padding: 20px;
 		box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-		max-height: calc(100vh - 160px);
+		max-height: calc(100dvh - 160px);
 		overflow-y: auto;
 		animation: slideIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+	}
+
+	/* Fallback for browsers without dvh support */
+	@supports not (max-height: 100dvh) {
+		.mobile-menu__content {
+			max-height: calc(100vh - 160px);
+		}
 	}
 
 	@keyframes slideIn {

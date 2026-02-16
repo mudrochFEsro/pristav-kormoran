@@ -8,16 +8,28 @@
 		title: string;
 		/** Animation delay in ms for staggered effect */
 		animationDelay?: number;
+		/** Image width for CLS prevention */
+		imageWidth?: number;
+		/** Image height for CLS prevention */
+		imageHeight?: number;
 	}
 
-	let { image, imageAlt, icon, title, animationDelay = 0 }: Props = $props();
+	let { image, imageAlt, icon, title, animationDelay = 0, imageWidth = 260, imageHeight = 172 }: Props = $props();
 </script>
 
 <div
 	class="category"
 	use:scrollReveal={{ variant: 'fade', delay: animationDelay }}
 >
-	<img src={image} alt={imageAlt} />
+	<img
+		src={image}
+		alt={imageAlt}
+		width={imageWidth}
+		height={imageHeight}
+		style="aspect-ratio: {imageWidth} / {imageHeight};"
+		loading="lazy"
+		decoding="async"
+	/>
 	<div class="category-text">
 		<span class={icon} aria-hidden="true"></span>
 		<h3>{title}</h3>

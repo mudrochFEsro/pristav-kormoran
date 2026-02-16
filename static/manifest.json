@@ -1,0 +1,20 @@
+{
+  "name": "Prístav Kormorán",
+  "short_name": "Kormorán",
+  "description": "Prístavy na Dunaji - Bratislava, Šamorín, Čilistov",
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#ff6600",
+  "background_color": "#ffffff",
+  "orientation": "portrait-primary",
+  "lang": "sk",
+  "icons": [
+    {
+      "src": "/images/logo-pristav.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ],
+  "categories": ["travel", "navigation"]
+}

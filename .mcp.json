@@ -1,16 +1,13 @@
 {
   "mcpServers": {
     "svelte": {
+      "type": "stdio",
       "command": "npx",
       "args": [
         "-y",
         "@sveltejs/mcp"
-      ]
+      ],
+      "env": {}
     }
-  },
-  "permissions": {
-    "allow": [
-      "mcp__svelte__list-sections"
-    ]
   }
 }

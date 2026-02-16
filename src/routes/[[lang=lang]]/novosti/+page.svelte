@@ -16,15 +16,11 @@
 	<title>{translations.news.title} - {translations.site.title}</title>
 </svelte:head>
 
-<h1 class="static-title static-title-no-img">Сладкое искушение во время прогулки</h1>
+<h1 class="static-title static-title-no-img">{translations.news.articleTitle}</h1>
 <Divider />
 <div class="static-date">3.11.2020</div>
 <div class="static-text">
-	<p>
-		Хотя сезон лодочных прогулок в этом году завершился, прогулки вдоль порта Корморан в
-		Чилистове всегда приятны. Во время прогулки вы можете заказать в отеле Корморан
-		удивительную домашнюю выпечку.
-	</p>
-	<p>Контакт для заказа сладкой выпечки: +421 903 614 663</p>
+	<p>{translations.news.articleText}</p>
+	<p>{translations.news.contactOrders}: +421 903 614 663</p>
 	<p><img src="/images/ondava-2.jpg" alt="Ondava" /></p>
 </div>

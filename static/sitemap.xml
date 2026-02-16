@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <!-- Homepage -->
+  <url>
+    <loc>https://pristavkormoran.sk/</loc>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://pristavkormoran.sk/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://pristavkormoran.sk/en/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://pristavkormoran.sk/ru/"/>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://pristavkormoran.sk/en/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://pristavkormoran.sk/ru/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- About -->
+  <url>
+    <loc>https://pristavkormoran.sk/o-nas/</loc>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://pristavkormoran.sk/o-nas/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://pristavkormoran.sk/en/about-us/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://pristavkormoran.sk/ru/o-nas/"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pristavkormoran.sk/en/about-us/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://pristavkormoran.sk/ru/o-nas/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- News -->
+  <url>
+    <loc>https://pristavkormoran.sk/novinky/</loc>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://pristavkormoran.sk/novinky/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://pristavkormoran.sk/en/news/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://pristavkormoran.sk/ru/novosti/"/>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pristavkormoran.sk/en/news/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://pristavkormoran.sk/ru/novosti/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Region -->
+  <url>
+    <loc>https://pristavkormoran.sk/region/</loc>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://pristavkormoran.sk/region/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://pristavkormoran.sk/en/region/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://pristavkormoran.sk/ru/region/"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://pristavkormoran.sk/en/region/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://pristavkormoran.sk/ru/region/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- Ports -->
+  <url>
+    <loc>https://pristavkormoran.sk/pristavy/</loc>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://pristavkormoran.sk/pristavy/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://pristavkormoran.sk/en/ports/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://pristavkormoran.sk/ru/porty/"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pristavkormoran.sk/en/ports/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://pristavkormoran.sk/ru/porty/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Botel -->
+  <url>
+    <loc>https://pristavkormoran.sk/botel-kormoran/</loc>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://pristavkormoran.sk/botel-kormoran/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://pristavkormoran.sk/en/botel-kormoran/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://pristavkormoran.sk/ru/botel-kormoran/"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pristavkormoran.sk/en/botel-kormoran/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://pristavkormoran.sk/ru/botel-kormoran/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Boat Trips -->
+  <url>
+    <loc>https://pristavkormoran.sk/vylety-lodou/</loc>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://pristavkormoran.sk/vylety-lodou/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://pristavkormoran.sk/en/boat-trips/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://pristavkormoran.sk/ru/progulki-na-lodke/"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pristavkormoran.sk/en/boat-trips/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://pristavkormoran.sk/ru/progulki-na-lodke/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Contact -->
+  <url>
+    <loc>https://pristavkormoran.sk/kontakt/</loc>
+    <xhtml:link rel="alternate" hreflang="sk" href="https://pristavkormoran.sk/kontakt/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://pristavkormoran.sk/en/contact/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://pristavkormoran.sk/ru/kontakt/"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://pristavkormoran.sk/en/contact/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://pristavkormoran.sk/ru/kontakt/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+</urlset>

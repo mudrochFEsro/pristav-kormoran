@@ -17,6 +17,19 @@
 <svelte:head>
 	<title>{translations.site.title}</title>
 	<meta name="description" content={translations.site.description} />
+	<!-- Open Graph -->
+	<meta property="og:title" content={translations.site.title} />
+	<meta property="og:description" content={translations.site.description} />
+	<meta property="og:image" content="https://pristavkormoran.sk/images/og-image.jpg" />
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content="https://pristavkormoran.sk{data.lang === 'sk' ? '/' : `/${data.lang}/`}" />
+	<meta property="og:site_name" content="Prístav Kormorán" />
+	<meta property="og:locale" content={data.lang === 'sk' ? 'sk_SK' : data.lang === 'en' ? 'en_US' : 'ru_RU'} />
+	<!-- Twitter Card -->
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:title" content={translations.site.title} />
+	<meta name="twitter:description" content={translations.site.description} />
+	<meta name="twitter:image" content="https://pristavkormoran.sk/images/og-image.jpg" />
 </svelte:head>
 
 <img class="main-img" src="/images/static-main.jpg" alt="" />
