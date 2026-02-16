@@ -331,20 +331,24 @@
 
 		.nav__container {
 			justify-content: center;
-			padding: var(--space-3) var(--space-5);
+			padding: var(--space-2) var(--space-4);
 		}
 
 		.nav__logo {
 			margin: 0;
+			padding: var(--space-1) 0;
 		}
 
 		.nav__logo img {
-			width: 80px;
-			height: 80px;
+			width: 56px;
+			height: 56px;
 		}
 
 		.nav__toggle {
 			display: flex;
+			left: 12px;
+			width: 40px;
+			height: 40px;
 		}
 	}
 </style>
