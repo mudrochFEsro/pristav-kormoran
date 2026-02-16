@@ -17,7 +17,6 @@
 	<title>{translations.about.title} - {translations.site.title}</title>
 </svelte:head>
 
-<br />
 <PageTitle title={translations.about.title} hasImage={false} />
 <Divider />
 <div class="static-text">
@@ -63,8 +62,8 @@
 			radosťou pomôžeme s realizáciou plánovaného eventu. Podľa Vašich požiadaviek
 			vypracujeme cenovú ponuku a zabezpečíme catering, výzdobu, realizáciu, ozvučenie,
 			sprievodný program a mnoho ďalších služieb vrátane ubytovania. Viac info na
-			pristav@brossforpartners.sk.
+			<a href="mailto:pristav@brossforpartners.sk">pristav@brossforpartners.sk</a>.
 		</p>
 	{/if}
-	<p><img style="max-width: 670px;" src="/images/teambuild.png" alt="Teambuilding" /></p>
+	<p><img src="/images/teambuild.png" alt="Teambuilding" /></p>
 </div>

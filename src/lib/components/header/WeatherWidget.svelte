@@ -132,21 +132,90 @@
 	});
 </script>
 
-<div class="weather-header">
+<div class="weather-bar" role="region" aria-label="Weather information">
 	<div class="wrapper">
 		{#each CITIES as city, index (city.name)}
-			<div class="weather-location">
-				<h1>{weatherData[index]?.temp ?? '--'}°</h1>
-				<div class="location-weather-wrapper">
+			<div class="weather-bar__location">
+				<span class="weather-bar__temp">{weatherData[index]?.temp ?? '--'}°</span>
+				<div class="weather-bar__info">
 					<span
-						class="weather-icon {weatherData[index]
+						class="weather-bar__icon {weatherData[index]
 							? getWeatherIcon(weatherData[index].weatherCode)
 							: 'icon-broken-clouds'}"
 						aria-hidden="true"
 					></span>
-					<h4>{getCityName(city)}</h4>
+					<span class="weather-bar__city">{getCityName(city)}</span>
 				</div>
 			</div>
 		{/each}
 	</div>
 </div>
+
+<style>
+	.weather-bar {
+		background: var(--color-border-light);
+		padding: 10px 0;
+	}
+
+	.weather-bar :global(.wrapper) {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 10px;
+	}
+
+	.weather-bar__location {
+		display: flex;
+		align-items: center;
+		gap: 8px;
+	}
+
+	.weather-bar__location:nth-child(1) {
+		justify-content: flex-start;
+	}
+
+	.weather-bar__location:nth-child(2) {
+		justify-content: center;
+	}
+
+	.weather-bar__location:nth-child(3) {
+		justify-content: flex-end;
+	}
+
+	.weather-bar__temp {
+		font-size: 28px;
+		font-family: var(--font-light);
+		font-weight: normal;
+	}
+
+	.weather-bar__city {
+		font-size: 14px;
+		font-family: var(--font-light);
+		display: block;
+		margin-top: 2px;
+	}
+
+	.weather-bar__icon {
+		font-size: 35px;
+	}
+
+	.weather-bar__info {
+		text-align: center;
+	}
+
+	/* Tablet */
+	@media (max-width: 768px) {
+		.weather-bar :global(.wrapper) {
+			grid-template-columns: 1fr;
+			text-align: center;
+		}
+
+		.weather-bar__location {
+			justify-content: center;
+		}
+
+		.weather-bar__location:nth-child(2),
+		.weather-bar__location:nth-child(3) {
+			display: none;
+		}
+	}
+</style>

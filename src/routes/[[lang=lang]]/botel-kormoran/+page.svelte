@@ -17,7 +17,6 @@
 	<title>{translations.botel.title} - {translations.site.title}</title>
 </svelte:head>
 
-<br />
 <PageTitle title={translations.botel.title} hasImage={false} />
 <Divider />
 <div class="static-text">
@@ -31,7 +30,7 @@
 		</p>
 		<p>
 			V prípade záujmu o ubytovanie alebo prenájom priestorov Botela kontaktujte prosím
-			pristav@brossforpartners.sk. Radi Vám vypracujeme cenovú ponuku podľa Vašich
+			<a href="mailto:pristav@brossforpartners.sk">pristav@brossforpartners.sk</a>. Radi Vám vypracujeme cenovú ponuku podľa Vašich
 			požiadaviek.
 		</p>
 	{:else if data.lang === 'en'}
@@ -44,7 +43,7 @@
 		</p>
 		<p>
 			If you are interested in accommodation or rental of Botel spaces, please contact
-			pristav@brossforpartners.sk. We will be happy to prepare a price offer according to
+			<a href="mailto:pristav@brossforpartners.sk">pristav@brossforpartners.sk</a>. We will be happy to prepare a price offer according to
 			your requirements.
 		</p>
 	{:else}
@@ -57,18 +56,14 @@
 		</p>
 		<p>
 			Если вас интересует размещение или аренда помещений ботеля, пожалуйста, свяжитесь с
-			нами по адресу pristav@brossforpartners.sk. Мы с радостью подготовим ценовое
+			нами по адресу <a href="mailto:pristav@brossforpartners.sk">pristav@brossforpartners.sk</a>. Мы с радостью подготовим ценовое
 			предложение в соответствии с вашими требованиями.
 		</p>
 	{/if}
 	<p>
-		<img
-			style="max-width: 670px;"
-			src="/images/botel-ubytovanie-restauracia1.jpg"
-			alt="Botel Restaurant"
-		/>
+		<img src="/images/botel-ubytovanie-restauracia1.jpg" alt="Botel Restaurant" />
 	</p>
-	<p><img style="max-width: 670px;" src="/images/sundeck-chillout-zona.jpg" alt="Sundeck" /></p>
+	<p><img src="/images/sundeck-chillout-zona.jpg" alt="Sundeck" /></p>
 	{#if data.lang === 'sk'}
 		<p>
 			Ubytovanie v izbách s rôznymi kapacitami - 2-lôžkové, 3-lôžkové, 4-lôžkové, 6-lôžkové
@@ -78,6 +73,6 @@
 	{:else}
 		<p>Размещение в номерах различной вместимости - 2-местные, 3-местные, 4-местные, 6-местные</p>
 	{/if}
-	<p><img style="max-width: 670px;" src="/images/img3409.jpg" alt="Room" /></p>
-	<p><img style="max-width: 670px;" src="/images/img3416-1.jpg" alt="Room interior" /></p>
+	<p><img src="/images/img3409.jpg" alt="Room" /></p>
+	<p><img src="/images/img3416-1.jpg" alt="Room interior" /></p>
 </div>

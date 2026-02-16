@@ -16,7 +16,6 @@
 	<title>{translations.ports.title} - {translations.site.title}</title>
 </svelte:head>
 
-<br />
 <img class="main-img" src="/images/kormoran-i2.jpg" alt="" />
 <h1 class="static-title">Prístav Kormorán I.</h1>
 <Divider />
@@ -34,7 +33,7 @@
 			target="_blank">www.hotelkormoran.sk</a
 		>.
 	</p>
-	<p><img style="max-width: 670px;" src="/images/ki.png" alt="Kormorán I" /></p>
+	<p><img src="/images/ki.png" alt="Kormorán I" /></p>
 </div>
 
 <img class="main-img" src="/images/kormoran-ii2.jpg" alt="" />
@@ -62,7 +61,7 @@
 		potravín a nápojov. Z prístavu je možné realizovať výlety po Bratislave a okolí, ktoré
 		ponúka široké možnosti kultúrneho, spoločenského aj športového charakteru.
 	</p>
-	<p><img style="max-width: 670px;" src="/images/kiii.png" alt="Kormorán III" /></p>
+	<p><img src="/images/kiii.png" alt="Kormorán III" /></p>
 </div>
 
 <img class="main-img" src="/images/kormoran-iv.jpg" alt="" />
@@ -78,7 +77,7 @@
 		vínna cesta, prehliadka Starého mesta, nákupné centrá, pravidelné kultúrne a športové
 		podujatia, nočný život.
 	</p>
-	<p><img style="max-width: 670px;" src="/images/kiv.png" alt="Kormorán IV" /></p>
+	<p><img src="/images/kiv.png" alt="Kormorán IV" /></p>
 </div>
 
 <img class="main-img" src="/images/kormoran-v1.jpg" alt="" />
@@ -93,7 +92,7 @@
 		prípadne romantickými prechádzkami popri Dunaji. Bratislava žije nočným životom najmä
 		cez víkendy, ponuka barov, pubov a diskoték je určite lákavá.
 	</p>
-	<p><img style="max-width: 670px;" src="/images/kv.png" alt="Kormorán V" /></p>
+	<p><img src="/images/kv.png" alt="Kormorán V" /></p>
 </div>
 
 <img class="main-img" src="/images/sturovo-pristav.png" alt="" />
@@ -109,5 +108,5 @@
 		zaručia, že Vaša plavba bude plná zážitkov a radi sa sem znova vrátite. Výlety vieme
 		zabezpečiť priamo u nás. Stačí len prikotviť!
 	</p>
-	<p><img style="max-width: 670px;" src="/images/kvi.png" alt="Kormorán VI" /></p>
+	<p><img src="/images/kvi.png" alt="Kormorán VI" /></p>
 </div>

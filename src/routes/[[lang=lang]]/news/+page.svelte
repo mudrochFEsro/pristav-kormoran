@@ -16,8 +16,7 @@
 	<title>{translations.news.title} - {translations.site.title}</title>
 </svelte:head>
 
-<br />
-<h1 class="static-title">Sweet temptation during a walk</h1>
+<h1 class="static-title static-title-no-img">Sweet temptation during a walk</h1>
 <Divider />
 <div class="static-date">3.11.2020</div>
 <div class="static-text">
@@ -27,5 +26,5 @@
 		Hotel Kormorán.
 	</p>
 	<p>Contact for sweet pastry orders: +421 903 614 663</p>
-	<p><img style="max-width: 670px;" src="/images/ondava-2.jpg" alt="Ondava" /></p>
+	<p><img src="/images/ondava-2.jpg" alt="Ondava" /></p>
 </div>

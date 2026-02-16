@@ -16,8 +16,7 @@
 	<title>{translations.news.title} - {translations.site.title}</title>
 </svelte:head>
 
-<br />
-<h1 class="static-title">Сладкое искушение во время прогулки</h1>
+<h1 class="static-title static-title-no-img">Сладкое искушение во время прогулки</h1>
 <Divider />
 <div class="static-date">3.11.2020</div>
 <div class="static-text">
@@ -27,5 +26,5 @@
 		удивительную домашнюю выпечку.
 	</p>
 	<p>Контакт для заказа сладкой выпечки: +421 903 614 663</p>
-	<p><img style="max-width: 670px;" src="/images/ondava-2.jpg" alt="Ondava" /></p>
+	<p><img src="/images/ondava-2.jpg" alt="Ondava" /></p>
 </div>

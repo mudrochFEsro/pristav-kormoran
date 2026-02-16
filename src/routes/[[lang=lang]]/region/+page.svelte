@@ -17,7 +17,6 @@
 	<title>{translations.region.title} - {translations.site.title}</title>
 </svelte:head>
 
-<br />
 <PageTitle title={translations.region.title} hasImage={false} />
 <Divider />
 <div class="static-text">
@@ -37,14 +36,10 @@
 			rámci cykotrasy.
 		</p>
 		<p>
-			<img
-				style="max-width: 670px;"
-				src="/images/kormoran-cilistov-i-a-ii-kopia.jpg"
-				alt="Kormorán Čilistov"
-			/>
+			<img src="/images/kormoran-cilistov-i-a-ii-kopia.jpg" alt="Kormorán Čilistov" />
 		</p>
 		<p><strong>Cyklotrasa pri Hoteli Kormorán****</strong></p>
-		<p><img style="max-width: 670px;" src="/images/cyklotrasa.png" alt="Cyklotrasa" /></p>
+		<p><img src="/images/cyklotrasa.png" alt="Cyklotrasa" /></p>
 	{:else if data.lang === 'en'}
 		<p><strong>Žitný ostrov (Rye Island)</strong></p>
 		<p>
@@ -55,14 +50,10 @@
 			traditional dishes.
 		</p>
 		<p>
-			<img
-				style="max-width: 670px;"
-				src="/images/kormoran-cilistov-i-a-ii-kopia.jpg"
-				alt="Kormorán Čilistov"
-			/>
+			<img src="/images/kormoran-cilistov-i-a-ii-kopia.jpg" alt="Kormorán Čilistov" />
 		</p>
 		<p><strong>Cycle path near Hotel Kormorán****</strong></p>
-		<p><img style="max-width: 670px;" src="/images/cyklotrasa.png" alt="Cycle path" /></p>
+		<p><img src="/images/cyklotrasa.png" alt="Cycle path" /></p>
 	{:else}
 		<p><strong>Житный остров</strong></p>
 		<p>
@@ -73,15 +64,11 @@
 			традиционные блюда.
 		</p>
 		<p>
-			<img
-				style="max-width: 670px;"
-				src="/images/kormoran-cilistov-i-a-ii-kopia.jpg"
-				alt="Корморан Чилистов"
-			/>
+			<img src="/images/kormoran-cilistov-i-a-ii-kopia.jpg" alt="Корморан Чилистов" />
 		</p>
 		<p><strong>Велосипедный маршрут у отеля Kormorán****</strong></p>
 		<p>
-			<img style="max-width: 670px;" src="/images/cyklotrasa.png" alt="Велосипедный маршрут" />
+			<img src="/images/cyklotrasa.png" alt="Велосипедный маршрут" />
 		</p>
 	{/if}
 </div>

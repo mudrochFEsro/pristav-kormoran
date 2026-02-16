@@ -16,7 +16,6 @@
 	<title>{translations.ports.title} - {translations.site.title}</title>
 </svelte:head>
 
-<br />
 <img class="main-img" src="/images/kormoran-i2.jpg" alt="" />
 <h1 class="static-title">Kormoran Port I.</h1>
 <Divider />
@@ -30,7 +29,7 @@
 			>www.hotelkormoran.sk</a
 		>.
 	</p>
-	<p><img style="max-width: 670px;" src="/images/ki.png" alt="Kormoran I" /></p>
+	<p><img src="/images/ki.png" alt="Kormoran I" /></p>
 </div>
 
 <img class="main-img" src="/images/kormoran-ii2.jpg" alt="" />
@@ -54,7 +53,7 @@
 		Length is 74.60 m and width 9.84 m with the possibility of mooring several ships with a
 		maximum width of 26 m.
 	</p>
-	<p><img style="max-width: 670px;" src="/images/kiii.png" alt="Kormoran III" /></p>
+	<p><img src="/images/kiii.png" alt="Kormoran III" /></p>
 </div>
 
 <img class="main-img" src="/images/kormoran-iv.jpg" alt="" />
@@ -65,7 +64,7 @@
 		Located in Bratislava at r.k. 1869, 620 - 1869, 500 on the left side of the Danube below
 		Bratislava Castle. Length is 16 m and width 8 m.
 	</p>
-	<p><img style="max-width: 670px;" src="/images/kiv.png" alt="Kormoran IV" /></p>
+	<p><img src="/images/kiv.png" alt="Kormoran IV" /></p>
 </div>
 
 <img class="main-img" src="/images/kormoran-v1.jpg" alt="" />
@@ -76,7 +75,7 @@
 		Located in Bratislava at r.k. 1870,200 - 1870,250 on the left side of the Danube near
 		River Park. Length is 20 m and width 7 m.
 	</p>
-	<p><img style="max-width: 670px;" src="/images/kv.png" alt="Kormoran V" /></p>
+	<p><img src="/images/kv.png" alt="Kormoran V" /></p>
 </div>
 
 <img class="main-img" src="/images/sturovo-pristav.png" alt="" />
@@ -87,5 +86,5 @@
 		Located in Štúrovo at 1 718, 615 - 1 718, 495 r.k. on the left side of the Danube.
 		Length is 64.20 m and width 9 m.
 	</p>
-	<p><img style="max-width: 670px;" src="/images/kvi.png" alt="Kormoran VI" /></p>
+	<p><img src="/images/kvi.png" alt="Kormoran VI" /></p>
 </div>

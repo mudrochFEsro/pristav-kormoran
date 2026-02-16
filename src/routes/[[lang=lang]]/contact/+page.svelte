@@ -31,8 +31,7 @@
 			>pristav@brossforpartners.sk</a
 		>
 	</p>
-	<p><br /></p>
-	<p>
+	<p class="section-break">
 		<strong>{translations.contact.operator}</strong>
 		<span>BROSS for PARTNERS, a.s.</span>
 	</p>

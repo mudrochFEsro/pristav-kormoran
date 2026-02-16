@@ -16,7 +16,6 @@
 	<title>{translations.ports.title} - {translations.site.title}</title>
 </svelte:head>
 
-<br />
 <img class="main-img" src="/images/kormoran-i2.jpg" alt="" />
 <h1 class="static-title">Порт Корморан I.</h1>
 <Divider />
@@ -30,7 +29,7 @@
 			>www.hotelkormoran.sk</a
 		>.
 	</p>
-	<p><img style="max-width: 670px;" src="/images/ki.png" alt="Корморан I" /></p>
+	<p><img src="/images/ki.png" alt="Корморан I" /></p>
 </div>
 
 <img class="main-img" src="/images/kormoran-ii2.jpg" alt="" />
@@ -53,7 +52,7 @@
 		74,60 м, ширина 9,84 м с возможностью швартовки нескольких судов максимальной шириной
 		до 26 м.
 	</p>
-	<p><img style="max-width: 670px;" src="/images/kiii.png" alt="Корморан III" /></p>
+	<p><img src="/images/kiii.png" alt="Корморан III" /></p>
 </div>
 
 <img class="main-img" src="/images/kormoran-iv.jpg" alt="" />
@@ -64,7 +63,7 @@
 		расположен в Братиславе на р.к. 1869, 620 – 1869, 500 на левой стороне Дуная под
 		Братиславским замком. Длина 16 м, ширина 8 м.
 	</p>
-	<p><img style="max-width: 670px;" src="/images/kiv.png" alt="Корморан IV" /></p>
+	<p><img src="/images/kiv.png" alt="Корморан IV" /></p>
 </div>
 
 <img class="main-img" src="/images/kormoran-v1.jpg" alt="" />
@@ -75,7 +74,7 @@
 		расположен в Братиславе на р.к. 1870,200 – 1870,250 на левой стороне Дуная у River
 		Park. Длина 20 м, ширина 7 м.
 	</p>
-	<p><img style="max-width: 670px;" src="/images/kv.png" alt="Корморан V" /></p>
+	<p><img src="/images/kv.png" alt="Корморан V" /></p>
 </div>
 
 <img class="main-img" src="/images/sturovo-pristav.png" alt="" />
@@ -86,5 +85,5 @@
 		расположен в Штурово на р.к. 1 718, 615 – 1 718, 495 на левой стороне Дуная. Длина
 		64,20 м, ширина 9 м.
 	</p>
-	<p><img style="max-width: 670px;" src="/images/kvi.png" alt="Корморан VI" /></p>
+	<p><img src="/images/kvi.png" alt="Корморан VI" /></p>
 </div>
