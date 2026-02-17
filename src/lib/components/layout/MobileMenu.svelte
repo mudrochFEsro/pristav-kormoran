@@ -18,14 +18,19 @@
 
 	let menuNav: HTMLElement | undefined = $state();
 
+	// Normalize path for comparison - remove trailing slash and handle empty path
 	function normalizePath(path: string): string {
-		return path.endsWith('/') ? path.slice(0, -1) : path;
+		const normalized = path.endsWith('/') && path.length > 1 ? path.slice(0, -1) : path;
+		return normalized || '/';
 	}
 
 	const normalizedCurrentPath = $derived(normalizePath(currentPath));
 
 	function isActive(route: string): boolean {
-		return normalizePath(route) === normalizedCurrentPath;
+		const normalizedRoute = normalizePath(route);
+		if (normalizedRoute === normalizedCurrentPath) return true;
+		const resolvedRoute = normalizePath(resolve(route));
+		return resolvedRoute === normalizedCurrentPath;
 	}
 
 	function handleBackdropClick(event: PointerEvent) {

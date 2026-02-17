@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { cn } from '$lib/utils';
 	import { page } from '$app/stores';
+	import { resolve } from '$app/paths';
 	import type { Snippet } from 'svelte';
 
 	interface NavItem {
@@ -29,10 +30,28 @@
 	let lastScrollY = $state(0);
 	let mobileMenuOpen = $state(false);
 
+	// Current path for active state
+	const currentPath = $derived($page.url.pathname);
+
+	// Normalize path for comparison
+	function normalizePath(path: string): string {
+		const normalized = path.endsWith('/') && path.length > 1 ? path.slice(0, -1) : path;
+		return normalized || '/';
+	}
+
+	const normalizedCurrentPath = $derived(normalizePath(currentPath));
+
+	function isActive(route: string): boolean {
+		const normalizedRoute = normalizePath(route);
+		if (normalizedRoute === normalizedCurrentPath) return true;
+		const resolvedRoute = normalizePath(resolve(route));
+		return resolvedRoute === normalizedCurrentPath;
+	}
+
 	// Close mobile menu on navigation
 	$effect(() => {
 		// Subscribe to page changes
-		const currentPath = $page.url.pathname;
+		const _currentPath = $page.url.pathname;
 		mobileMenuOpen = false;
 	});
 
@@ -93,7 +112,11 @@
 	{#each navItems as item (item.link)}
 		<a
 			href={item.link}
-			class="relative flex items-center space-x-1 text-sm text-gray-600 transition-colors hover:text-orange-500"
+			class={cn(
+				'relative flex items-center space-x-1 text-sm transition-colors',
+				isActive(item.link) ? 'font-semibold text-orange-500' : 'text-gray-600 hover:text-orange-500'
+			)}
+			aria-current={isActive(item.link) ? 'page' : undefined}
 		>
 			<span>{item.name}</span>
 		</a>
@@ -148,8 +171,14 @@
 				{#each navItems as item (item.link)}
 					<a
 						href={item.link}
-						class="flex items-center rounded-xl px-4 py-3 text-lg font-medium text-gray-700 transition-all hover:bg-orange-50 hover:text-orange-500"
+						class={cn(
+							'flex items-center rounded-xl px-4 py-3 text-lg font-medium transition-all',
+							isActive(item.link)
+								? 'bg-orange-50 text-orange-500'
+								: 'text-gray-700 hover:bg-orange-50 hover:text-orange-500'
+						)}
 						onclick={() => mobileMenuOpen = false}
+						aria-current={isActive(item.link) ? 'page' : undefined}
 					>
 						{item.name}
 					</a>
