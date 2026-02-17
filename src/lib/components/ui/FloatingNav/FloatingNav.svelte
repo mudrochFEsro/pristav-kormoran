@@ -166,7 +166,7 @@
 		></button>
 
 		<!-- Menu Panel -->
-		<div class="absolute inset-x-4 top-24 max-h-[calc(100dvh-120px)] overflow-y-auto rounded-2xl border border-gray-200/50 bg-white p-5 shadow-xl">
+		<div class="absolute inset-x-4 top-[88px] max-h-[calc(100dvh-108px)] overflow-y-auto rounded-2xl border border-gray-200/50 bg-white p-5 shadow-xl">
 			<div class="flex flex-col space-y-1">
 				{#each navItems as item (item.link)}
 					<a
