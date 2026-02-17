@@ -35,13 +35,13 @@
 	onmouseleave={() => (isHovering = false)}
 	role="article"
 	class={cn(
-		'group relative overflow-hidden rounded-xl border border-gray-200 bg-white p-4 shadow-lg transition-all duration-300 hover:shadow-2xl sm:rounded-2xl sm:p-6 md:p-8',
+		'group relative overflow-hidden rounded-2xl border border-gray-200 bg-white p-5 shadow-lg transition-all duration-300 hover:shadow-2xl sm:p-6 lg:rounded-3xl lg:p-8',
 		className
 	)}
 >
 	<!-- Spotlight effect -->
 	<div
-		class="pointer-events-none absolute -inset-px rounded-2xl opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+		class="pointer-events-none absolute -inset-px rounded-2xl opacity-0 transition-opacity duration-300 group-hover:opacity-100 lg:rounded-3xl"
 		style="
 			background: radial-gradient(
 				600px circle at {position.x}px {position.y}px,
@@ -53,7 +53,7 @@
 
 	<!-- Border glow effect -->
 	<div
-		class="pointer-events-none absolute -inset-px rounded-2xl opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+		class="pointer-events-none absolute -inset-px rounded-2xl opacity-0 transition-opacity duration-300 group-hover:opacity-100 lg:rounded-3xl"
 		style="
 			background: radial-gradient(
 				300px circle at {position.x}px {position.y}px,

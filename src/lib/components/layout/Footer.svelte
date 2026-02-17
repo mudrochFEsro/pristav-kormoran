@@ -23,8 +23,8 @@
 </script>
 
 <footer class="border-t border-gray-100 bg-gradient-to-b from-white to-gray-50">
-	<div class="mx-auto max-w-7xl px-4 py-8 md:py-12">
-		<div class="grid gap-6 md:grid-cols-3 md:items-center md:gap-8">
+	<div class="mx-auto max-w-7xl px-5 py-10 sm:px-6 md:py-12 lg:px-8 lg:py-16">
+		<div class="grid gap-8 md:grid-cols-3 md:items-center lg:gap-12">
 			<!-- Navigation -->
 			<nav aria-label="Footer navigation">
 				<ul class="flex flex-wrap justify-center gap-x-4 gap-y-2 md:justify-start">
@@ -95,8 +95,8 @@
 		</div>
 
 		<!-- Bottom -->
-		<div class="mt-8 border-t border-gray-100 pt-6 text-center">
-			<p class="text-xs text-gray-400">
+		<div class="mt-10 border-t border-gray-100 pt-8 text-center lg:mt-12">
+			<p class="text-sm text-gray-400">
 				{translations.footer.copyright}
 			</p>
 		</div>

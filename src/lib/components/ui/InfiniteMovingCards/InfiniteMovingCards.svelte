@@ -30,7 +30,6 @@
 		fast: '20s'
 	} as const;
 
-	// Use $derived to properly track prop changes
 	const animationDuration = $derived(speedMap[speed]);
 	const animationDirection = $derived(direction === 'left' ? 'normal' : 'reverse');
 
@@ -45,7 +44,7 @@
 	)}
 >
 	<ul
-		class="flex w-max min-w-full shrink-0 flex-nowrap gap-3 py-4 sm:gap-4 md:gap-6"
+		class="flex w-max min-w-full shrink-0 flex-nowrap gap-4 py-4 sm:gap-5 md:gap-6 lg:gap-8"
 		class:pause-on-hover={pauseOnHover}
 		style="
 			animation: infinite-scroll {animationDuration} linear infinite;
@@ -53,11 +52,11 @@
 		"
 	>
 		{#each duplicatedItems as item, i (i)}
-			<li class="relative w-[260px] shrink-0 sm:w-[300px] md:w-[350px]">
+			<li class="relative w-[280px] shrink-0 sm:w-[320px] md:w-[360px] lg:w-[400px]">
 				{#if item.link}
 					<a href={item.link} class="group block">
-						<div class="relative overflow-hidden rounded-2xl border border-orange-100 bg-white shadow-lg transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-orange-500/10">
-							<div class="relative h-36 w-full overflow-hidden sm:h-40 md:h-48">
+						<div class="relative overflow-hidden rounded-2xl border border-orange-100 bg-white shadow-lg transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-orange-500/10 lg:rounded-3xl">
+							<div class="relative h-40 w-full overflow-hidden sm:h-44 md:h-48 lg:h-52">
 								<img
 									src={item.image}
 									alt={item.title}
@@ -65,12 +64,12 @@
 								/>
 								<div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
 							</div>
-							<div class="p-4">
-								<h3 class="text-lg font-bold text-gray-900 transition-colors group-hover:text-orange-600">
+							<div class="p-5 sm:p-6">
+								<h3 class="text-lg font-bold text-gray-900 transition-colors group-hover:text-orange-600 sm:text-xl">
 									{item.title}
 								</h3>
 								{#if item.description}
-									<p class="mt-2 text-sm text-gray-500">{item.description}</p>
+									<p class="mt-2 text-sm text-gray-500 sm:text-base">{item.description}</p>
 								{/if}
 							</div>
 							<!-- Orange accent on hover -->
@@ -78,8 +77,8 @@
 						</div>
 					</a>
 				{:else}
-					<div class="relative overflow-hidden rounded-2xl border border-orange-100 bg-white shadow-lg">
-						<div class="relative h-36 w-full overflow-hidden sm:h-40 md:h-48">
+					<div class="relative overflow-hidden rounded-2xl border border-orange-100 bg-white shadow-lg lg:rounded-3xl">
+						<div class="relative h-40 w-full overflow-hidden sm:h-44 md:h-48 lg:h-52">
 							<img
 								src={item.image}
 								alt={item.title}
@@ -87,10 +86,10 @@
 							/>
 							<div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
 						</div>
-						<div class="p-4">
-							<h3 class="text-lg font-bold text-gray-900">{item.title}</h3>
+						<div class="p-5 sm:p-6">
+							<h3 class="text-lg font-bold text-gray-900 sm:text-xl">{item.title}</h3>
 							{#if item.description}
-								<p class="mt-2 text-sm text-gray-500">{item.description}</p>
+								<p class="mt-2 text-sm text-gray-500 sm:text-base">{item.description}</p>
 							{/if}
 						</div>
 					</div>
