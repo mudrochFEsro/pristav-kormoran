@@ -2,8 +2,6 @@
 	import { t, getNavRoutes, type LanguageCode } from '$lib/i18n';
 	import { page } from '$app/stores';
 	import { resolve } from '$app/paths';
-	import { fade } from 'svelte/transition';
-	import { cubicOut } from 'svelte/easing';
 
 	interface Props {
 		lang: LanguageCode;
@@ -11,44 +9,7 @@
 		onClose: () => void;
 	}
 
-	let { lang, isOpen = $bindable(), onClose }: Props = $props();
-
-	// Custom bounce easing for open animation
-	function bounceOut(t: number): number {
-		const c1 = 1.70158;
-		const c3 = c1 + 1;
-		return 1 + c3 * Math.pow(t - 1, 3) + c1 * Math.pow(t - 1, 2);
-	}
-
-	// Check for reduced motion preference
-	const prefersReducedMotion = typeof window !== 'undefined'
-		? window.matchMedia('(prefers-reduced-motion: reduce)').matches
-		: false;
-
-	// Scale + fade transition with bounce
-	function scaleBounce(node: Element, { duration = 300, direction = 'in' }: { duration?: number; direction?: 'in' | 'out' }) {
-		// Simplified animation for reduced motion
-		if (prefersReducedMotion) {
-			return {
-				duration: 150,
-				css: (t: number) => `opacity: ${t};`
-			};
-		}
-
-		return {
-			duration,
-			easing: direction === 'in' ? bounceOut : cubicOut,
-			css: (t: number) => {
-				const scale = direction === 'in'
-					? 0.9 + (t * 0.1)  // 0.9 -> 1.0 (bounce will overshoot)
-					: 0.9 + (t * 0.1); // 1.0 -> 0.9
-				return `
-					opacity: ${t};
-					transform: scale(${scale});
-				`;
-			}
-		};
-	}
+	let { lang, isOpen, onClose }: Props = $props();
 
 	const translations = $derived(t(lang));
 	const routes = $derived(getNavRoutes(lang));
@@ -66,8 +27,9 @@
 		return normalizePath(route) === normalizedCurrentPath;
 	}
 
-	function handleLinkClick() {
-		isOpen = false;
+	function handleBackdropClick(event: PointerEvent) {
+		event.preventDefault();
+		event.stopPropagation();
 		onClose();
 	}
 
@@ -76,7 +38,6 @@
 		if (!isOpen) return;
 
 		if (event.key === 'Escape') {
-			isOpen = false;
 			onClose();
 			return;
 		}
@@ -103,33 +64,38 @@
 	$effect(() => {
 		if (isOpen && menuNav) {
 			const firstLink = menuNav.querySelector<HTMLElement>('a[href]');
-			// Small delay to ensure animation started
-			setTimeout(() => firstLink?.focus(), 50);
+			setTimeout(() => firstLink?.focus(), 100);
 		}
 	});
 </script>
 
 <svelte:window onkeydown={handleKeydown} />
 
-{#if isOpen}
-	<div class="mobile-menu" role="dialog" aria-modal="true" aria-label="Navigation menu">
-		<div
-			class="mobile-menu__backdrop"
-			onclick={handleLinkClick}
-			role="presentation"
-			transition:fade={{ duration: 250 }}
-		></div>
-		<nav
-			class="mobile-menu__content"
-			bind:this={menuNav}
-			in:scaleBounce={{ duration: 400, direction: 'in' }}
-			out:scaleBounce={{ duration: 200, direction: 'out' }}
-		>
+<!-- Always render, use CSS for show/hide with animations -->
+<div
+	class="mobile-menu"
+	class:mobile-menu--open={isOpen}
+	role="dialog"
+	aria-modal="true"
+	aria-label="Navigation menu"
+	aria-hidden={!isOpen}
+	inert={!isOpen}
+>
+	<!-- svelte-ignore a11y_no_static_element_interactions -->
+	<div
+		class="mobile-menu__backdrop"
+		onpointerdown={handleBackdropClick}
+		role="presentation"
+	></div>
+	<nav
+		class="mobile-menu__content"
+		bind:this={menuNav}
+	>
 			<a
 				href={resolve(routes.home)}
 				class="mobile-menu__link"
 				class:mobile-menu__link--active={isActive(routes.home)}
-				onclick={handleLinkClick}
+				onclick={onClose}
 			>
 				<span class="icon-anchor" aria-hidden="true"></span>
 				{translations.home.title}
@@ -138,7 +104,7 @@
 				href={resolve(routes.about)}
 				class="mobile-menu__link"
 				class:mobile-menu__link--active={isActive(routes.about)}
-				onclick={handleLinkClick}
+				onclick={onClose}
 			>
 				<span class="icon-wheel" aria-hidden="true"></span>
 				{translations.nav.about}
@@ -147,7 +113,7 @@
 				href={resolve(routes.news)}
 				class="mobile-menu__link"
 				class:mobile-menu__link--active={isActive(routes.news)}
-				onclick={handleLinkClick}
+				onclick={onClose}
 			>
 				<span class="icon-sailor" aria-hidden="true"></span>
 				{translations.nav.news}
@@ -156,7 +122,7 @@
 				href={resolve(routes.region)}
 				class="mobile-menu__link"
 				class:mobile-menu__link--active={isActive(routes.region)}
-				onclick={handleLinkClick}
+				onclick={onClose}
 			>
 				<span class="icon-earth" aria-hidden="true"></span>
 				{translations.nav.region}
@@ -165,7 +131,7 @@
 				href={resolve(routes.ports)}
 				class="mobile-menu__link"
 				class:mobile-menu__link--active={isActive(routes.ports)}
-				onclick={handleLinkClick}
+				onclick={onClose}
 			>
 				<span class="icon-anchor" aria-hidden="true"></span>
 				{translations.nav.ports}
@@ -174,7 +140,7 @@
 				href={resolve(routes.botel)}
 				class="mobile-menu__link"
 				class:mobile-menu__link--active={isActive(routes.botel)}
-				onclick={handleLinkClick}
+				onclick={onClose}
 			>
 				<span class="icon-life-wheel" aria-hidden="true"></span>
 				{translations.nav.botel}
@@ -183,7 +149,7 @@
 				href={resolve(routes.boatTrips)}
 				class="mobile-menu__link"
 				class:mobile-menu__link--active={isActive(routes.boatTrips)}
-				onclick={handleLinkClick}
+				onclick={onClose}
 			>
 				<span class="icon-ship" aria-hidden="true"></span>
 				{translations.nav.boatTrips}
@@ -192,14 +158,13 @@
 				href={resolve(routes.contact)}
 				class="mobile-menu__link"
 				class:mobile-menu__link--active={isActive(routes.contact)}
-				onclick={handleLinkClick}
+				onclick={onClose}
 			>
 				<span class="icon-mail" aria-hidden="true"></span>
 				{translations.nav.contact}
 			</a>
 		</nav>
 	</div>
-{/if}
 
 <style>
 	.mobile-menu {
@@ -211,6 +176,14 @@
 		z-index: 200;
 		display: flex;
 		flex-direction: column;
+		/* Hidden by default */
+		visibility: hidden;
+		pointer-events: none;
+	}
+
+	.mobile-menu--open {
+		visibility: visible;
+		pointer-events: auto;
 	}
 
 	.mobile-menu__backdrop {
@@ -222,6 +195,13 @@
 		background: rgba(0, 0, 0, 0.5);
 		backdrop-filter: blur(4px);
 		-webkit-backdrop-filter: blur(4px);
+		/* Animation */
+		opacity: 0;
+		transition: opacity 0.25s ease-out;
+	}
+
+	.mobile-menu--open .mobile-menu__backdrop {
+		opacity: 1;
 	}
 
 	.mobile-menu__content {
@@ -236,6 +216,17 @@
 		max-height: calc(100dvh - 160px);
 		overflow-y: auto;
 		transform-origin: top center;
+		/* Animation */
+		opacity: 0;
+		transform: scale(0.9);
+		transition: opacity 0.2s ease-out, transform 0.2s ease-out;
+	}
+
+	.mobile-menu--open .mobile-menu__content {
+		opacity: 1;
+		transform: scale(1);
+		transition: opacity 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+		            transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 	}
 
 	/* Fallback for browsers without dvh support */
@@ -254,7 +245,7 @@
 		text-transform: uppercase;
 		font-size: 14px;
 		border-bottom: 1px solid var(--color-border-light);
-		transition: color 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+		transition: color 0.15s ease-out;
 	}
 
 	.mobile-menu__link:last-child {
@@ -271,5 +262,13 @@
 		font-size: 20px;
 		width: 24px;
 		text-align: center;
+	}
+
+	/* Reduced motion */
+	@media (prefers-reduced-motion: reduce) {
+		.mobile-menu__backdrop,
+		.mobile-menu__content {
+			transition: none;
+		}
 	}
 </style>

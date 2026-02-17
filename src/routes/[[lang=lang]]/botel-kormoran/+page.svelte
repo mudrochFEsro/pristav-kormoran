@@ -4,6 +4,7 @@
 	import { SEO } from '$lib/seo';
 	import PageTitle from '$lib/components/ui/PageTitle.svelte';
 	import Divider from '$lib/components/ui/Divider.svelte';
+	import { scrollReveal } from '$lib/actions/scrollReveal';
 
 	interface Props {
 		data: PageData;
@@ -20,9 +21,11 @@
 	lang={data.lang}
 />
 
-<PageTitle title={translations.botel.title} hasImage={false} />
+<div use:scrollReveal={{ variant: 'fade' }}>
+	<PageTitle title={translations.botel.title} hasImage={false} />
+</div>
 <Divider />
-<div class="static-text">
+<div class="static-text" use:scrollReveal={{ variant: 'fade', delay: 100 }}>
 	<p>{translations.botel.description}</p>
 	<p>
 		{translations.botel.contactInfo}

@@ -4,6 +4,7 @@
 	import { SEO } from '$lib/seo';
 	import PageTitle from '$lib/components/ui/PageTitle.svelte';
 	import Divider from '$lib/components/ui/Divider.svelte';
+	import { scrollReveal } from '$lib/actions/scrollReveal';
 
 	interface Props {
 		data: PageData;
@@ -20,9 +21,11 @@
 	lang={data.lang}
 />
 
-<PageTitle title={translations.contact.title} />
+<div use:scrollReveal={{ variant: 'fade' }}>
+	<PageTitle title={translations.contact.title} />
+</div>
 <Divider />
-<div class="static-text address">
+<div class="static-text address" use:scrollReveal={{ variant: 'fade', delay: 100 }}>
 	<p>
 		<strong>{translations.contact.portManager}</strong>
 		<span>Andrej Barát</span>

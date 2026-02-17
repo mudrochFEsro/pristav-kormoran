@@ -16,6 +16,34 @@
 
 	let { children, data }: Props = $props();
 
+	// Zoom limiter - prevent extreme zoom levels that break vw/vh layouts
+	const MIN_ZOOM = 0.5; // 50%
+	const MAX_ZOOM = 2.0; // 200%
+
+	$effect(() => {
+		if (!browser) return;
+
+		function handleWheel(e: WheelEvent) {
+			// Only handle Ctrl+wheel (zoom gesture)
+			if (!e.ctrlKey) return;
+
+			// Get current zoom level from visual viewport or fallback
+			const currentZoom = window.visualViewport?.scale ?? 1;
+
+			// Block zoom if at limits
+			if ((e.deltaY < 0 && currentZoom >= MAX_ZOOM) || (e.deltaY > 0 && currentZoom <= MIN_ZOOM)) {
+				e.preventDefault();
+			}
+		}
+
+		// Use passive: false to allow preventDefault
+		window.addEventListener('wheel', handleWheel, { passive: false });
+
+		return () => {
+			window.removeEventListener('wheel', handleWheel);
+		};
+	});
+
 	// Mobile menu state - managed at layout level to render outside view-transition wrappers
 	let isMobileMenuOpen = $state(false);
 
@@ -88,7 +116,7 @@
 </script>
 
 <!-- Mobile menu rendered outside view-transition wrappers for position: fixed to work -->
-<MobileMenu lang={data.lang} bind:isOpen={isMobileMenuOpen} onClose={closeMobileMenu} />
+<MobileMenu lang={data.lang} isOpen={isMobileMenuOpen} onClose={closeMobileMenu} />
 
 <a href="#main-content" class="skip-link">
 	{data.lang === 'sk' ? 'Preskočiť na obsah' : data.lang === 'ru' ? 'Перейти к содержанию' : 'Skip to content'}

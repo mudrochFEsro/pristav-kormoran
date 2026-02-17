@@ -3,6 +3,7 @@
 	import { t } from '$lib/i18n';
 	import { SEO } from '$lib/seo';
 	import Divider from '$lib/components/ui/Divider.svelte';
+	import { scrollReveal } from '$lib/actions/scrollReveal';
 
 	interface Props {
 		data: PageData;
@@ -21,10 +22,10 @@
 	article={{ publishedTime: '2020-11-03' }}
 />
 
-<h1 class="static-title static-title-no-img">{translations.news.articleTitle}</h1>
+<h1 class="static-title static-title-no-img" use:scrollReveal={{ variant: 'fade' }}>{translations.news.articleTitle}</h1>
 <Divider />
-<div class="static-date">3.11.2020</div>
-<div class="static-text">
+<div class="static-date" use:scrollReveal={{ variant: 'fade', delay: 50 }}>3.11.2020</div>
+<div class="static-text" use:scrollReveal={{ variant: 'fade', delay: 100 }}>
 	<p>{translations.news.articleText}</p>
 	<p>{translations.news.contactOrders}: <a href="tel:+421903614663">+421 903 614 663</a></p>
 	<p><img src="/images/ondava-2.jpg" alt="Ondava" /></p>

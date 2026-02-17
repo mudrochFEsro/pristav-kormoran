@@ -12,7 +12,7 @@ export interface ScrollRevealOptions {
 	delay?: number;
 	/** Viewport threshold (0-1) - default: 0.1 */
 	threshold?: number;
-	/** Only animate once - default: true */
+	/** Only animate once - default: false (continuous fade in/out) */
 	once?: boolean;
 }
 
@@ -47,7 +47,7 @@ export function scrollReveal(
 		variant = 'fade',
 		delay = 0,
 		threshold = 0.1,
-		once = true
+		once = false
 	} = options;
 
 	// Respect reduced motion preference
@@ -58,8 +58,27 @@ export function scrollReveal(
 		};
 	}
 
-	// Add base animation classes
-	node.classList.add('scroll-animate', variantClassMap[variant]);
+	// Check if element is already visible in viewport (above the fold)
+	const rect = node.getBoundingClientRect();
+	const isAboveTheFold = rect.top < window.innerHeight * 0.8;
+
+	// If element is already visible, show it immediately without animation
+	if (isAboveTheFold) {
+		node.classList.add('animate-in');
+		if (once) {
+			return {
+				destroy: () => {},
+				update: () => {}
+			};
+		}
+	}
+
+	// Add base animation classes (only add scroll-animate if not above fold)
+	if (!isAboveTheFold) {
+		node.classList.add('scroll-animate', variantClassMap[variant]);
+	} else {
+		node.classList.add('scroll-animate', variantClassMap[variant], 'animate-in');
+	}
 
 	let observer: IntersectionObserver | null = null;
 	let timeoutId: ReturnType<typeof setTimeout> | null = null;
@@ -91,10 +110,10 @@ export function scrollReveal(
 		});
 	}
 
-	// Create and start observer
+	// Create and start observer with generous margins
 	observer = new IntersectionObserver(handleIntersect, {
 		threshold,
-		rootMargin: '0px 0px -50px 0px' // Trigger slightly before element is fully visible
+		rootMargin: '100px 0px -50px 0px' // Trigger very early when scrolling down
 	});
 
 	observer.observe(node);
