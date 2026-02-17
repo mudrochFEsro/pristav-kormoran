@@ -19,6 +19,7 @@ export const en: Translations = {
 	},
 
 	nav: {
+		home: 'Home',
 		about: 'About us',
 		news: 'News',
 		region: 'Region',
@@ -50,7 +51,52 @@ export const en: Translations = {
 			'In addition to marina services, we offer accommodation at Botel Kormoran with a capacity of 49 beds, a restaurant, and a bar with terrace. We organize boat trips on the Danube, corporate team buildings, weddings on board, family celebrations, and various social events. Our boat Ondava is ideal for private cruises and group excursions.',
 		location: 'Strategic location',
 		locationText:
-			'Kormoran Ports are located on Žitný ostrov - the largest river island in Europe. Near the ports you will find thermal spas, cycling routes along the Danube, historical monuments, and the Gabčíkovo Dam. Hotel Kormoran in Čilistov offers wellness, fitness, and sports facilities for active relaxation.'
+			'Kormoran Ports are located on Žitný ostrov - the largest river island in Europe. Near the ports you will find thermal spas, cycling routes along the Danube, historical monuments, and the Gabčíkovo Dam. Hotel Kormoran in Čilistov offers wellness, fitness, and sports facilities for active relaxation.',
+		// Landing page
+		badge: 'On the Danube since 1994',
+		brandName: 'Kormoran Port',
+		explorePorts: 'Explore Ports',
+		scroll: 'Scroll',
+		aboutUs: 'About us',
+		yearsExperience: 'Years of experience',
+		years: 'Years',
+		ports: 'Ports',
+		mooringSpots: 'Mooring spots',
+		spots: 'Spots',
+		largestMarina: 'Largest marina on the Danube',
+		ourServices: 'Our Services',
+		ourPorts: 'Our Ports',
+		showAllPorts: 'View all ports',
+		locality: 'Location',
+		fromBratislava: '25 km from Bratislava',
+		onDanube: 'Right on the Danube',
+		freeParking: 'Free parking',
+		// Amenities
+		amenities: 'Amenities',
+		amenitiesSubtitle: 'Everything you need',
+		electricity: 'Electric connections',
+		electricityDesc: '220V and 380V connections directly at the dock for each berth',
+		water: 'Drinking water',
+		waterDesc: 'Clean drinking water available at every dock',
+		wifi: 'WiFi connection',
+		wifiDesc: 'High-speed WiFi coverage throughout the area',
+		service: 'Service and repairs',
+		serviceDesc: 'Professional boat service, cleaning and winterization',
+		parking: 'Parking',
+		parkingDesc: 'Free parking for marina guests',
+		security: '24/7 Security',
+		securityDesc: 'Round-the-clock security and camera system',
+		restaurant: 'Restaurant',
+		restaurantDesc: 'Fish specialties and local delicacies with Danube views',
+		// CTA
+		ctaTitle: 'Reserve your berth',
+		ctaSubtitle: 'Become part of the largest marina on the Slovak Danube. Contact us today and secure a spot for your boat.',
+		contactUs: 'Contact us',
+		// Partner
+		partner: 'Partner',
+		partnerTitle: 'Čilistov Lagoon',
+		partnerSubtitle: 'New living with free mooring',
+		learnMore: 'Learn more'
 	},
 
 	categories: {

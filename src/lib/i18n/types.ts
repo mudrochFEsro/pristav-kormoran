@@ -19,6 +19,7 @@ export interface Translations {
 
 	// Navigation
 	nav: {
+		home: string;
 		about: string;
 		news: string;
 		region: string;
@@ -49,6 +50,51 @@ export interface Translations {
 		servicesText: string;
 		location: string;
 		locationText: string;
+		// Landing page specific
+		badge: string;
+		brandName: string;
+		explorePorts: string;
+		scroll: string;
+		aboutUs: string;
+		yearsExperience: string;
+		years: string;
+		ports: string;
+		mooringSpots: string;
+		spots: string;
+		largestMarina: string;
+		ourServices: string;
+		ourPorts: string;
+		showAllPorts: string;
+		locality: string;
+		fromBratislava: string;
+		onDanube: string;
+		freeParking: string;
+		// Amenities section
+		amenities: string;
+		amenitiesSubtitle: string;
+		electricity: string;
+		electricityDesc: string;
+		water: string;
+		waterDesc: string;
+		wifi: string;
+		wifiDesc: string;
+		service: string;
+		serviceDesc: string;
+		parking: string;
+		parkingDesc: string;
+		security: string;
+		securityDesc: string;
+		restaurant: string;
+		restaurantDesc: string;
+		// CTA section
+		ctaTitle: string;
+		ctaSubtitle: string;
+		contactUs: string;
+		// Partner banner
+		partner: string;
+		partnerTitle: string;
+		partnerSubtitle: string;
+		learnMore: string;
 	};
 
 	// Categories

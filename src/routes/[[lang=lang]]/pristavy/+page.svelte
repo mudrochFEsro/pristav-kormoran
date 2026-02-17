@@ -1,9 +1,9 @@
 <script lang="ts">
 	import type { PageData } from './$types';
-	import { t } from '$lib/i18n';
+	import { t, getNavRoutes } from '$lib/i18n';
 	import { SEO } from '$lib/seo';
 	import Divider from '$lib/components/ui/Divider.svelte';
-	import { scrollReveal } from '$lib/actions/scrollReveal';
+	import { Sparkles } from '$lib/components/ui';
 
 	interface Props {
 		data: PageData;
@@ -12,6 +12,53 @@
 	let { data }: Props = $props();
 
 	const translations = $derived(t(data.lang));
+	const routes = $derived(getNavRoutes(data.lang));
+
+	// All ports data
+	const ports = $derived([
+		{
+			title: translations.ports.port1Title,
+			text: translations.ports.port1Text,
+			image: '/images/kormoran-i2.jpg',
+			mapImage: '/images/ki.png',
+			link: 'http://www.hotelkormoran.sk/'
+		},
+		{
+			title: translations.ports.port2Title,
+			text: translations.ports.port2Text,
+			image: '/images/kormoran-ii2.jpg',
+			mapImage: null,
+			link: null
+		},
+		{
+			title: translations.ports.port3Title,
+			text: translations.ports.port3Text,
+			image: '/images/kormoran-iii1.jpg',
+			mapImage: '/images/kiii.png',
+			link: null
+		},
+		{
+			title: translations.ports.port4Title,
+			text: translations.ports.port4Text,
+			image: '/images/kormoran-iv.jpg',
+			mapImage: '/images/kiv.png',
+			link: null
+		},
+		{
+			title: translations.ports.port5Title,
+			text: translations.ports.port5Text,
+			image: '/images/kormoran-v1.jpg',
+			mapImage: '/images/kv.png',
+			link: null
+		},
+		{
+			title: translations.ports.port6Title,
+			text: translations.ports.port6Text,
+			image: '/images/sturovo-pristav.png',
+			mapImage: '/images/kvi.png',
+			link: null
+		}
+	]);
 </script>
 
 <SEO
@@ -20,54 +67,78 @@
 	lang={data.lang}
 />
 
-<img class="main-img" src="/images/kormoran-i2.jpg" alt="" fetchpriority="high" decoding="async" use:scrollReveal={{ variant: 'fade' }} />
-<h1 class="static-title" use:scrollReveal={{ variant: 'fade', delay: 50 }}>{translations.ports.port1Title}</h1>
-<Divider />
-<div class="static-text" use:scrollReveal={{ variant: 'fade', delay: 100 }}>
-	<p>
-		{translations.ports.port1Text} {translations.ports.moreInfo} <a
-			href="http://www.hotelkormoran.sk/"
-			target="_blank">www.hotelkormoran.sk</a
-		>.
-	</p>
-	<p><img src="/images/ki.png" alt={translations.ports.port1Title} loading="lazy" decoding="async" /></p>
-</div>
+<!-- Hero Section -->
+<section class="relative overflow-hidden bg-gradient-to-br from-orange-50 via-white to-amber-50 py-24">
+	<!-- Decorative blobs -->
+	<div class="absolute -left-40 -top-40 h-80 w-80 rounded-full bg-gradient-to-br from-orange-200/40 to-amber-200/40 blur-3xl"></div>
+	<div class="absolute -right-40 top-20 h-64 w-64 rounded-full bg-gradient-to-br from-orange-100/30 to-rose-100/30 blur-3xl"></div>
 
-<img class="main-img" src="/images/kormoran-ii2.jpg" alt="" loading="lazy" decoding="async" use:scrollReveal={{ variant: 'fade' }} />
-<h1 class="static-title" use:scrollReveal={{ variant: 'fade', delay: 50 }}>{translations.ports.port2Title}</h1>
-<Divider />
-<div class="static-text" use:scrollReveal={{ variant: 'fade', delay: 100 }}>
-	<p>{translations.ports.port2Text}</p>
-</div>
+	<div class="relative z-10 mx-auto max-w-7xl px-4 text-center">
+		<span class="mb-4 inline-block rounded-full bg-orange-100 px-4 py-2 text-sm font-medium text-orange-600">
+			{translations.nav.ports}
+		</span>
+		<h1 class="mb-6 bg-gradient-to-r from-orange-600 via-orange-500 to-amber-500 bg-clip-text text-5xl font-bold text-transparent md:text-6xl">
+			{translations.ports.title}
+		</h1>
+		<div class="mx-auto h-12 w-64">
+			<Sparkles particleColor="#f97316" particleDensity={30} className="h-full w-full" />
+		</div>
+	</div>
+</section>
 
-<img class="main-img" src="/images/kormoran-iii1.jpg" alt="" loading="lazy" decoding="async" use:scrollReveal={{ variant: 'fade' }} />
-<h1 class="static-title" use:scrollReveal={{ variant: 'fade', delay: 50 }}>{translations.ports.port3Title}</h1>
-<Divider />
-<div class="static-text" use:scrollReveal={{ variant: 'fade', delay: 100 }}>
-	<p>{translations.ports.port3Text}</p>
-	<p><img src="/images/kiii.png" alt={translations.ports.port3Title} loading="lazy" decoding="async" /></p>
-</div>
+<!-- Ports Grid -->
+{#each ports as port, i (i)}
+	<section class="relative py-20 {i % 2 === 0 ? 'bg-white' : 'bg-gray-50'}">
+		<div class="mx-auto max-w-7xl px-4">
+			<div class="grid items-center gap-12 {i % 2 === 0 ? 'lg:grid-cols-2' : 'lg:grid-cols-2 lg:flex-row-reverse'}">
+				<!-- Image -->
+				<div class="group relative {i % 2 === 1 ? 'lg:order-2' : ''}">
+					<div class="absolute -inset-4 rounded-3xl bg-gradient-to-r from-orange-500/10 to-amber-500/10 opacity-0 blur-2xl transition-opacity duration-500 group-hover:opacity-100"></div>
+					<div class="relative overflow-hidden rounded-2xl shadow-2xl">
+						<img
+							src={port.image}
+							alt={port.title}
+							class="w-full transition-transform duration-700 group-hover:scale-105"
+							loading={i === 0 ? 'eager' : 'lazy'}
+						/>
+						<div class="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent"></div>
+					</div>
+				</div>
 
-<img class="main-img" src="/images/kormoran-iv.jpg" alt="" loading="lazy" decoding="async" use:scrollReveal={{ variant: 'fade' }} />
-<h1 class="static-title" use:scrollReveal={{ variant: 'fade', delay: 50 }}>{translations.ports.port4Title}</h1>
-<Divider />
-<div class="static-text" use:scrollReveal={{ variant: 'fade', delay: 100 }}>
-	<p>{translations.ports.port4Text}</p>
-	<p><img src="/images/kiv.png" alt={translations.ports.port4Title} loading="lazy" decoding="async" /></p>
-</div>
+				<!-- Content -->
+				<div class="{i % 2 === 1 ? 'lg:order-1' : ''}">
+					<span class="mb-3 inline-block rounded-full bg-orange-100 px-3 py-1 text-sm font-medium text-orange-600">
+						Prístav {i + 1}
+					</span>
+					<h2 class="mb-6 text-3xl font-bold text-gray-900 md:text-4xl">
+						{port.title}
+					</h2>
+					<p class="mb-6 text-lg leading-relaxed text-gray-600">
+						{port.text}
+						{#if port.link}
+							{translations.ports.moreInfo}
+							<a
+								href={port.link}
+								target="_blank"
+								class="font-medium text-orange-500 underline-offset-4 hover:underline"
+							>
+								www.hotelkormoran.sk
+							</a>
+						{/if}
+					</p>
 
-<img class="main-img" src="/images/kormoran-v1.jpg" alt="" loading="lazy" decoding="async" use:scrollReveal={{ variant: 'fade' }} />
-<h1 class="static-title" use:scrollReveal={{ variant: 'fade', delay: 50 }}>{translations.ports.port5Title}</h1>
-<Divider />
-<div class="static-text" use:scrollReveal={{ variant: 'fade', delay: 100 }}>
-	<p>{translations.ports.port5Text}</p>
-	<p><img src="/images/kv.png" alt={translations.ports.port5Title} loading="lazy" decoding="async" /></p>
-</div>
-
-<img class="main-img" src="/images/sturovo-pristav.png" alt="" loading="lazy" decoding="async" use:scrollReveal={{ variant: 'fade' }} />
-<h1 class="static-title" use:scrollReveal={{ variant: 'fade', delay: 50 }}>{translations.ports.port6Title}</h1>
-<Divider />
-<div class="static-text" use:scrollReveal={{ variant: 'fade', delay: 100 }}>
-	<p>{translations.ports.port6Text}</p>
-	<p><img src="/images/kvi.png" alt={translations.ports.port6Title} loading="lazy" decoding="async" /></p>
-</div>
+					{#if port.mapImage}
+						<div class="mt-6 overflow-hidden rounded-xl border border-gray-100 shadow-lg">
+							<img
+								src={port.mapImage}
+								alt="{port.title} mapa"
+								class="w-full"
+								loading="lazy"
+							/>
+						</div>
+					{/if}
+				</div>
+			</div>
+		</div>
+	</section>
+{/each}

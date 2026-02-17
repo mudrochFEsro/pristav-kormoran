@@ -19,6 +19,7 @@ export const sk: Translations = {
 	},
 
 	nav: {
+		home: 'Domov',
 		about: 'O nás',
 		news: 'Novinky',
 		region: 'Región',
@@ -50,7 +51,52 @@ export const sk: Translations = {
 			'Okrem prístavných služieb ponúkame ubytovanie na Boteli Kormorán s kapacitou 49 lôžok, reštauráciou a barom s terasou. Organizujeme výlety loďou po Dunaji, firemné teambuildingy, svadby na lodi, rodinné oslavy a rôzne spoločenské podujatia. Naša loď Ondava je ideálna pre súkromné plavby aj skupinové výlety.',
 		location: 'Strategická poloha',
 		locationText:
-			'Prístavy Kormorán sa nachádzajú na Žitnom ostrove - najväčšom riečnom ostrove v Európe. V blízkosti prístavov nájdete termálne kúpaliská, cyklotrasy vedúce pozdĺž Dunaja, historické pamiatky a vodné dielo Gabčíkovo. Hotel Kormorán v Čilistove ponúka wellness, fitness a športoviská pre aktívny oddych.'
+			'Prístavy Kormorán sa nachádzajú na Žitnom ostrove - najväčšom riečnom ostrove v Európe. V blízkosti prístavov nájdete termálne kúpaliská, cyklotrasy vedúce pozdĺž Dunaja, historické pamiatky a vodné dielo Gabčíkovo. Hotel Kormorán v Čilistove ponúka wellness, fitness a športoviská pre aktívny oddych.',
+		// Landing page
+		badge: 'Od roku 1994 na Dunaji',
+		brandName: 'Prístav Kormorán',
+		explorePorts: 'Preskúmať prístavy',
+		scroll: 'Scroll',
+		aboutUs: 'O nás',
+		yearsExperience: 'Rokov skúseností',
+		years: 'Rokov',
+		ports: 'Prístavy',
+		mooringSpots: 'Kotevných miest',
+		spots: 'Miest',
+		largestMarina: 'Najväčšia marina na Dunaji',
+		ourServices: 'Naše služby',
+		ourPorts: 'Naše prístavy',
+		showAllPorts: 'Zobraziť všetky prístavy',
+		locality: 'Lokalita',
+		fromBratislava: '25 km od Bratislavy',
+		onDanube: 'Priamo na Dunaji',
+		freeParking: 'Parkovanie zadarmo',
+		// Amenities
+		amenities: 'Vybavenie',
+		amenitiesSubtitle: 'Všetko, čo potrebujete',
+		electricity: 'Elektrické prípojky',
+		electricityDesc: '220V a 380V prípojky priamo na móle pre každé kotevné miesto',
+		water: 'Pitná voda',
+		waterDesc: 'Čistá pitná voda dostupná na každom móle',
+		wifi: 'WiFi pripojenie',
+		wifiDesc: 'Vysokorýchlostné WiFi pokrytie v celom areáli',
+		service: 'Servis a opravy',
+		serviceDesc: 'Profesionálny lodný servis, čistenie a winterizácia',
+		parking: 'Parkovanie',
+		parkingDesc: 'Bezplatné parkovanie pre hostí mariny',
+		security: '24/7 Stráženie',
+		securityDesc: 'Nonstop ostraha a kamerový systém',
+		restaurant: 'Reštaurácia',
+		restaurantDesc: 'Rybacia špecialita a lokálne pochúťky s výhľadom na Dunaj',
+		// CTA
+		ctaTitle: 'Rezervujte si kotevné miesto',
+		ctaSubtitle: 'Staňte sa súčasťou najväčšej mariny na slovenskom Dunaji. Kontaktujte nás ešte dnes a zabezpečte si miesto pre vašu loď.',
+		contactUs: 'Kontaktovať nás',
+		// Partner
+		partner: 'Partner',
+		partnerTitle: 'Čilistovská Lagúna',
+		partnerSubtitle: 'Nové bývanie s kotvením zadarmo',
+		learnMore: 'Zistiť viac'
 	},
 
 	categories: {

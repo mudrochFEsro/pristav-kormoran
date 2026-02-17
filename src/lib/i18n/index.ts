@@ -52,7 +52,18 @@ const routeSlugs: Record<LanguageCode, {
 	}
 };
 
-export function getNavRoutes(lang: LanguageCode) {
+export interface NavRoutes {
+	home: string;
+	about: string;
+	news: string;
+	region: string;
+	ports: string;
+	botel: string;
+	boatTrips: string;
+	contact: string;
+}
+
+export function getNavRoutes(lang: LanguageCode): NavRoutes {
 	const isDefault = lang === DEFAULT_LANGUAGE;
 	const prefix = isDefault ? '' : `/${lang}`;
 	const slugs = routeSlugs[lang];

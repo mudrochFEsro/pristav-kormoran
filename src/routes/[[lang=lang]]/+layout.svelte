@@ -2,11 +2,9 @@
 	import type { Snippet } from 'svelte';
 	import { onNavigate, afterNavigate } from '$app/navigation';
 	import { browser } from '$app/environment';
-	import Header from '$lib/components/layout/Header.svelte';
-	import MainNav from '$lib/components/layout/MainNav.svelte';
-	import MobileMenu from '$lib/components/layout/MobileMenu.svelte';
+	import { t, getNavRoutes, type NavRoutes } from '$lib/i18n';
+	import { FloatingNav, GridBackground } from '$lib/components/ui';
 	import Footer from '$lib/components/layout/Footer.svelte';
-	import WeatherWidget from '$lib/components/header/WeatherWidget.svelte';
 	import type { LayoutData } from './$types';
 
 	interface Props {
@@ -16,10 +14,29 @@
 
 	let { children, data }: Props = $props();
 
-	// Zoom limiter - prevent extreme zoom levels that break vw/vh layouts
-	// Optimized: Only attach non-passive listener when Ctrl is pressed
-	const MIN_ZOOM = 0.5; // 50%
-	const MAX_ZOOM = 2.0; // 200%
+	const translations = $derived(t(data.lang));
+	const routes = $derived(getNavRoutes(data.lang) as NavRoutes);
+
+	// Build nav items for FloatingNav
+	const navItems = $derived([
+		{ name: translations.nav.home, link: routes.home },
+		{ name: translations.nav.ports, link: routes.ports },
+		{ name: translations.nav.boatTrips, link: routes.boatTrips },
+		{ name: translations.nav.botel, link: routes.botel },
+		{ name: translations.nav.about, link: routes.about },
+		{ name: translations.nav.contact, link: routes.contact }
+	]);
+
+	// Language options for mobile menu
+	const languageOptions = $derived([
+		{ code: 'sk', label: 'SK', href: '/', active: data.lang === 'sk' },
+		{ code: 'en', label: 'EN', href: '/en/', active: data.lang === 'en' },
+		{ code: 'ru', label: 'RU', href: '/ru/', active: data.lang === 'ru' }
+	]);
+
+	// Zoom limiter
+	const MIN_ZOOM = 0.5;
+	const MAX_ZOOM = 2.0;
 
 	$effect(() => {
 		if (!browser) return;
@@ -35,22 +52,15 @@
 		}
 
 		function handleWheel(e: WheelEvent) {
-			// Only handle Ctrl+wheel (zoom gesture)
 			if (!isCtrlPressed && !e.ctrlKey) return;
-
-			// Get current zoom level from visual viewport or fallback
 			const currentZoom = window.visualViewport?.scale ?? 1;
-
-			// Block zoom if at limits
 			if ((e.deltaY < 0 && currentZoom >= MAX_ZOOM) || (e.deltaY > 0 && currentZoom <= MIN_ZOOM)) {
 				e.preventDefault();
 			}
 		}
 
-		// Track Ctrl key state
 		window.addEventListener('keydown', handleKeyDown, { passive: true });
 		window.addEventListener('keyup', handleKeyUp, { passive: true });
-		// Use passive: false only when needed for preventDefault
 		window.addEventListener('wheel', handleWheel, { passive: false });
 
 		return () => {
@@ -59,18 +69,6 @@
 			window.removeEventListener('wheel', handleWheel);
 		};
 	});
-
-	// Mobile menu state - managed at layout level to render outside view-transition wrappers
-	let isMobileMenuOpen = $state(false);
-	let hamburgerTriggerRef = $state<HTMLButtonElement | null>(null);
-
-	function toggleMobileMenu() {
-		isMobileMenuOpen = !isMobileMenuOpen;
-	}
-
-	function closeMobileMenu() {
-		isMobileMenuOpen = false;
-	}
 
 	// Helper to get path without language prefix
 	function getPathWithoutLang(pathname: string): string {
@@ -83,45 +81,31 @@
 		return pathname;
 	}
 
-	// Scroll to absolute top after every navigation (except language changes)
+	// Scroll to top after navigation
 	afterNavigate((navigation) => {
-		// Close mobile menu on navigation
-		isMobileMenuOpen = false;
-
-		// Skip hash links (anchor navigation)
 		if (navigation.to?.url.hash) return;
 
-		// Skip scroll for language changes (same page, different language)
 		const fromPath = navigation.from?.url.pathname;
 		const toPath = navigation.to?.url.pathname;
 		if (fromPath && toPath) {
 			const fromWithoutLang = getPathWithoutLang(fromPath);
 			const toWithoutLang = getPathWithoutLang(toPath);
-			if (fromWithoutLang === toWithoutLang) {
-				// Language change only - don't scroll
-				return;
-			}
+			if (fromWithoutLang === toWithoutLang) return;
 		}
 
-		// Force scroll to absolute top using multiple methods for reliability
 		document.documentElement.scrollTop = 0;
 		document.body.scrollTop = 0;
 		window.scrollTo(0, 0);
 	});
 
-	// Use View Transitions API for smooth content transitions only
+	// View Transitions API
 	onNavigate((navigation) => {
 		if (!browser) return;
-
-		// Skip if navigating to the same route
 		const fromPath = navigation.from?.url.pathname;
 		const toPath = navigation.to?.url.pathname;
 		if (fromPath === toPath) return;
 
-		// Check if View Transitions API is supported
-		if (!document.startViewTransition) {
-			return;
-		}
+		if (!document.startViewTransition) return;
 
 		return new Promise((resolve) => {
 			document.startViewTransition(async () => {
@@ -132,43 +116,75 @@
 	});
 </script>
 
-<!-- Mobile menu rendered outside view-transition wrappers for position: fixed to work -->
-<MobileMenu lang={data.lang} isOpen={isMobileMenuOpen} onClose={closeMobileMenu} triggerElement={hamburgerTriggerRef} />
+<div class="app-wrapper">
+	<!-- Floating Navigation - Light Theme -->
+	<FloatingNav {navItems} languages={languageOptions} className="border-gray-200/50 bg-white/80 shadow-lg">
+		{#snippet logo()}
+			<a href={routes.home} class="flex items-center">
+				<span class="text-lg font-bold text-orange-500">Kormorán</span>
+			</a>
+		{/snippet}
+	</FloatingNav>
 
-<a href="#main-content" class="skip-link">
-	{data.lang === 'sk' ? 'Preskočiť na obsah' : data.lang === 'ru' ? 'Перейти к содержанию' : 'Skip to content'}
-</a>
-<div class="site-wrapper">
-	<!-- Weather widget - not sticky -->
-	<div class="layout-weather">
-		<WeatherWidget lang={data.lang} />
+	<!-- Language Selector - Fixed position, hidden on mobile (will show in mobile menu) -->
+	<div class="fixed right-4 top-5 z-40 hidden gap-1 md:flex md:gap-2">
+		<a
+			href="/"
+			class="rounded-full border border-gray-200 bg-white/90 px-2 py-0.5 text-xs text-gray-600 shadow-sm backdrop-blur-sm transition-all hover:border-orange-400 hover:text-orange-500 md:px-3 md:py-1"
+			class:active={data.lang === 'sk'}
+		>
+			SK
+		</a>
+		<a
+			href="/en/"
+			class="rounded-full border border-gray-200 bg-white/90 px-2 py-0.5 text-xs text-gray-600 shadow-sm backdrop-blur-sm transition-all hover:border-orange-400 hover:text-orange-500 md:px-3 md:py-1"
+			class:active={data.lang === 'en'}
+		>
+			EN
+		</a>
+		<a
+			href="/ru/"
+			class="rounded-full border border-gray-200 bg-white/90 px-2 py-0.5 text-xs text-gray-600 shadow-sm backdrop-blur-sm transition-all hover:border-orange-400 hover:text-orange-500 md:px-3 md:py-1"
+			class:active={data.lang === 'ru'}
+		>
+			RU
+		</a>
 	</div>
-	<!-- Sticky header + nav -->
-	<div class="layout-sticky">
-		<Header lang={data.lang} />
-		<MainNav lang={data.lang} {isMobileMenuOpen} onToggleMobileMenu={toggleMobileMenu} bind:triggerRef={hamburgerTriggerRef} />
-	</div>
-	<main id="main-content" class="main-content" tabindex="-1" aria-label={data.lang === 'sk' ? 'Hlavný obsah' : data.lang === 'ru' ? 'Основное содержимое' : 'Main content'}>
-		<div class="container page-content">
-			{@render children()}
-		</div>
+
+	<!-- Skip Link -->
+	<a href="#main-content" class="skip-link">
+		{data.lang === 'sk' ? 'Preskočiť na obsah' : data.lang === 'ru' ? 'Перейти к содержанию' : 'Skip to content'}
+	</a>
+
+	<!-- Main Content -->
+	<main
+		id="main-content"
+		class="min-h-screen bg-white"
+		tabindex="-1"
+		aria-label={data.lang === 'sk' ? 'Hlavný obsah' : data.lang === 'ru' ? 'Основное содержимое' : 'Main content'}
+	>
+		{@render children()}
 	</main>
-	<div class="layout-footer">
-		<Footer lang={data.lang} />
-	</div>
+
+	<!-- Footer -->
+	<Footer lang={data.lang} />
 </div>
 
 <style>
-	/* Skip link for keyboard accessibility */
+	.app-wrapper {
+		min-height: 100vh;
+		background: #ffffff;
+	}
+
 	.skip-link {
 		position: absolute;
 		top: -100%;
 		left: 50%;
 		transform: translateX(-50%);
-		background: var(--color-primary);
-		color: var(--color-white);
-		padding: var(--space-3) var(--space-5);
-		border-radius: var(--radius-md);
+		background: #f60;
+		color: white;
+		padding: 0.75rem 1.5rem;
+		border-radius: 9999px;
 		font-weight: 500;
 		text-decoration: none;
 		z-index: 1000;
@@ -176,54 +192,14 @@
 	}
 
 	.skip-link:focus {
-		top: var(--space-3);
-		outline: 2px solid var(--color-white);
+		top: 1rem;
+		outline: 2px solid #f60;
 		outline-offset: 2px;
 	}
 
-	.site-wrapper {
-		width: 100%;
-		min-height: 100vh;
-		display: flex;
-		flex-direction: column;
-	}
-
-	.main-content {
-		flex: 1;
-		background: var(--color-white);
-	}
-
-	.container {
-		max-width: var(--container-max-width);
-		margin: 0 auto;
-		padding: var(--space-6) var(--container-padding) 0;
-		background: var(--color-white);
-	}
-
-	/* Weather widget - not sticky */
-	.layout-weather {
-		view-transition-name: layout-weather;
-	}
-
-	/* Sticky header + nav combined */
-	.layout-sticky {
-		view-transition-name: layout-sticky;
-		position: sticky;
-		top: 0;
-		z-index: 100;
-	}
-
-	.layout-footer {
-		view-transition-name: layout-footer;
-	}
-
-	.page-content {
-		view-transition-name: page-content;
-	}
-
-	@media (max-width: 768px) {
-		.container {
-			padding: var(--space-5) var(--space-4) 0;
-		}
+	.active {
+		color: #f60 !important;
+		border-color: #f60 !important;
+		background: rgba(255, 102, 0, 0.05) !important;
 	}
 </style>
