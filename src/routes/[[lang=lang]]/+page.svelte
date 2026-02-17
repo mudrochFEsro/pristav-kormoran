@@ -22,7 +22,7 @@
 	includeFaq={true}
 />
 
-<img class="main-img" src="/images/static-main.jpg" alt="" />
+<img class="main-img" src="/images/static-main.jpg" alt="Prístav Kormorán - prístavy na Dunaji" />
 <h1 class="main-title" use:scrollReveal={{ variant: 'fade' }}>
 	{translations.home.title}
 </h1>
@@ -31,6 +31,22 @@
 		{translations.home.description}
 	</p>
 </div>
+
+<section class="home-section" use:scrollReveal={{ variant: 'fade' }}>
+	<h2 class="home-section__title">{translations.home.intro}</h2>
+	<p class="home-section__text">{translations.home.introText}</p>
+</section>
+
+<section class="home-section" use:scrollReveal={{ variant: 'fade', delay: 50 }}>
+	<h2 class="home-section__title">{translations.home.services}</h2>
+	<p class="home-section__text">{translations.home.servicesText}</p>
+</section>
+
+<section class="home-section" use:scrollReveal={{ variant: 'fade', delay: 100 }}>
+	<h2 class="home-section__title">{translations.home.location}</h2>
+	<p class="home-section__text">{translations.home.locationText}</p>
+</section>
+
 <Divider />
 <div class="categories">
 	<CategoryCard
@@ -73,3 +89,39 @@
 		/>
 	</a>
 </div>
+
+<style>
+	.home-section {
+		max-width: 900px;
+		margin: 0 auto;
+		padding: var(--space-6) var(--space-8);
+		text-align: center;
+	}
+
+	.home-section__title {
+		font-family: var(--font-primary);
+		font-weight: var(--font-weight-medium);
+		font-size: var(--size-heading-lg);
+		color: var(--color-primary);
+		margin-bottom: var(--space-4);
+	}
+
+	.home-section__text {
+		font-family: var(--font-primary);
+		font-weight: var(--font-weight-light);
+		font-size: var(--size-body);
+		line-height: 1.875;
+		color: var(--color-text-primary);
+		text-align: justify;
+	}
+
+	@media (max-width: 768px) {
+		.home-section {
+			padding: var(--space-5) var(--space-4);
+		}
+
+		.home-section__title {
+			font-size: 22px;
+		}
+	}
+</style>

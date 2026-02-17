@@ -41,7 +41,16 @@ export const en: Translations = {
 	home: {
 		title: 'Visit our ports and discover the beauty of their surroundings',
 		description:
-			'Kormoran Ports are located in beautiful places that offer many opportunities to discover their culture, nature, relaxation, traditions, and sports exactly as you imagine. Boat trips are becoming more and more popular among tourists in Slovakia and abroad, and combining sailing with exploring new places is an unforgettable experience for all age groups from children to seniors. Therefore, visit our ports and discover the beauty that our small country and its surroundings offer.'
+			'Kormoran Ports are located in beautiful places that offer many opportunities to discover their culture, nature, relaxation, traditions, and sports exactly as you imagine. Boat trips are becoming more and more popular among tourists in Slovakia and abroad, and combining sailing with exploring new places is an unforgettable experience for all age groups from children to seniors. Therefore, visit our ports and discover the beauty that our small country and its surroundings offer.',
+		intro: 'Network of marinas on the Danube',
+		introText:
+			'Kormoran Ports operates a network of six marinas on the Danube River. Our docks are located in Bratislava, Čilistov near Šamorín, and Štúrovo. We provide comprehensive marina services for cabin vessels, cruise ships, and small recreational boats. Each of our ports offers facilities including water and electricity connections, waste disposal, and the option to replenish supplies.',
+		services: 'Our services',
+		servicesText:
+			'In addition to marina services, we offer accommodation at Botel Kormoran with a capacity of 49 beds, a restaurant, and a bar with terrace. We organize boat trips on the Danube, corporate team buildings, weddings on board, family celebrations, and various social events. Our boat Ondava is ideal for private cruises and group excursions.',
+		location: 'Strategic location',
+		locationText:
+			'Kormoran Ports are located on Žitný ostrov - the largest river island in Europe. Near the ports you will find thermal spas, cycling routes along the Danube, historical monuments, and the Gabčíkovo Dam. Hotel Kormoran in Čilistov offers wellness, fitness, and sports facilities for active relaxation.'
 	},
 
 	categories: {

@@ -43,6 +43,12 @@ export interface Translations {
 	home: {
 		title: string;
 		description: string;
+		intro: string;
+		introText: string;
+		services: string;
+		servicesText: string;
+		location: string;
+		locationText: string;
 	};
 
 	// Categories

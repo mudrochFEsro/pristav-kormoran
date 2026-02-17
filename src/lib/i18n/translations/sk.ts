@@ -41,7 +41,16 @@ export const sk: Translations = {
 	home: {
 		title: 'Vyberte sa do našich prístavov a spoznajte krásy, ktoré ich okolie ponúka',
 		description:
-			'Prístavy Kormorán sú situované v nádherných lokalitách, ktoré ponúkajú veľa možností spoznať ich kultúru, prírodu, relax, tradície, šport presne podľa vašich predstáv. Plavba loďou je čoraz viac u turistov preferovaná na Slovensku aj v zahraničí a spojiť plavbu so spoznávaním nového je nezabudnuteľný zážitok pre všetky vekové kategórie od detí až po seniorov. Vyberte sa preto do našich prístavov a spoznajte krásy, ktoré naša malá krajina a jej okolie ponúka.'
+			'Prístavy Kormorán sú situované v nádherných lokalitách, ktoré ponúkajú veľa možností spoznať ich kultúru, prírodu, relax, tradície, šport presne podľa vašich predstáv. Plavba loďou je čoraz viac u turistov preferovaná na Slovensku aj v zahraničí a spojiť plavbu so spoznávaním nového je nezabudnuteľný zážitok pre všetky vekové kategórie od detí až po seniorov. Vyberte sa preto do našich prístavov a spoznajte krásy, ktoré naša malá krajina a jej okolie ponúka.',
+		intro: 'Sieť prístavov na Dunaji',
+		introText:
+			'Prístav Kormorán prevádzkuje sieť šiestich prístavov na rieke Dunaj. Naše prístaviská sa nachádzajú v Bratislave, Čilistove pri Šamoríne a v Štúrove. Poskytujeme komplexné prístavné služby pre kajutové plavidlá, výletné lode aj malé rekreačné člny. Každý z našich prístavov ponúka zázemie vrátane prípojky na vodu a elektrinu, odvoz odpadu a možnosť doplnenia zásob.',
+		services: 'Naše služby',
+		servicesText:
+			'Okrem prístavných služieb ponúkame ubytovanie na Boteli Kormorán s kapacitou 49 lôžok, reštauráciou a barom s terasou. Organizujeme výlety loďou po Dunaji, firemné teambuildingy, svadby na lodi, rodinné oslavy a rôzne spoločenské podujatia. Naša loď Ondava je ideálna pre súkromné plavby aj skupinové výlety.',
+		location: 'Strategická poloha',
+		locationText:
+			'Prístavy Kormorán sa nachádzajú na Žitnom ostrove - najväčšom riečnom ostrove v Európe. V blízkosti prístavov nájdete termálne kúpaliská, cyklotrasy vedúce pozdĺž Dunaja, historické pamiatky a vodné dielo Gabčíkovo. Hotel Kormorán v Čilistove ponúka wellness, fitness a športoviská pre aktívny oddych.'
 	},
 
 	categories: {

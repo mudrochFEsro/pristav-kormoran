@@ -176,14 +176,16 @@
 		z-index: 200;
 		display: flex;
 		flex-direction: column;
-		/* Hidden by default */
+		/* Hidden by default - delay visibility to allow fade out */
 		visibility: hidden;
 		pointer-events: none;
+		transition: visibility 0s linear 0.25s;
 	}
 
 	.mobile-menu--open {
 		visibility: visible;
 		pointer-events: auto;
+		transition: visibility 0s linear 0s;
 	}
 
 	.mobile-menu__backdrop {
@@ -195,13 +197,15 @@
 		background: rgba(0, 0, 0, 0.5);
 		backdrop-filter: blur(4px);
 		-webkit-backdrop-filter: blur(4px);
-		/* Animation */
+		/* Animation - fade out */
 		opacity: 0;
-		transition: opacity 0.25s ease-out;
+		transition: opacity 0.2s ease-out;
 	}
 
 	.mobile-menu--open .mobile-menu__backdrop {
+		/* Fade in */
 		opacity: 1;
+		transition: opacity 0.25s ease-out;
 	}
 
 	.mobile-menu__content {
@@ -216,13 +220,14 @@
 		max-height: calc(100dvh - 160px);
 		overflow-y: auto;
 		transform-origin: top center;
-		/* Animation */
+		/* Animation - fade out + scale down */
 		opacity: 0;
-		transform: scale(0.9);
+		transform: scale(0.95);
 		transition: opacity 0.2s ease-out, transform 0.2s ease-out;
 	}
 
 	.mobile-menu--open .mobile-menu__content {
+		/* Fade in + scale up with bounce */
 		opacity: 1;
 		transform: scale(1);
 		transition: opacity 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),

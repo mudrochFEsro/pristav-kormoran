@@ -31,8 +31,13 @@
 		article
 	}: Props = $props();
 
-	const currentUrl = $derived($page.url.href);
-	const canonicalUrl = $derived(currentUrl.replace(/\/$/, ''));
+	// Build canonical URL with proper domain
+	const canonicalUrl = $derived(() => {
+		const path = $page.url.pathname;
+		// Ensure trailing slash for all pages
+		const normalizedPath = path.endsWith('/') ? path : `${path}/`;
+		return `${siteConfig.url}${normalizedPath}`;
+	});
 
 	// Full title with site name
 	const fullTitle = $derived(
@@ -205,8 +210,8 @@
 	const webPageSchema = $derived({
 		'@context': 'https://schema.org',
 		'@type': type === 'article' ? 'Article' : 'WebPage',
-		'@id': `${canonicalUrl}/#webpage`,
-		url: canonicalUrl,
+		'@id': `${canonicalUrl()}/#webpage`,
+		url: canonicalUrl(),
 		name: fullTitle,
 		description: description,
 		inLanguage: lang,
@@ -230,7 +235,7 @@
 	const faqSchema = $derived(includeFaq ? {
 		'@context': 'https://schema.org',
 		'@type': 'FAQPage',
-		'@id': `${canonicalUrl}/#faq`,
+		'@id': `${canonicalUrl()}/#faq`,
 		mainEntity: faq[lang].map((item) => ({
 			'@type': 'Question',
 			name: item.question,
@@ -245,7 +250,7 @@
 	const howToSchema = $derived(includeHowTo ? {
 		'@context': 'https://schema.org',
 		'@type': 'HowTo',
-		'@id': `${canonicalUrl}/#howto`,
+		'@id': `${canonicalUrl()}/#howto`,
 		name: howToBookBoatTrip[lang].name,
 		description: howToBookBoatTrip[lang].description,
 		step: howToBookBoatTrip[lang].steps.map((step, index) => ({
@@ -271,19 +276,19 @@
 	const breadcrumbSchema = $derived({
 		'@context': 'https://schema.org',
 		'@type': 'BreadcrumbList',
-		'@id': `${canonicalUrl}/#breadcrumb`,
+		'@id': `${canonicalUrl()}/#breadcrumb`,
 		itemListElement: [
 			{
 				'@type': 'ListItem',
 				position: 1,
 				name: 'Domov',
-				item: siteConfig.url
+				item: `${siteConfig.url}/`
 			},
 			{
 				'@type': 'ListItem',
 				position: 2,
 				name: title,
-				item: canonicalUrl
+				item: canonicalUrl()
 			}
 		]
 	});
@@ -318,7 +323,7 @@
 	{/if}
 
 	<!-- Canonical & Language Alternates -->
-	<link rel="canonical" href={canonicalUrl} />
+	<link rel="canonical" href={canonicalUrl()} />
 	<link rel="alternate" hreflang="sk" href={alts.sk} />
 	<link rel="alternate" hreflang="en" href={alts.en} />
 	<link rel="alternate" hreflang="ru" href={alts.ru} />
@@ -326,7 +331,7 @@
 
 	<!-- Open Graph / Facebook -->
 	<meta property="og:type" content={type === 'article' ? 'article' : 'website'} />
-	<meta property="og:url" content={canonicalUrl} />
+	<meta property="og:url" content={canonicalUrl()} />
 	<meta property="og:title" content={fullTitle} />
 	<meta property="og:description" content={description} />
 	<meta property="og:image" content="{siteConfig.url}{image}" />
@@ -349,7 +354,7 @@
 
 	<!-- Twitter -->
 	<meta name="twitter:card" content="summary_large_image" />
-	<meta name="twitter:url" content={canonicalUrl} />
+	<meta name="twitter:url" content={canonicalUrl()} />
 	<meta name="twitter:title" content={fullTitle} />
 	<meta name="twitter:description" content={description} />
 	<meta name="twitter:image" content="{siteConfig.url}{image}" />

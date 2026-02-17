@@ -6,13 +6,13 @@
 export const siteConfig = {
 	// Basic site info
 	name: 'Prístav Kormorán',
-	legalName: 'Prístav Kormorán s.r.o.',
-	url: 'https://pristavkormoran.sk',
+	legalName: 'BROSS for PARTNERS, a.s.',
+	url: 'http://pristavkormoran.sk',
 
 	// Contact info
-	email: 'info@pristavkormoran.sk',
-	phone: '+421903614663',
-	phoneFormatted: '+421 903 614 663',
+	email: 'pristav@brossforpartners.sk',
+	phone: '+421903727168',
+	phoneFormatted: '+421 903 727 168',
 
 	// Social media
 	social: {
@@ -21,12 +21,12 @@ export const siteConfig = {
 	},
 
 	// Business registration (Slovakia)
-	ico: '46 141 103',
-	dic: '2023259314',
-	icdph: 'SK2023259314',
+	ico: '35 853 603',
+	dic: '2021727004',
+	icdph: 'SK2021727004',
 
-	// Default OG image
-	defaultImage: '/images/og-image.jpg',
+	// Default OG image (1200x630 recommended for social sharing)
+	defaultImage: '/images/static-main.jpg',
 	logo: '/images/logo-pristav.svg',
 
 	// Founding date
@@ -358,9 +358,10 @@ export const speakableSelectors = [
 	'.static-text p:first-of-type'
 ];
 
-// Keywords per language
+// Keywords per language (includes common misspellings for better search coverage)
 export const keywords = {
 	sk: [
+		// Hlavné kľúčové slová
 		'prístav Dunaj',
 		'prístavisko Bratislava',
 		'výlety loďou Slovensko',
@@ -372,9 +373,32 @@ export const keywords = {
 		'firemné eventy loď',
 		'svadba na lodi',
 		'teambuilding Bratislava',
-		'vodné dielo Gabčíkovo'
+		'vodné dielo Gabčíkovo',
+		// Skomoleniny a varianty názvu (s/bez diakritiky, preklepy)
+		'Prístav Kormorán',
+		'pristav kormoran',
+		'pristavkormoran',
+		'prístav kormorán',
+		'pristav kormorán',
+		'prístav kormoran',
+		'Pristav Kormoran',
+		'kormoran pristav',
+		'kormorán prístav',
+		'pristav komorán',
+		'pristav kormoram',
+		'pristaw kormoran',
+		'pristan kormoran',
+		'prístavkormorán',
+		'pristav kormoran cilistov',
+		'pristav kormoran bratislava',
+		'pristav kormoran sturovo',
+		'pristav kormoran šamorín',
+		'pristav kormoran samarin',
+		'marina kormoran',
+		'port kormoran'
 	],
 	en: [
+		// Main keywords
 		'Danube port Slovakia',
 		'boat trips Bratislava',
 		'river cruise Slovakia',
@@ -383,9 +407,25 @@ export const keywords = {
 		'Danube river tours',
 		'corporate events boat',
 		'wedding on boat Slovakia',
-		'Gabčíkovo dam tours'
+		'Gabčíkovo dam tours',
+		// Name variants and misspellings
+		'Kormoran Port',
+		'kormoran port',
+		'port kormoran',
+		'kormoran marina',
+		'marina kormoran',
+		'kormoran harbour',
+		'harbour kormoran',
+		'kormoran dock',
+		'pristav kormoran',
+		'pristav kormoran slovakia',
+		'kormoran port bratislava',
+		'kormoran port danube',
+		'cormorant port',
+		'kormorant port'
 	],
 	ru: [
+		// Основные ключевые слова
 		'порт Дунай Словакия',
 		'прогулки на лодке Братислава',
 		'речные круизы Словакия',
@@ -393,6 +433,19 @@ export const keywords = {
 		'марина Словакия',
 		'туры по Дунаю',
 		'мероприятия на корабле',
-		'свадьба на корабле Словакия'
+		'свадьба на корабле Словакия',
+		// Варианты названия и транслитерации
+		'Порт Корморан',
+		'порт корморан',
+		'пристань корморан',
+		'корморан порт',
+		'марина корморан',
+		'пристав корморан',
+		'pristav kormoran',
+		'port kormoran',
+		'корморан братислава',
+		'корморан дунай',
+		'баклан порт',
+		'порт баклан'
 	]
 };
