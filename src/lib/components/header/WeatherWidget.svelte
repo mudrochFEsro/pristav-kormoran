@@ -147,9 +147,19 @@
 </script>
 
 <div class="weather-bar" role="region" aria-label="Weather information">
-	<div class="weather-bar__container">
+	<!-- Live region for screen readers -->
+	<div class="sr-only" role="status" aria-live="polite" aria-atomic="true">
 		{#if isLoading}
-			<div class="weather-bar__loading">
+			{lang === 'sk' ? 'Načítava sa počasie...' : lang === 'ru' ? 'Загрузка погоды...' : 'Loading weather...'}
+		{:else if error}
+			{lang === 'sk' ? 'Nepodarilo sa načítať počasie' : lang === 'ru' ? 'Не удалось загрузить погоду' : 'Failed to load weather'}
+		{:else if weatherData.length > 0}
+			{lang === 'sk' ? 'Počasie načítané' : lang === 'ru' ? 'Погода загружена' : 'Weather loaded'}
+		{/if}
+	</div>
+	<div class="weather-bar__container" aria-busy={isLoading}>
+		{#if isLoading}
+			<div class="weather-bar__loading" aria-hidden="true">
 				<div class="weather-bar__skeleton">
 					{#each [0, 1, 2] as i (i)}
 						<div class="weather-bar__skeleton-item">
@@ -163,7 +173,7 @@
 				</div>
 			</div>
 		{:else if error}
-			<div class="weather-bar__error">{error}</div>
+			<div class="weather-bar__error" role="alert">{error}</div>
 		{:else}
 			{#each weatherData as data (data.city.name)}
 				<div class="weather-bar__location">

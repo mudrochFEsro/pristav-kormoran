@@ -7,9 +7,10 @@
 		lang: LanguageCode;
 		isMobileMenuOpen?: boolean;
 		onToggleMobileMenu?: () => void;
+		triggerRef?: HTMLButtonElement | null;
 	}
 
-	let { lang, isMobileMenuOpen = false, onToggleMobileMenu }: Props = $props();
+	let { lang, isMobileMenuOpen = false, onToggleMobileMenu, triggerRef = $bindable(null) }: Props = $props();
 
 	const translations = $derived(t(lang));
 	const routes = $derived(getNavRoutes(lang));
@@ -75,14 +76,16 @@
 			class:nav__toggle--active={isMobileMenuOpen}
 			aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
 			aria-expanded={isMobileMenuOpen}
+			aria-controls="mobile-menu"
 			onclick={toggleMobileMenu}
+			bind:this={triggerRef}
 		>
 			<span></span>
 		</button>
 
 		<!-- Logo - first on left -->
 		<a href={resolve(routes.home)} class="nav__logo" aria-label="Homepage">
-			<img src="/images/logo-pristav.svg" alt="Prístav Kormorán" width="90" height="90" />
+			<img src="/images/logo-pristav.svg" alt="Prístav Kormorán" width="90" height="90" fetchpriority="high" />
 		</a>
 
 		<!-- Navigation items -->
@@ -168,8 +171,15 @@
 		transition: transform 0.3s var(--ease-out-expo);
 	}
 
-	.nav__logo:hover img {
+	.nav__logo:hover img,
+	.nav__logo:focus-visible img {
 		transform: scale(1.05);
+	}
+
+	.nav__logo:focus-visible {
+		outline: 2px solid var(--color-primary);
+		outline-offset: 4px;
+		border-radius: var(--radius-md);
 	}
 
 	/* Navigation links */
@@ -218,8 +228,17 @@
 		transform: translateX(-50%) scaleX(1);
 	}
 
-	.nav__link:hover {
+	.nav__link:hover,
+	.nav__link:focus-visible {
 		color: var(--color-text-dark);
+	}
+
+	.nav__link:focus-visible::after {
+		transform: translateX(-50%) scaleX(1);
+	}
+
+	.nav__link:focus-visible .nav__icon {
+		transform: translateY(-3px);
 	}
 
 	.nav__link--active {
@@ -267,6 +286,12 @@
 
 	.nav__toggle:hover {
 		background-color: var(--color-border-light);
+	}
+
+	.nav__toggle:focus-visible {
+		background-color: var(--color-border-light);
+		outline: 2px solid var(--color-primary);
+		outline-offset: 2px;
 	}
 
 	.nav__toggle span {

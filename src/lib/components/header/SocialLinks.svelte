@@ -1,4 +1,12 @@
 <script lang="ts">
+	import type { LanguageCode } from '$lib/i18n';
+
+	interface Props {
+		lang?: LanguageCode;
+	}
+
+	let { lang = 'sk' }: Props = $props();
+
 	interface SocialLink {
 		name: string;
 		href: string;
@@ -20,6 +28,13 @@
 			bgColor: '' // Uses gradient
 		}
 	];
+
+	// External link text for screen readers
+	const externalLinkText = $derived(
+		lang === 'sk' ? 'otvorí sa v novom okne' :
+		lang === 'ru' ? 'откроется в новом окне' :
+		'opens in new window'
+	);
 </script>
 
 <ul class="social-icons" role="list" aria-label="Social media">
@@ -31,7 +46,7 @@
 				rel="noopener noreferrer"
 				class="social-icons__link social-icons__link--{link.icon}"
 				style={link.bgColor ? `background-color: ${link.bgColor}` : ''}
-				aria-label={link.name}
+				aria-label="{link.name} ({externalLinkText})"
 				title={link.name}
 			>
 				{#if link.icon === 'facebook'}
@@ -63,13 +78,20 @@
 		justify-content: center;
 		width: 28px;
 		height: 28px;
+		min-height: auto;
 		color: var(--color-white);
 		border-radius: var(--radius-md);
 		transition: all 0.3s var(--ease-out-expo);
 	}
 
-	.social-icons__link:hover {
+	.social-icons__link:hover,
+	.social-icons__link:focus-visible {
 		transform: translateY(-2px) scale(1.1);
+	}
+
+	.social-icons__link:focus-visible {
+		outline: none;
+		box-shadow: 0 0 0 2px var(--color-primary), 0 0 0 4px var(--color-white);
 	}
 
 	.social-icons__link:active {

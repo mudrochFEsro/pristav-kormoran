@@ -1,5 +1,5 @@
 # Robots.txt for Prístav Kormorán
-# https://pristavkormoran.sk
+# https://www.pristavkormoran.sk
 
 User-agent: *
 Allow: /
@@ -12,7 +12,7 @@ Disallow: /_app/
 Crawl-delay: 1
 
 # Sitemap location
-Sitemap: https://pristavkormoran.sk/sitemap.xml
+Sitemap: https://www.pristavkormoran.sk/sitemap.xml
 
 # Google specific
 User-agent: Googlebot

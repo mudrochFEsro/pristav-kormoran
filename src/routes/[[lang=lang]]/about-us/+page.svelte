@@ -35,5 +35,5 @@
 		{translations.about.corporateEventsText} {translations.common.moreInfo}
 		<a href="mailto:pristav@brossforpartners.sk">pristav@brossforpartners.sk</a>.
 	</p>
-	<p><img src="/images/teambuild.png" alt="Teambuilding" /></p>
+	<p><img src="/images/teambuild.png" alt="Teambuilding" loading="lazy" decoding="async" /></p>
 </div>

@@ -29,8 +29,8 @@
 	<p><strong>{translations.region.zitnyOstrov}</strong></p>
 	<p>{translations.region.zitnyOstrovText}</p>
 	<p>
-		<img src="/images/kormoran-cilistov-i-a-ii-kopia.jpg" alt="Kormorán Čilistov" />
+		<img src="/images/kormoran-cilistov-i-a-ii-kopia.jpg" alt="Kormorán Čilistov" loading="lazy" decoding="async" />
 	</p>
 	<p><strong>{translations.region.cyclePath}</strong></p>
-	<p><img src="/images/cyklotrasa.png" alt={translations.region.cyclePath} /></p>
+	<p><img src="/images/cyklotrasa.png" alt={translations.region.cyclePath} loading="lazy" decoding="async" /></p>
 </div>

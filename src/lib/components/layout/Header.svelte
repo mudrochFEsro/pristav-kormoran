@@ -13,7 +13,7 @@
 <header id="header" class="header-static">
 	<div class="header-top">
 		<div class="wrapper">
-			<SocialLinks />
+			<SocialLinks {lang} />
 			<LanguageSelector currentLang={lang} />
 		</div>
 	</div>

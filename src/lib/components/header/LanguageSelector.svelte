@@ -71,6 +71,7 @@
 	.lang-switcher__link {
 		display: block;
 		padding: 4px 10px;
+		min-height: auto;
 		color: rgba(255, 255, 255, 0.75);
 		font-size: 12px;
 		font-weight: 500;
@@ -80,9 +81,15 @@
 		transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 	}
 
-	.lang-switcher__link:hover {
+	.lang-switcher__link:hover,
+	.lang-switcher__link:focus-visible {
 		color: var(--color-white);
 		background: rgba(255, 255, 255, 0.15);
+	}
+
+	.lang-switcher__link:focus-visible {
+		outline: 2px solid var(--color-white);
+		outline-offset: 1px;
 	}
 
 	.lang-switcher__link--active {

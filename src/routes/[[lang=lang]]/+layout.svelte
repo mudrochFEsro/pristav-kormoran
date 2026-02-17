@@ -17,15 +17,26 @@
 	let { children, data }: Props = $props();
 
 	// Zoom limiter - prevent extreme zoom levels that break vw/vh layouts
+	// Optimized: Only attach non-passive listener when Ctrl is pressed
 	const MIN_ZOOM = 0.5; // 50%
 	const MAX_ZOOM = 2.0; // 200%
 
 	$effect(() => {
 		if (!browser) return;
 
+		let isCtrlPressed = false;
+
+		function handleKeyDown(e: KeyboardEvent) {
+			if (e.key === 'Control') isCtrlPressed = true;
+		}
+
+		function handleKeyUp(e: KeyboardEvent) {
+			if (e.key === 'Control') isCtrlPressed = false;
+		}
+
 		function handleWheel(e: WheelEvent) {
 			// Only handle Ctrl+wheel (zoom gesture)
-			if (!e.ctrlKey) return;
+			if (!isCtrlPressed && !e.ctrlKey) return;
 
 			// Get current zoom level from visual viewport or fallback
 			const currentZoom = window.visualViewport?.scale ?? 1;
@@ -36,16 +47,22 @@
 			}
 		}
 
-		// Use passive: false to allow preventDefault
+		// Track Ctrl key state
+		window.addEventListener('keydown', handleKeyDown, { passive: true });
+		window.addEventListener('keyup', handleKeyUp, { passive: true });
+		// Use passive: false only when needed for preventDefault
 		window.addEventListener('wheel', handleWheel, { passive: false });
 
 		return () => {
+			window.removeEventListener('keydown', handleKeyDown);
+			window.removeEventListener('keyup', handleKeyUp);
 			window.removeEventListener('wheel', handleWheel);
 		};
 	});
 
 	// Mobile menu state - managed at layout level to render outside view-transition wrappers
 	let isMobileMenuOpen = $state(false);
+	let hamburgerTriggerRef = $state<HTMLButtonElement | null>(null);
 
 	function toggleMobileMenu() {
 		isMobileMenuOpen = !isMobileMenuOpen;
@@ -116,7 +133,7 @@
 </script>
 
 <!-- Mobile menu rendered outside view-transition wrappers for position: fixed to work -->
-<MobileMenu lang={data.lang} isOpen={isMobileMenuOpen} onClose={closeMobileMenu} />
+<MobileMenu lang={data.lang} isOpen={isMobileMenuOpen} onClose={closeMobileMenu} triggerElement={hamburgerTriggerRef} />
 
 <a href="#main-content" class="skip-link">
 	{data.lang === 'sk' ? 'Preskočiť na obsah' : data.lang === 'ru' ? 'Перейти к содержанию' : 'Skip to content'}
@@ -129,9 +146,9 @@
 	<!-- Sticky header + nav -->
 	<div class="layout-sticky">
 		<Header lang={data.lang} />
-		<MainNav lang={data.lang} {isMobileMenuOpen} onToggleMobileMenu={toggleMobileMenu} />
+		<MainNav lang={data.lang} {isMobileMenuOpen} onToggleMobileMenu={toggleMobileMenu} bind:triggerRef={hamburgerTriggerRef} />
 	</div>
-	<main id="main-content" class="main-content" tabindex="-1">
+	<main id="main-content" class="main-content" tabindex="-1" aria-label={data.lang === 'sk' ? 'Hlavný obsah' : data.lang === 'ru' ? 'Основное содержимое' : 'Main content'}>
 		<div class="container page-content">
 			{@render children()}
 		</div>

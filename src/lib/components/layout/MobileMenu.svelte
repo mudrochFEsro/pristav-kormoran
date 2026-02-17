@@ -7,9 +7,10 @@
 		lang: LanguageCode;
 		isOpen: boolean;
 		onClose: () => void;
+		triggerElement?: HTMLElement | null;
 	}
 
-	let { lang, isOpen, onClose }: Props = $props();
+	let { lang, isOpen, onClose, triggerElement = null }: Props = $props();
 
 	const translations = $derived(t(lang));
 	const routes = $derived(getNavRoutes(lang));
@@ -60,11 +61,21 @@
 		}
 	}
 
-	// Auto-focus first link when menu opens
+	// Track previous open state for focus restoration
+	let wasOpen = $state(false);
+
+	// Auto-focus first link when menu opens, restore focus when closes
 	$effect(() => {
 		if (isOpen && menuNav) {
 			const firstLink = menuNav.querySelector<HTMLElement>('a[href]');
 			setTimeout(() => firstLink?.focus(), 100);
+			wasOpen = true;
+		} else if (!isOpen && wasOpen) {
+			// Menu just closed - restore focus to trigger
+			if (triggerElement) {
+				setTimeout(() => triggerElement?.focus(), 50);
+			}
+			wasOpen = false;
 		}
 	});
 </script>
@@ -73,6 +84,7 @@
 
 <!-- Always render, use CSS for show/hide with animations -->
 <div
+	id="mobile-menu"
 	class="mobile-menu"
 	class:mobile-menu--open={isOpen}
 	role="dialog"
@@ -258,8 +270,15 @@
 	}
 
 	.mobile-menu__link:hover,
+	.mobile-menu__link:focus-visible,
 	.mobile-menu__link--active {
 		color: var(--color-primary);
+	}
+
+	.mobile-menu__link:focus-visible {
+		outline: 2px solid var(--color-primary);
+		outline-offset: 2px;
+		border-radius: var(--radius-sm);
 	}
 
 	.mobile-menu__link :global([class^='icon-']),
