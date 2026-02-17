@@ -93,18 +93,27 @@
 			document.body.style.overflow = '';
 		};
 	});
+
+	// Handle escape key
+	function handleKeydown(event: KeyboardEvent) {
+		if (event.key === 'Escape' && mobileMenuOpen) {
+			mobileMenuOpen = false;
+		}
+	}
 </script>
+
+<svelte:window onkeydown={handleKeydown} />
 
 <!-- Desktop Navigation -->
 <nav
 	class={cn(
-		'fixed inset-x-0 top-4 z-50 mx-auto hidden max-w-fit items-center justify-center space-x-4 rounded-full border border-gray-200/50 bg-white/90 px-8 py-4 shadow-lg backdrop-blur-md transition-all duration-300 md:flex',
+		'fixed inset-x-0 top-4 z-50 mx-auto hidden max-w-fit items-center justify-center space-x-6 rounded-xl border border-gray-200 bg-white px-8 py-3 shadow-lg transition-all duration-300 md:flex',
 		visible ? 'translate-y-0 opacity-100' : '-translate-y-24 opacity-0',
 		className
 	)}
 >
 	{#if logo}
-		<div class="mr-4">
+		<div class="mr-6">
 			{@render logo()}
 		</div>
 	{/if}
@@ -113,12 +122,15 @@
 		<a
 			href={item.link}
 			class={cn(
-				'relative flex items-center space-x-1 text-sm transition-colors',
-				isActive(item.link) ? 'font-semibold text-orange-500' : 'text-gray-600 hover:text-orange-500'
+				'relative flex items-center text-sm font-medium transition-colors',
+				isActive(item.link) ? 'text-orange-500' : 'text-gray-600 hover:text-orange-500'
 			)}
 			aria-current={isActive(item.link) ? 'page' : undefined}
 		>
 			<span>{item.name}</span>
+			{#if isActive(item.link)}
+				<span class="absolute -bottom-3 left-0 right-0 h-0.5 bg-orange-500"></span>
+			{/if}
 		</a>
 	{/each}
 </nav>
@@ -126,7 +138,7 @@
 <!-- Mobile Navigation Bar -->
 <nav
 	class={cn(
-		'fixed inset-x-4 top-4 z-50 flex items-center justify-between rounded-full border border-gray-200/50 bg-white/95 px-4 py-3 shadow-lg backdrop-blur-md transition-all duration-300 md:hidden',
+		'fixed inset-x-4 top-4 z-50 flex items-center justify-between rounded-xl border border-gray-200 bg-white px-4 py-3 shadow-lg transition-all duration-300 md:hidden',
 		visible ? 'translate-y-0 opacity-100' : '-translate-y-24 opacity-0',
 		className
 	)}
@@ -139,7 +151,7 @@
 
 	<button
 		onclick={() => mobileMenuOpen = !mobileMenuOpen}
-		class="flex h-10 w-10 items-center justify-center rounded-full bg-orange-50 text-orange-500 transition-colors hover:bg-orange-100"
+		class="flex h-10 w-10 items-center justify-center rounded-lg border border-gray-200 bg-white text-gray-600 transition-colors hover:border-orange-400 hover:text-orange-500"
 		aria-label={mobileMenuOpen ? 'Zavrieť menu' : 'Otvoriť menu'}
 		aria-expanded={mobileMenuOpen}
 	>
@@ -156,57 +168,143 @@
 </nav>
 
 <!-- Mobile Menu Overlay -->
-{#if mobileMenuOpen}
-	<div class="fixed inset-0 z-40 md:hidden">
-		<!-- Backdrop -->
-		<button
-			class="absolute inset-0 bg-black/50 backdrop-blur-sm"
-			onclick={() => mobileMenuOpen = false}
-			aria-label="Zavrieť menu"
-		></button>
+<div
+	class="mobile-overlay"
+	class:mobile-overlay--open={mobileMenuOpen}
+	role="dialog"
+	aria-modal="true"
+	aria-label="Navigation menu"
+	aria-hidden={!mobileMenuOpen}
+	inert={!mobileMenuOpen}
+>
+	<!-- Backdrop -->
+	<button
+		class="mobile-overlay__backdrop"
+		onclick={() => mobileMenuOpen = false}
+		aria-label="Zavrieť menu"
+	></button>
 
-		<!-- Menu Panel -->
-		<div class="absolute inset-x-4 top-[103px] max-h-[calc(100dvh-115px)] overflow-y-auto rounded-2xl border border-gray-200/50 bg-white p-5 shadow-xl">
-			<div class="flex flex-col space-y-1">
-				{#each navItems as item (item.link)}
-					<a
-						href={item.link}
-						class={cn(
-							'flex items-center rounded-xl px-4 py-3 text-lg font-medium transition-all',
-							isActive(item.link)
-								? 'bg-orange-50 text-orange-500'
-								: 'text-gray-700 hover:bg-orange-50 hover:text-orange-500'
-						)}
-						onclick={() => mobileMenuOpen = false}
-						aria-current={isActive(item.link) ? 'page' : undefined}
-					>
-						{item.name}
-					</a>
-				{/each}
-			</div>
-
-			{#if languages && languages.length > 0}
-				<div class="mt-6 border-t border-gray-100 pt-4">
-					<div class="flex items-center justify-center gap-3">
-						{#each languages as lang (lang.code)}
-							<a
-								href={lang.href}
-								class="flex h-10 w-10 items-center justify-center rounded-full border text-sm font-medium transition-all"
-								class:active-lang={lang.active}
-								class:inactive-lang={!lang.active}
-								onclick={() => mobileMenuOpen = false}
-							>
-								{lang.label}
-							</a>
-						{/each}
-					</div>
-				</div>
-			{/if}
+	<!-- Menu Panel -->
+	<div class="mobile-overlay__panel">
+		<div class="flex flex-col">
+			{#each navItems as item (item.link)}
+				<a
+					href={item.link}
+					class={cn(
+						'flex items-center border-b border-gray-100 px-4 py-4 text-base font-medium transition-all last:border-b-0',
+						isActive(item.link)
+							? 'text-orange-500'
+							: 'text-gray-700 hover:text-orange-500'
+					)}
+					onclick={() => mobileMenuOpen = false}
+					aria-current={isActive(item.link) ? 'page' : undefined}
+				>
+					{item.name}
+				</a>
+			{/each}
 		</div>
+
+		{#if languages && languages.length > 0}
+			<div class="mt-4 border-t border-gray-200 pt-4">
+				<div class="flex items-center justify-center gap-3">
+					{#each languages as lang (lang.code)}
+						<a
+							href={lang.href}
+							class="flex h-10 w-10 items-center justify-center rounded-lg border text-sm font-semibold transition-all"
+							class:active-lang={lang.active}
+							class:inactive-lang={!lang.active}
+							onclick={() => mobileMenuOpen = false}
+						>
+							{lang.label}
+						</a>
+					{/each}
+				</div>
+			</div>
+		{/if}
 	</div>
-{/if}
+</div>
 
 <style>
+	/* Mobile overlay - fullscreen */
+	.mobile-overlay {
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		z-index: 100;
+		visibility: hidden;
+		pointer-events: none;
+		transition: visibility 0s linear 0.25s;
+	}
+
+	.mobile-overlay--open {
+		visibility: visible;
+		pointer-events: auto;
+		transition: visibility 0s linear 0s;
+	}
+
+	/* Backdrop */
+	.mobile-overlay__backdrop {
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background: rgba(0, 0, 0, 0.6);
+		backdrop-filter: blur(4px);
+		-webkit-backdrop-filter: blur(4px);
+		border: none;
+		cursor: pointer;
+		opacity: 0;
+		transition: opacity 0.2s ease-out;
+	}
+
+	.mobile-overlay--open .mobile-overlay__backdrop {
+		opacity: 1;
+		transition: opacity 0.25s ease-out;
+	}
+
+	/* Menu panel */
+	.mobile-overlay__panel {
+		position: absolute;
+		top: 80px;
+		left: 16px;
+		right: 16px;
+		max-height: calc(100dvh - 100px);
+		overflow-y: auto;
+		background: white;
+		border-radius: 12px;
+		border: 1px solid #e5e7eb;
+		padding: 8px;
+		box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+		transform-origin: top center;
+		opacity: 0;
+		transform: scale(0.95) translateY(-10px);
+		transition: opacity 0.2s ease-out, transform 0.2s ease-out;
+	}
+
+	.mobile-overlay--open .mobile-overlay__panel {
+		opacity: 1;
+		transform: scale(1) translateY(0);
+		transition: opacity 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+		            transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+	}
+
+	/* Hide on desktop */
+	@media (min-width: 768px) {
+		.mobile-overlay {
+			display: none;
+		}
+	}
+
+	/* Fallback for browsers without dvh support */
+	@supports not (max-height: 100dvh) {
+		.mobile-overlay__panel {
+			max-height: calc(100vh - 100px);
+		}
+	}
+
 	.active-lang {
 		background-color: rgb(255 237 213);
 		border-color: rgb(249 115 22);
@@ -221,5 +319,13 @@
 	.inactive-lang:hover {
 		border-color: rgb(249 115 22);
 		color: rgb(249 115 22);
+	}
+
+	/* Reduced motion */
+	@media (prefers-reduced-motion: reduce) {
+		.mobile-overlay__backdrop,
+		.mobile-overlay__panel {
+			transition: none;
+		}
 	}
 </style>

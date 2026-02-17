@@ -39,7 +39,7 @@
 
 <div
 	class={cn(
-		'scroller relative z-20 max-w-7xl overflow-hidden [mask-image:linear-gradient(to_right,transparent,white_10%,white_90%,transparent)]',
+		'scroller relative z-20 max-w-7xl overflow-hidden [mask-image:linear-gradient(to_right,transparent,white_5%,white_95%,transparent)]',
 		className
 	)}
 >
@@ -52,46 +52,48 @@
 		"
 	>
 		{#each duplicatedItems as item, i (i)}
-			<li class="relative w-[280px] shrink-0 sm:w-[320px] md:w-[360px] lg:w-[400px]">
+			<li class="relative w-[260px] shrink-0 sm:w-[300px] md:w-[340px] lg:w-[380px]">
 				{#if item.link}
 					<a href={item.link} class="group block">
-						<div class="relative overflow-hidden rounded-2xl border border-orange-100 bg-white shadow-lg transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-orange-500/10 lg:rounded-3xl">
-							<div class="relative h-40 w-full overflow-hidden sm:h-44 md:h-48 lg:h-52">
+						<div class="relative overflow-hidden rounded-xl border border-gray-200 bg-white shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl lg:rounded-2xl">
+							<div class="relative h-36 w-full overflow-hidden sm:h-40 md:h-44 lg:h-48">
 								<img
 									src={item.image}
 									alt={item.title}
-									class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+									class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
 								/>
-								<div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
+								<div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
+								<!-- Title overlay on image -->
+								<div class="absolute inset-x-0 bottom-0 p-4">
+									<h3 class="text-lg font-bold text-white drop-shadow-md sm:text-xl">
+										{item.title}
+									</h3>
+									{#if item.description}
+										<p class="text-sm text-white/80">{item.description}</p>
+									{/if}
+								</div>
 							</div>
-							<div class="p-5 sm:p-6">
-								<h3 class="text-lg font-bold text-gray-900 transition-colors group-hover:text-orange-600 sm:text-xl">
-									{item.title}
-								</h3>
-								{#if item.description}
-									<p class="mt-2 text-sm text-gray-500 sm:text-base">{item.description}</p>
-								{/if}
-							</div>
-							<!-- Orange accent on hover -->
-							<div class="absolute inset-x-0 bottom-0 h-1 bg-gradient-to-r from-orange-400 to-amber-400 opacity-0 transition-opacity group-hover:opacity-100"></div>
+							<!-- Orange accent bar -->
+							<div class="h-1 w-full bg-orange-500"></div>
 						</div>
 					</a>
 				{:else}
-					<div class="relative overflow-hidden rounded-2xl border border-orange-100 bg-white shadow-lg lg:rounded-3xl">
-						<div class="relative h-40 w-full overflow-hidden sm:h-44 md:h-48 lg:h-52">
+					<div class="relative overflow-hidden rounded-xl border border-gray-200 bg-white shadow-md lg:rounded-2xl">
+						<div class="relative h-36 w-full overflow-hidden sm:h-40 md:h-44 lg:h-48">
 							<img
 								src={item.image}
 								alt={item.title}
 								class="h-full w-full object-cover"
 							/>
-							<div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
+							<div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
+							<div class="absolute inset-x-0 bottom-0 p-4">
+								<h3 class="text-lg font-bold text-white drop-shadow-md sm:text-xl">{item.title}</h3>
+								{#if item.description}
+									<p class="text-sm text-white/80">{item.description}</p>
+								{/if}
+							</div>
 						</div>
-						<div class="p-5 sm:p-6">
-							<h3 class="text-lg font-bold text-gray-900 sm:text-xl">{item.title}</h3>
-							{#if item.description}
-								<p class="mt-2 text-sm text-gray-500 sm:text-base">{item.description}</p>
-							{/if}
-						</div>
+						<div class="h-1 w-full bg-orange-500"></div>
 					</div>
 				{/if}
 			</li>

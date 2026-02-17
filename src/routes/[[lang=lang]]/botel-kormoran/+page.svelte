@@ -1,8 +1,7 @@
 <script lang="ts">
 	import type { PageData } from './$types';
-	import { t } from '$lib/i18n';
+	import { t, getNavRoutes } from '$lib/i18n';
 	import { SEO } from '$lib/seo';
-	import { Sparkles } from '$lib/components/ui';
 
 	interface Props {
 		data: PageData;
@@ -11,6 +10,7 @@
 	let { data }: Props = $props();
 
 	const translations = $derived(t(data.lang));
+	const routes = $derived(getNavRoutes(data.lang));
 </script>
 
 <SEO
@@ -19,34 +19,39 @@
 	lang={data.lang}
 />
 
-<!-- Hero Section -->
-<section class="relative overflow-hidden bg-gradient-to-br from-orange-50 via-white to-amber-50 py-24">
-	<!-- Decorative blobs -->
-	<div class="absolute -left-40 -top-40 h-80 w-80 rounded-full bg-gradient-to-br from-orange-200/40 to-amber-200/40 blur-3xl"></div>
-	<div class="absolute -right-40 top-20 h-64 w-64 rounded-full bg-gradient-to-br from-orange-100/30 to-rose-100/30 blur-3xl"></div>
+<!-- Hero Section - Classic Style -->
+<section class="relative min-h-[40vh] overflow-hidden bg-slate-800 md:min-h-[50vh]">
+	<!-- Background Image -->
+	<div class="absolute inset-0">
+		<img
+			src="/images/botel-ubytovanie-restauracia1.jpg"
+			alt="Botel Kormorán"
+			class="h-full w-full object-cover opacity-40"
+		/>
+		<div class="absolute inset-0 bg-gradient-to-t from-slate-800 via-slate-800/80 to-slate-800/60"></div>
+	</div>
 
-	<div class="relative z-10 mx-auto max-w-7xl px-4 text-center">
-		<span class="mb-4 inline-block rounded-full bg-orange-100 px-4 py-2 text-sm font-medium text-orange-600">
-			{translations.nav.botel}
+	<!-- Content -->
+	<div class="relative z-10 flex min-h-[40vh] flex-col items-center justify-center px-5 py-20 text-center sm:px-6 md:min-h-[50vh] lg:px-8">
+		<span class="mb-4 inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-orange-400">
+			<span class="icon-life-wheel"></span>
+			<span>{translations.nav.botel}</span>
 		</span>
-		<h1 class="mb-6 bg-gradient-to-r from-orange-600 via-orange-500 to-amber-500 bg-clip-text text-5xl font-bold text-transparent md:text-6xl">
+		<h1 class="mb-4 text-4xl font-bold tracking-tight text-white sm:text-5xl md:text-6xl lg:text-7xl">
 			{translations.botel.title}
 		</h1>
-		<div class="mx-auto h-12 w-64">
-			<Sparkles particleColor="#f97316" particleDensity={30} className="h-full w-full" />
-		</div>
 	</div>
 </section>
 
 <!-- Content -->
-<section class="bg-white py-20">
-	<div class="mx-auto max-w-4xl px-4">
+<section class="bg-gray-50 py-16 md:py-20 lg:py-24">
+	<div class="mx-auto max-w-4xl px-5 sm:px-6 lg:px-8">
 		<!-- Description Card -->
-		<div class="mb-12 rounded-2xl border border-gray-100 bg-gradient-to-br from-white to-orange-50/30 p-8 shadow-lg md:p-12">
-			<div class="mb-4 flex h-14 w-14 items-center justify-center rounded-xl bg-gradient-to-br from-orange-100 to-amber-100">
-				<span class="text-2xl">🚢</span>
+		<div class="mb-10 rounded-xl border border-gray-200 bg-white p-6 shadow-md md:mb-12 md:p-8 lg:p-10">
+			<div class="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-orange-500 text-white shadow-md">
+				<span class="icon-ship" style="font-size: 22px;"></span>
 			</div>
-			<p class="text-lg leading-relaxed text-gray-600">
+			<p class="text-base leading-relaxed text-gray-600 md:text-lg">
 				{translations.botel.description}
 			</p>
 			<p class="mt-4 text-gray-600">
@@ -55,53 +60,70 @@
 		</div>
 
 		<!-- Gallery -->
-		<div class="grid gap-6 md:grid-cols-2">
-			<div class="group relative overflow-hidden rounded-2xl shadow-xl">
-				<div class="absolute -inset-4 rounded-3xl bg-gradient-to-r from-orange-500/10 to-amber-500/10 opacity-0 blur-2xl transition-opacity duration-500 group-hover:opacity-100"></div>
+		<div class="grid gap-5 sm:grid-cols-2 md:gap-6">
+			<div class="overflow-hidden rounded-xl shadow-xl">
 				<img
 					src="/images/botel-ubytovanie-restauracia1.jpg"
 					alt="Botel Restaurant"
-					class="relative w-full transition-transform duration-700 group-hover:scale-105"
+					class="w-full"
 					loading="lazy"
 				/>
 			</div>
-			<div class="group relative overflow-hidden rounded-2xl shadow-xl">
-				<div class="absolute -inset-4 rounded-3xl bg-gradient-to-r from-orange-500/10 to-amber-500/10 opacity-0 blur-2xl transition-opacity duration-500 group-hover:opacity-100"></div>
+			<div class="overflow-hidden rounded-xl shadow-xl">
 				<img
 					src="/images/sundeck-chillout-zona.jpg"
 					alt="Sundeck"
-					class="relative w-full transition-transform duration-700 group-hover:scale-105"
+					class="w-full"
 					loading="lazy"
 				/>
 			</div>
 		</div>
 
 		<!-- Room Types Card -->
-		<div class="mt-12 rounded-2xl border border-gray-100 bg-white p-8 shadow-lg md:p-12">
-			<div class="mb-4 flex h-14 w-14 items-center justify-center rounded-xl bg-gradient-to-br from-orange-100 to-amber-100">
-				<span class="text-2xl">🛏️</span>
+		<div class="mt-10 rounded-xl border border-gray-200 bg-white p-6 shadow-md md:mt-12 md:p-8 lg:p-10">
+			<div class="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-orange-500 text-white shadow-md">
+				<span class="icon-anchor" style="font-size: 22px;"></span>
 			</div>
-			<p class="mb-8 text-lg leading-relaxed text-gray-600">
+			<p class="mb-8 text-base leading-relaxed text-gray-600 md:text-lg">
 				{translations.botel.roomTypes}
 			</p>
-			<div class="grid gap-6 md:grid-cols-2">
-				<div class="group relative overflow-hidden rounded-xl shadow-lg">
+			<div class="grid gap-5 sm:grid-cols-2 md:gap-6">
+				<div class="overflow-hidden rounded-xl shadow-lg">
 					<img
 						src="/images/img3409.jpg"
 						alt="Room"
-						class="w-full transition-transform duration-500 group-hover:scale-105"
+						class="w-full"
 						loading="lazy"
 					/>
 				</div>
-				<div class="group relative overflow-hidden rounded-xl shadow-lg">
+				<div class="overflow-hidden rounded-xl shadow-lg">
 					<img
 						src="/images/img3416-1.jpg"
 						alt="Room interior"
-						class="w-full transition-transform duration-500 group-hover:scale-105"
+						class="w-full"
 						loading="lazy"
 					/>
 				</div>
 			</div>
 		</div>
+	</div>
+</section>
+
+<!-- CTA Section -->
+<section class="bg-white py-12 md:py-16 lg:py-20">
+	<div class="mx-auto max-w-4xl px-5 text-center sm:px-6 lg:px-8">
+		<h2 class="mb-4 text-2xl font-bold text-gray-900 sm:text-3xl md:mb-5">
+			{translations.home.ctaTitle}
+		</h2>
+		<p class="mx-auto mb-8 max-w-2xl text-base text-gray-600 md:text-lg">
+			{translations.home.ctaSubtitle}
+		</p>
+		<a
+			href={routes.contact}
+			class="inline-flex items-center justify-center gap-2.5 rounded-lg bg-orange-500 px-8 py-4 font-semibold text-white shadow-lg transition-all duration-300 hover:-translate-y-0.5 hover:bg-orange-600 hover:shadow-xl"
+		>
+			<span>{translations.home.contactUs}</span>
+			<span class="icon-mail"></span>
+		</a>
 	</div>
 </section>

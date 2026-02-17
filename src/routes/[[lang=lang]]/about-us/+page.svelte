@@ -1,8 +1,7 @@
 <script lang="ts">
 	import type { PageData } from './$types';
-	import { t } from '$lib/i18n';
+	import { t, getNavRoutes } from '$lib/i18n';
 	import { SEO } from '$lib/seo';
-	import { LampEffect, TextGenerateEffect, Sparkles } from '$lib/components/ui';
 
 	interface Props {
 		data: PageData;
@@ -11,6 +10,7 @@
 	let { data }: Props = $props();
 
 	const translations = $derived(t(data.lang));
+	const routes = $derived(getNavRoutes(data.lang));
 </script>
 
 <SEO
@@ -19,90 +19,110 @@
 	lang={data.lang}
 />
 
-<!-- Hero Section with Lamp Effect -->
-<LampEffect className="min-h-[60vh]">
-	<div class="text-center">
-		<span class="mb-4 inline-flex items-center gap-2 rounded-full border border-orange-500/30 bg-orange-500/10 px-4 py-2 text-sm font-medium text-orange-300">
-			<span>⚓</span>
+<!-- Hero Section - Classic Style with Image -->
+<section class="relative min-h-[50vh] overflow-hidden bg-slate-800 md:min-h-[60vh]">
+	<!-- Background Image -->
+	<div class="absolute inset-0">
+		<img
+			src="/images/teambuild.png"
+			alt="Prístav Kormorán"
+			class="h-full w-full object-cover opacity-40"
+		/>
+		<div class="absolute inset-0 bg-gradient-to-t from-slate-800 via-slate-800/80 to-slate-800/60"></div>
+	</div>
+
+	<!-- Content -->
+	<div class="relative z-10 flex min-h-[50vh] flex-col items-center justify-center px-5 py-24 text-center sm:px-6 md:min-h-[60vh] lg:px-8">
+		<span class="mb-4 inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-orange-400">
+			<span class="icon-wheel"></span>
 			<span>{translations.nav.about}</span>
 		</span>
-		<h1 class="mb-6 bg-gradient-to-r from-white via-orange-100 to-white bg-clip-text text-5xl font-bold tracking-tight text-transparent md:text-7xl">
+		<h1 class="mb-4 text-4xl font-bold tracking-tight text-white sm:text-5xl md:mb-6 md:text-6xl lg:text-7xl">
 			{translations.about.title}
 		</h1>
-		<div class="mx-auto max-w-xl">
-			<TextGenerateEffect
-				words={translations.about.introText?.slice(0, 120) + '...' || 'Since 1994 on Danube'}
-				className="text-gray-400 text-lg"
-				duration={0.06}
-			/>
-		</div>
-		<div class="mx-auto mt-8 h-8 w-48">
-			<Sparkles particleColor="#f97316" particleDensity={25} className="h-full w-full opacity-70" />
-		</div>
+		<p class="mx-auto max-w-2xl text-lg text-gray-300 md:text-xl">
+			{translations.about.introText?.slice(0, 150)}...
+		</p>
 	</div>
-</LampEffect>
+</section>
 
 <!-- Content Sections -->
-<section class="bg-white py-20">
-	<div class="mx-auto max-w-4xl px-4">
+<section class="bg-gray-50 py-16 md:py-20 lg:py-24">
+	<div class="mx-auto max-w-4xl px-5 sm:px-6 lg:px-8">
 		<!-- Intro -->
-		<div class="mb-16 rounded-2xl border border-gray-100 bg-gradient-to-br from-white to-orange-50/30 p-8 shadow-lg md:p-12">
-			<div class="mb-4 flex h-14 w-14 items-center justify-center rounded-xl bg-gradient-to-br from-orange-100 to-amber-100">
-				<span class="text-2xl text-orange-500">✦</span>
+		<div class="mb-10 rounded-xl border border-gray-200 bg-white p-6 shadow-md md:mb-12 md:p-8 lg:p-10">
+			<div class="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-orange-500 text-white shadow-md">
+				<span class="icon-anchor" style="font-size: 22px;"></span>
 			</div>
 			<h2 class="mb-4 text-2xl font-bold text-gray-900 md:text-3xl">
 				{translations.about.intro}
 			</h2>
-			<p class="text-lg leading-relaxed text-gray-600">
+			<p class="text-base leading-relaxed text-gray-600 md:text-lg">
 				{translations.about.introText}
 			</p>
 		</div>
 
 		<!-- Events -->
-		<div class="mb-16 rounded-2xl border border-gray-100 bg-white p-8 shadow-lg md:p-12">
-			<div class="mb-4 flex h-14 w-14 items-center justify-center rounded-xl bg-gradient-to-br from-orange-100 to-amber-100">
-				<span class="text-2xl">🎉</span>
+		<div class="mb-10 rounded-xl border border-gray-200 bg-white p-6 shadow-md md:mb-12 md:p-8 lg:p-10">
+			<div class="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-orange-500 text-white shadow-md">
+				<span class="icon-beach" style="font-size: 22px;"></span>
 			</div>
 			<h2 class="mb-4 text-2xl font-bold text-gray-900 md:text-3xl">
 				{translations.about.events}
 			</h2>
-			<p class="text-lg leading-relaxed text-gray-600">
+			<p class="text-base leading-relaxed text-gray-600 md:text-lg">
 				{translations.about.eventsText}
 			</p>
 		</div>
 
 		<!-- Corporate Events -->
-		<div class="mb-16 rounded-2xl border border-gray-100 bg-gradient-to-br from-white to-amber-50/30 p-8 shadow-lg md:p-12">
-			<div class="mb-4 flex h-14 w-14 items-center justify-center rounded-xl bg-gradient-to-br from-orange-100 to-amber-100">
-				<span class="text-2xl">🏢</span>
+		<div class="mb-10 rounded-xl border border-gray-200 bg-white p-6 shadow-md md:mb-12 md:p-8 lg:p-10">
+			<div class="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-orange-500 text-white shadow-md">
+				<span class="icon-sailor" style="font-size: 22px;"></span>
 			</div>
 			<h2 class="mb-4 text-2xl font-bold text-gray-900 md:text-3xl">
 				{translations.about.corporateEvents}
 			</h2>
-			<p class="mb-6 text-lg leading-relaxed text-gray-600">
+			<p class="mb-6 text-base leading-relaxed text-gray-600 md:text-lg">
 				{translations.about.corporateEventsText}
 			</p>
 			<p class="text-gray-600">
 				{translations.common.moreInfo}
 				<a
 					href="mailto:pristav@brossforpartners.sk"
-					class="font-medium text-orange-500 underline-offset-4 hover:underline"
+					class="font-semibold text-orange-500 transition-colors hover:text-orange-600"
 				>
 					pristav@brossforpartners.sk
 				</a>
 			</p>
 		</div>
 
-		<!-- Teambuilding image -->
-		<div class="group relative">
-			<div class="absolute -inset-4 rounded-3xl bg-gradient-to-r from-orange-500/10 to-amber-500/10 opacity-0 blur-2xl transition-opacity duration-500 group-hover:opacity-100"></div>
-			<div class="relative overflow-hidden rounded-2xl shadow-2xl">
-				<img
-					src="/images/teambuild.png"
-					alt="Teambuilding"
-					class="w-full transition-transform duration-700 group-hover:scale-105"
-				/>
-			</div>
+		<!-- Image -->
+		<div class="overflow-hidden rounded-xl shadow-xl lg:rounded-2xl">
+			<img
+				src="/images/teambuild.png"
+				alt="Teambuilding"
+				class="w-full"
+			/>
 		</div>
+	</div>
+</section>
+
+<!-- CTA Section -->
+<section class="bg-white py-12 md:py-16 lg:py-20">
+	<div class="mx-auto max-w-4xl px-5 text-center sm:px-6 lg:px-8">
+		<h2 class="mb-4 text-2xl font-bold text-gray-900 sm:text-3xl md:mb-5">
+			{translations.home.ctaTitle}
+		</h2>
+		<p class="mx-auto mb-8 max-w-2xl text-base text-gray-600 md:text-lg">
+			{translations.home.ctaSubtitle}
+		</p>
+		<a
+			href={routes.contact}
+			class="inline-flex items-center justify-center gap-2.5 rounded-lg bg-orange-500 px-8 py-4 font-semibold text-white shadow-lg transition-all duration-300 hover:-translate-y-0.5 hover:bg-orange-600 hover:shadow-xl"
+		>
+			<span>{translations.home.contactUs}</span>
+			<span class="icon-mail"></span>
+		</a>
 	</div>
 </section>
