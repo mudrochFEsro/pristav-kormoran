@@ -42,15 +42,21 @@
 		};
 	});
 
-	// Memoized path normalization
+	// Memoized path normalization - remove trailing slash and handle empty path
 	function normalizePath(path: string): string {
-		return path.endsWith('/') ? path.slice(0, -1) : path;
+		const normalized = path.endsWith('/') && path.length > 1 ? path.slice(0, -1) : path;
+		return normalized || '/';
 	}
 
 	const normalizedCurrentPath = $derived(normalizePath(currentPath));
 
 	function isActive(route: string): boolean {
-		return normalizePath(route) === normalizedCurrentPath;
+		const normalizedRoute = normalizePath(route);
+		// Exact match
+		if (normalizedRoute === normalizedCurrentPath) return true;
+		// Also check with resolved path
+		const resolvedRoute = normalizePath(resolve(route));
+		return resolvedRoute === normalizedCurrentPath;
 	}
 
 	// Boat trips label with line break - avoids @html
@@ -242,7 +248,11 @@
 	}
 
 	.nav__link--active {
-		color: var(--color-text-dark);
+		color: var(--color-primary);
+	}
+
+	.nav__link--active .nav__icon {
+		color: var(--color-primary);
 	}
 
 	/* Icons */
