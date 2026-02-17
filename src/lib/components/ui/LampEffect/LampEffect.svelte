@@ -39,7 +39,7 @@
 
 <div
 	class={cn(
-		'relative z-0 flex min-h-[80vh] w-full flex-col items-center justify-center overflow-hidden rounded-md bg-slate-950',
+		'relative z-0 flex min-h-[80vh] w-full flex-col items-center justify-center overflow-hidden bg-slate-950 pt-20',
 		className
 	)}
 >
@@ -91,7 +91,7 @@
 		<div class="absolute inset-auto z-40 h-44 w-full -translate-y-[12.5rem] bg-slate-950"></div>
 	</div>
 
-	<div class="relative z-50 flex -translate-y-80 flex-col items-center px-5">
+	<div class="relative z-50 flex -translate-y-60 flex-col items-center px-5 md:-translate-y-72">
 		{#if children}
 			{@render children()}
 		{/if}
