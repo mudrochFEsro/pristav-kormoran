@@ -196,7 +196,7 @@
 		gap: var(--space-4);
 		max-width: var(--container-max-width);
 		margin: 0 auto;
-		padding: 0 var(--space-10);
+		padding: 0 var(--space-8);
 	}
 
 	.weather-bar__location {
