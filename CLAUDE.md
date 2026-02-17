@@ -266,3 +266,170 @@ MainNav používa `flex: 1 1 0` pre rovnomernú šírku položiek:
 - **Spacing:** Vždy používaj `var(--space-X)` namiesto px hodnôt
 - **Animácie:** Rešpektuj `prefers-reduced-motion` pre accessibility
 - **Mobile breakpoint:** 768px (tablet), 480px (mobile)
+
+---
+
+## V2 Classic UI Redesign (branch: v2-classic)
+
+### Deployment
+
+Dva samostatné Vercel projekty:
+
+| Projekt | Branch | URL |
+|---------|--------|-----|
+| pristav-kormoran | master | https://pristav-kormoran.vercel.app |
+| pristav-kormoran-v2 | v2-classic | https://pristav-kormoran-v2.vercel.app |
+
+**Vercel CLI príkazy:**
+```bash
+# Prepnúť na v2 projekt
+vercel link --project pristav-kormoran-v2 --yes
+
+# Deploy na v2 produkciu
+vercel --prod
+
+# Prepnúť späť na pôvodný projekt
+vercel link --project pristav-kormoran --yes
+```
+
+### Design System - Classic Maritime Style
+
+**Farebná paleta:**
+- Hero pozadie: `bg-slate-800`
+- Hero gradient: `bg-gradient-to-t from-slate-800 via-slate-800/80 to-slate-800/60`
+- Content sekcie: `bg-white` a `bg-gray-50` (striedavo)
+- Accent: `text-orange-400`, `bg-orange-500`, `border-orange-500/30`
+- Text: `text-gray-900` (headings), `text-gray-600` (body)
+
+**Hero Section Pattern:**
+```svelte
+<section class="relative min-h-[40vh] overflow-hidden bg-slate-800 md:min-h-[50vh]">
+  <!-- Background Image -->
+  <div class="absolute inset-0">
+    <img src="/images/xxx.jpg" alt="" class="h-full w-full object-cover opacity-40" />
+    <div class="absolute inset-0 bg-gradient-to-t from-slate-800 via-slate-800/80 to-slate-800/60"></div>
+  </div>
+
+  <!-- Content -->
+  <div class="relative z-10 flex min-h-[40vh] flex-col items-center justify-center px-5 py-20 text-center sm:px-6 md:min-h-[50vh] lg:px-8">
+    <span class="mb-4 inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-orange-400">
+      <span class="icon-anchor"></span>
+      <span>{translations.nav.xxx}</span>
+    </span>
+    <h1 class="mb-4 text-4xl font-bold tracking-tight text-white sm:text-5xl md:text-6xl lg:text-7xl">
+      {translations.xxx.title}
+    </h1>
+  </div>
+</section>
+```
+
+**Content Card Pattern:**
+```svelte
+<div class="rounded-xl border border-gray-200 bg-white p-6 shadow-md md:p-8 lg:p-10">
+  <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-orange-500 text-white shadow-md">
+    <span class="icon-xxx" style="font-size: 22px;"></span>
+  </div>
+  <h2 class="mb-4 text-2xl font-bold text-gray-900 md:text-3xl">...</h2>
+  <p class="text-base leading-relaxed text-gray-600 md:text-lg">...</p>
+</div>
+```
+
+**Image with Accent Border:**
+```svelte
+<div class="relative">
+  <div class="overflow-hidden rounded-xl shadow-xl lg:rounded-2xl">
+    <img src="..." alt="..." class="w-full" loading="lazy" />
+  </div>
+  <!-- Accent border -->
+  <div class="absolute -bottom-3 -right-3 -z-10 h-full w-full rounded-xl border-2 border-orange-500/30 lg:-bottom-4 lg:-right-4 lg:rounded-2xl"></div>
+</div>
+```
+
+**Contact Box Pattern:**
+```svelte
+<div class="flex items-center gap-3 rounded-lg border border-orange-200 bg-orange-50 p-4">
+  <span class="flex h-10 w-10 items-center justify-center rounded-lg bg-orange-500 text-white">
+    <span class="icon-phone" style="font-size: 18px;"></span>
+  </span>
+  <div>
+    <span class="text-sm text-gray-500">{label}</span>
+    <a href="tel:..." class="block font-semibold text-orange-500 transition-colors hover:text-orange-600">
+      +421 xxx xxx xxx
+    </a>
+  </div>
+</div>
+```
+
+**CTA Section Pattern:**
+```svelte
+<section class="bg-white py-12 md:py-16 lg:py-20">
+  <div class="mx-auto max-w-4xl px-5 text-center sm:px-6 lg:px-8">
+    <h2 class="mb-4 text-2xl font-bold text-gray-900 sm:text-3xl md:mb-5">
+      {translations.home.ctaTitle}
+    </h2>
+    <a href={routes.contact}
+       class="inline-flex items-center justify-center gap-2.5 rounded-lg bg-orange-500 px-8 py-4 font-semibold text-white shadow-lg transition-all duration-300 hover:-translate-y-0.5 hover:bg-orange-600 hover:shadow-xl">
+      <span>{translations.home.contactUs}</span>
+      <span class="icon-mail"></span>
+    </a>
+  </div>
+</section>
+```
+
+### FloatingNav Component
+
+Floating navigation s klasickým štýlom:
+- Desktop: `rounded-xl border border-gray-200 bg-white shadow-lg`
+- Mobile: Hamburger button s fullscreen overlay menu
+- Z-index: Nav bar `z-50`, Mobile overlay `z-100`
+- Hide on scroll down, show on scroll up
+- Bez uppercase textu (normálny case)
+
+**Mobile Menu Overlay:**
+- Fullscreen backdrop s `bg-black/60` a `backdrop-blur`
+- Menu panel s bounce animáciou
+- Escape key zatvorí menu
+- Body scroll lock keď je otvorené
+
+### Icon Classes
+
+Používaj icon font triedy namiesto emoji:
+- `icon-anchor` - kotva
+- `icon-ship` - loď
+- `icon-mail` - obálka
+- `icon-phone` - telefón
+- `icon-sailor` - námorník
+- `icon-earth` - zemeguľa
+- `icon-beach` - pláž
+- `icon-wheel` - kormidlo
+- `icon-life-wheel` - záchranný kruh
+- `icon-destination` - destinácia
+- `icon-calendar` - kalendár
+
+### Responsive Breakpoints
+
+```css
+/* Mobile first */
+px-5 py-16                    /* Base mobile */
+sm:px-6                       /* 640px+ */
+md:py-20 md:min-h-[50vh]     /* 768px+ */
+lg:px-8 lg:py-24             /* 1024px+ */
+```
+
+### Aktualizované stránky (v2-classic)
+
+Všetky stránky prerobené na classic štýl:
+- `+page.svelte` (landing)
+- `about-us`, `o-nas`
+- `ports`, `pristavy`, `porty`
+- `contact`, `kontakt`
+- `botel-kormoran`
+- `news`, `novinky`, `novosti`
+- `boat-trips`, `vylety-lodou`, `progulki-na-lodke`
+- `region`
+
+### UI Komponenty zachované
+
+- `FloatingNav` - floating navigation bar
+- `InfiniteMovingCards` - carousel s portami (zjednodušený dizajn)
+- `WaveEffect` - vlnová animácia v hero sekcii
