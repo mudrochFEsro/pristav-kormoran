@@ -166,7 +166,7 @@
 		></button>
 
 		<!-- Menu Panel -->
-		<div class="absolute inset-x-4 top-[97px] max-h-[calc(100dvh-115px)] overflow-y-auto rounded-2xl border border-gray-200/50 bg-white p-5 shadow-xl">
+		<div class="absolute inset-x-4 top-[103px] max-h-[calc(100dvh-115px)] overflow-y-auto rounded-2xl border border-gray-200/50 bg-white p-5 shadow-xl">
 			<div class="flex flex-col space-y-1">
 				{#each navItems as item (item.link)}
 					<a
@@ -191,7 +191,7 @@
 						{#each languages as lang (lang.code)}
 							<a
 								href={lang.href}
-								class="rounded-full border px-4 py-2 text-sm font-medium transition-all"
+								class="flex h-10 w-10 items-center justify-center rounded-full border text-sm font-medium transition-all"
 								class:active-lang={lang.active}
 								class:inactive-lang={!lang.active}
 								onclick={() => mobileMenuOpen = false}
