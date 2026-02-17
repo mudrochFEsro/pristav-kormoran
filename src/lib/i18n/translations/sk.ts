@@ -2,13 +2,13 @@ import type { Translations } from '../types';
 
 export const sk: Translations = {
 	site: {
-		title: 'Prístav Kormorán',
+		title: 'Prístav Kormorán - Prístavy na Dunaji v Bratislave',
 		description:
 			'Prístavy Kormorán sú situované v nádherných lokalitách, ktoré ponúkajú veľa možností spoznať ich kultúru, prírodu, relax, tradície, šport presne podľa vašich predstáv.'
 	},
 
 	seo: {
-		home: 'Prístav Kormorán - prístavy na Dunaji v Bratislave, Čilistove a Štúrove. Výlety loďou, ubytovanie na boteli, firemné eventy a svadby na lodi. Objavte krásy Žitného ostrova.',
+		home: 'Prístavy na Dunaji v Bratislave, Čilistove a Štúrove. Výlety loďou, ubytovanie na boteli, firemné eventy a svadby na lodi.',
 		about: 'O spoločnosti Prístav Kormorán - prevádzkovateľ prístavov na Dunaji od roku 2012. Prístavy v Bratislave, Čilistove pri Hoteli Kormorán a Štúrove.',
 		news: 'Novinky a aktuality z prístavov Kormorán. Aktuálne informácie o plavbách, eventoch a novinkách z Dunaja.',
 		region: 'Žitný ostrov - najväčší riečny ostrov v Európe. Termálne kúpaliská, cyklotrasy, vodné dielo Gabčíkovo a Hotel Kormorán v Šamoríne-Čilistov.',

@@ -2,13 +2,13 @@ import type { Translations } from '../types';
 
 export const en: Translations = {
 	site: {
-		title: 'Kormoran Ports',
+		title: 'Kormoran Ports - Marinas on the Danube, Slovakia',
 		description:
 			'Kormoran Ports are located in beautiful places that offer many opportunities to discover their culture, nature, relaxation, traditions, and sports exactly as you imagine.'
 	},
 
 	seo: {
-		home: 'Kormoran Ports - marinas on the Danube in Bratislava, Čilistov and Štúrovo, Slovakia. Boat trips, botel accommodation, corporate events and weddings on board.',
+		home: 'Marinas on the Danube in Bratislava, Čilistov and Štúrovo. Boat trips, botel accommodation, corporate events and weddings.',
 		about: 'About Kormoran Ports - operating marinas on the Danube since 2012. Ports in Bratislava, Čilistov near Hotel Kormoran and Štúrovo, Slovakia.',
 		news: 'News and updates from Kormoran Ports. Current information about cruises, events and news from the Danube river.',
 		region: 'Žitný ostrov - the largest river island in Europe. Thermal spas, cycling routes, Gabčíkovo Dam and Hotel Kormoran in Šamorín-Čilistov.',

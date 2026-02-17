@@ -39,9 +39,9 @@
 		return `${siteConfig.url}${normalizedPath}`;
 	});
 
-	// Full title with site name
+	// Full title with site name (avoid duplication if title already contains site name)
 	const fullTitle = $derived(
-		title === siteConfig.name ? title : `${title} | ${siteConfig.name}`
+		title.includes(siteConfig.name) ? title : `${title} | ${siteConfig.name}`
 	);
 
 	// Locale mapping
