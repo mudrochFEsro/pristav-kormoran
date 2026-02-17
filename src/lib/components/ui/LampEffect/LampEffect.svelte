@@ -91,7 +91,7 @@
 		<div class="absolute inset-auto z-40 h-44 w-full -translate-y-[12.5rem] bg-slate-950"></div>
 	</div>
 
-	<div class="relative z-50 flex -translate-y-60 flex-col items-center px-5 md:-translate-y-72">
+	<div class="relative z-50 flex -translate-y-32 flex-col items-center px-5 md:-translate-y-48">
 		{#if children}
 			{@render children()}
 		{/if}
