@@ -257,12 +257,54 @@ MainNav používa `flex: 1 1 0` pre rovnomernú šírku položiek:
 }
 ```
 
+## Kontaktné údaje
+
+**Port manager:** Robert Seidner
+- Telefón: +421 902 199 480
+- Email: robertj@seidner.sk
+
+**Prevádzkovateľ:** BROSS for PARTNERS, a.s.
+- Adresa: Hollého 1, 81108, Bratislava
+- IČO: 35 853 603
+- DIČ: 2021727004
+- IČDPH: SK2021727004
+
+## SEO / GEO / AEO
+
+### Štruktúrované dáta (JSON-LD)
+
+Všetky schémy sú v `src/lib/seo/SEO.svelte`:
+- **Organization** - firemné údaje
+- **LocalBusiness + Marina + TouristAttraction** - prístavné služby
+- **WebSite** - s SearchAction
+- **WebPage** - pre každú stránku
+- **FAQPage** - 15 otázok v každom jazyku (AEO)
+- **HowTo** - návod na rezerváciu (AEO)
+- **BreadcrumbList** - navigácia (GEO)
+- **TouristDestination** - región Žitný ostrov (GEO)
+- **Speakable** - pre voice search (AEO)
+
+### Konfigurácia
+
+Všetky SEO dáta sú centralizované v `src/lib/seo/config.ts`:
+- `siteConfig` - základné info, kontakty, social
+- `locations` - GPS súradnice všetkých prístavov
+- `services` - služby v 3 jazykoch
+- `faq` - FAQ otázky a odpovede
+- `howToBookBoatTrip` - HowTo schéma
+- `keywords` - kľúčové slová vrátane preklepov
+
+### Obrázky
+
+Všetky obrázky sú v **WebP formáte** pre optimálnu veľkosť. Pri pridávaní nových obrázkov konvertuj na WebP s kvalitou 80-85.
+
 ## Poznámky pre vývoj
 
 - Pri pridávaní novej stránky nezabudni na `+page.ts` s `entries()`
 - Preklady pridaj do všetkých 3 súborov: `sk.ts`, `en.ts`, `ru.ts`
-- Obrázky dávaj do `/static/images/`
+- Obrázky dávaj do `/static/images/` vo formáte **WebP**
 - CSS triedy používaj z global.css, nevytváraj nové ak nie je nutné
 - **Spacing:** Vždy používaj `var(--space-X)` namiesto px hodnôt
 - **Animácie:** Rešpektuj `prefers-reduced-motion` pre accessibility
 - **Mobile breakpoint:** 768px (tablet), 480px (mobile)
+- **SEO:** Pri zmene kontaktov aktualizuj `src/lib/seo/config.ts` a všetky stránky
