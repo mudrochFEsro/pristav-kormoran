@@ -110,10 +110,12 @@
 				<span class="nav__icon icon-life-wheel" aria-hidden="true"></span>
 				<span class="nav__label">{botelLabel[0]}<br />{botelLabel[1]}</span>
 			</a>
+			<!-- Temporarily hidden: boat trips section
 			<a href={resolve(routes.boatTrips)} class="nav__link" class:nav__link--active={isActive(routes.boatTrips)} aria-current={isActive(routes.boatTrips) ? 'page' : undefined}>
 				<span class="nav__icon icon-ship" aria-hidden="true"></span>
 				<span class="nav__label">{boatTripsLabel[0]}<br />{boatTripsLabel[1]}</span>
 			</a>
+			-->
 			<a href={resolve(routes.contact)} class="nav__link" class:nav__link--active={isActive(routes.contact)} aria-current={isActive(routes.contact) ? 'page' : undefined}>
 				<span class="nav__icon icon-mail" aria-hidden="true"></span>
 				<span class="nav__label">{translations.nav.contact}</span>

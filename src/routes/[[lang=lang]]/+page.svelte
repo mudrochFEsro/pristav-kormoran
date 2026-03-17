@@ -22,7 +22,7 @@
 	includeFaq={true}
 />
 
-<img class="main-img" src="/images/static-main.jpg" alt="Prístav Kormorán - prístavy na Dunaji" fetchpriority="high" decoding="async" />
+<img class="main-img" src="/images/static-main.webp" alt="Prístav Kormorán - prístavy na Dunaji" fetchpriority="high" decoding="async" />
 <h1 class="main-title" use:scrollReveal={{ variant: 'fade' }}>
 	{translations.home.title}
 </h1>
@@ -84,7 +84,7 @@
 		title="Čilistovská lagúna - práve skolaudované! K novému bývaniu zdarma kotvenie vášho plavidla v prístave Kormorán"
 	>
 		<img
-			src="/images/banner-laguna.jpg"
+			src="/images/banner-laguna.webp"
 			alt="Čilistovská lagúna - práve skolaudované! K novému bývaniu zdarma kotvenie vášho plavidla v prístave Kormorán"
 			loading="lazy"
 			decoding="async"

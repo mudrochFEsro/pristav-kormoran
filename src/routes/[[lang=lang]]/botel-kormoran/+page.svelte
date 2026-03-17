@@ -31,10 +31,10 @@
 		{translations.botel.contactInfo}
 	</p>
 	<p>
-		<img src="/images/botel-ubytovanie-restauracia1.jpg" alt="Botel Restaurant" loading="lazy" decoding="async" />
+		<img src="/images/botel-ubytovanie-restauracia1.webp" alt="Botel Restaurant" loading="lazy" decoding="async" />
 	</p>
-	<p><img src="/images/sundeck-chillout-zona.jpg" alt="Sundeck" loading="lazy" decoding="async" /></p>
+	<p><img src="/images/sundeck-chillout-zona.webp" alt="Sundeck" loading="lazy" decoding="async" /></p>
 	<p>{translations.botel.roomTypes}</p>
-	<p><img src="/images/img3409.jpg" alt="Room" loading="lazy" decoding="async" /></p>
-	<p><img src="/images/img3416-1.jpg" alt="Room interior" loading="lazy" decoding="async" /></p>
+	<p><img src="/images/img3409.webp" alt="Room" loading="lazy" decoding="async" /></p>
+	<p><img src="/images/img3416-1.webp" alt="Room interior" loading="lazy" decoding="async" /></p>
 </div>

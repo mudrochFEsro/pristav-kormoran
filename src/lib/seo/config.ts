@@ -7,7 +7,7 @@ export const siteConfig = {
 	// Basic site info
 	name: 'Prístav Kormorán',
 	legalName: 'BROSS for PARTNERS, a.s.',
-	url: 'http://pristavkormoran.sk',
+	url: 'https://www.pristavkormoran.sk',
 
 	// Contact info
 	email: 'pristav@brossforpartners.sk',
@@ -26,7 +26,7 @@ export const siteConfig = {
 	icdph: 'SK2021727004',
 
 	// Default OG image (1200x630 recommended for social sharing)
-	defaultImage: '/images/static-main.jpg',
+	defaultImage: '/images/static-main.webp',
 	logo: '/images/logo-pristav.svg',
 
 	// Founding date

@@ -20,9 +20,10 @@
 	description={translations.seo.boatTrips}
 	lang={data.lang}
 	includeHowTo={true}
+	noindex={true}
 />
 
-<img class="main-img" src="/images/plavby-lodou-ondava-neng.png" alt="" use:scrollReveal={{ variant: 'fade' }} />
+<img class="main-img" src="/images/plavby-lodou-ondava-neng.webp" alt="" use:scrollReveal={{ variant: 'fade' }} />
 <div use:scrollReveal={{ variant: 'fade', delay: 100 }}>
 	<PageTitle title={translations.boatTrips.title} hasImage={true} />
 </div>

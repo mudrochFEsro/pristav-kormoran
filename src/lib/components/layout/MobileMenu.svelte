@@ -157,6 +157,7 @@
 				<span class="icon-life-wheel" aria-hidden="true"></span>
 				{translations.nav.botel}
 			</a>
+			<!-- Temporarily hidden: boat trips section
 			<a
 				href={resolve(routes.boatTrips)}
 				class="mobile-menu__link"
@@ -166,6 +167,7 @@
 				<span class="icon-ship" aria-hidden="true"></span>
 				{translations.nav.boatTrips}
 			</a>
+			-->
 			<a
 				href={resolve(routes.contact)}
 				class="mobile-menu__link"
