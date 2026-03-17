@@ -50,28 +50,28 @@
 <Divider />
 <div class="categories">
 	<CategoryCard
-		image="/images/fun-thumb.png"
+		image="/images/fun-thumb.webp"
 		imageAlt={translations.categories.entertainment}
 		icon="icon-camera"
 		title={translations.categories.entertainment}
 		animationDelay={0}
 	/>
 	<CategoryCard
-		image="/images/sports-thumb.png"
+		image="/images/sports-thumb.webp"
 		imageAlt={translations.categories.sport}
 		icon="icon-tennis"
 		title={translations.categories.sport}
 		animationDelay={100}
 	/>
 	<CategoryCard
-		image="/images/relax-thumb.png"
+		image="/images/relax-thumb.webp"
 		imageAlt={translations.categories.relax}
 		icon="icon-tennis"
 		title={translations.categories.relax}
 		animationDelay={200}
 	/>
 	<CategoryCard
-		image="/images/tradition-thumb.png"
+		image="/images/tradition-thumb.webp"
 		imageAlt={translations.categories.traditions}
 		icon="icon-award"
 		title={translations.categories.traditions}
