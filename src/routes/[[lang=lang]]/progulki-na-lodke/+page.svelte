@@ -30,5 +30,5 @@
 <Divider />
 <div class="static-text" use:scrollReveal={{ variant: 'fade', delay: 150 }}>
 	<p>{translations.boatTrips.description}</p>
-	<p>{translations.boatTrips.contactLabel}: <a href="tel:+421903727168">+421 903 727 168</a></p>
+	<p>{translations.boatTrips.contactLabel}: <a href="tel:+421902199480">+421 902 199 480</a></p>
 </div>

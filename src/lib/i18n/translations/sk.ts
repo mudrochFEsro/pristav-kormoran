@@ -127,7 +127,7 @@ export const sk: Translations = {
 		description:
 			'Botel Kormorán poskytuje ubytovanie s kapacitou 49 osôb. Súčasťou Botela je aj reštaurácia s kapacitou 32 miest a bar s terasou s kapacitou 60 miest. Okrem týchto priestorov je na Boteli k dispozícii aj kongresová sála s kapacitou 20 miest. Botel ponúka možnosť organizovania firemných akcií, školení, rodinných osláv a iných spoločenských udalostí.',
 		contactInfo:
-			'V prípade záujmu o ubytovanie alebo prenájom priestorov Botela kontaktujte prosím pristav@brossforpartners.sk. Radi Vám vypracujeme cenovú ponuku podľa Vašich požiadaviek.',
+			'V prípade záujmu o ubytovanie alebo prenájom priestorov Botela kontaktujte prosím robertj@seidner.sk. Radi Vám vypracujeme cenovú ponuku podľa Vašich požiadaviek.',
 		roomTypes: 'Ubytovanie v izbách s rôznymi kapacitami - 2-lôžkové, 3-lôžkové, 4-lôžkové, 6-lôžkové'
 	},
 

@@ -10,9 +10,9 @@ export const siteConfig = {
 	url: 'https://www.pristavkormoran.sk',
 
 	// Contact info
-	email: 'pristav@brossforpartners.sk',
-	phone: '+421903727168',
-	phoneFormatted: '+421 903 727 168',
+	email: 'robertj@seidner.sk',
+	phone: '+421902199480',
+	phoneFormatted: '+421 902 199 480',
 
 	// Social media
 	social: {
@@ -182,7 +182,7 @@ export const faq = {
 		},
 		{
 			question: 'Ako si môžem rezervovať výlet loďou?',
-			answer: 'Výlet loďou si môžete rezervovať telefonicky na čísle +421 903 727 168 alebo emailom na pristav@brossforpartners.sk. Ponúkame súkromné plavby aj skupinové výlety po Dunaji.'
+			answer: 'Výlet loďou si môžete rezervovať telefonicky na čísle +421 902 199 480 alebo emailom na robertj@seidner.sk. Ponúkame súkromné plavby aj skupinové výlety po Dunaji.'
 		},
 		{
 			question: 'Koľko stojí kotvenie v prístave Kormorán?',
@@ -244,7 +244,7 @@ export const faq = {
 		},
 		{
 			question: 'How can I book a boat trip?',
-			answer: 'You can book a boat trip by phone at +421 903 727 168 or by email at pristav@brossforpartners.sk. We offer private cruises and group trips on the Danube.'
+			answer: 'You can book a boat trip by phone at +421 902 199 480 or by email at robertj@seidner.sk. We offer private cruises and group trips on the Danube.'
 		},
 		{
 			question: 'How much does mooring at Kormoran Port cost?',
@@ -306,7 +306,7 @@ export const faq = {
 		},
 		{
 			question: 'Как забронировать прогулку на лодке?',
-			answer: 'Вы можете забронировать прогулку по телефону +421 903 727 168 или по электронной почте pristav@brossforpartners.sk. Мы предлагаем частные круизы и групповые туры по Дунаю.'
+			answer: 'Вы можете забронировать прогулку по телефону +421 902 199 480 или по электронной почте robertj@seidner.sk. Мы предлагаем частные круизы и групповые туры по Дунаю.'
 		},
 		{
 			question: 'Сколько стоит швартовка в порту Корморан?',
@@ -366,7 +366,7 @@ export const howToBookBoatTrip = {
 		description: 'Jednoduchý návod ako si rezervovať výlet loďou z prístavov Kormorán',
 		steps: [
 			{ name: 'Vyberte si typ plavby', text: 'Rozhodnite sa či chcete súkromnú plavbu, skupinový výlet, alebo firemný event.' },
-			{ name: 'Kontaktujte nás', text: 'Zavolajte na +421 903 727 168 alebo napíšte email na pristav@brossforpartners.sk.' },
+			{ name: 'Kontaktujte nás', text: 'Zavolajte na +421 902 199 480 alebo napíšte email na robertj@seidner.sk.' },
 			{ name: 'Dohodnite termín', text: 'Vyberte si dátum a čas plavby podľa dostupnosti.' },
 			{ name: 'Potvrďte rezerváciu', text: 'Po potvrdení dostanete všetky potrebné informácie o mieste stretnutia a programe.' }
 		]
@@ -376,7 +376,7 @@ export const howToBookBoatTrip = {
 		description: 'Simple guide to booking a boat trip from Kormoran Ports',
 		steps: [
 			{ name: 'Choose your cruise type', text: 'Decide if you want a private cruise, group trip, or corporate event.' },
-			{ name: 'Contact us', text: 'Call +421 903 727 168 or email pristav@brossforpartners.sk.' },
+			{ name: 'Contact us', text: 'Call +421 902 199 480 or email robertj@seidner.sk.' },
 			{ name: 'Agree on a date', text: 'Choose your preferred date and time based on availability.' },
 			{ name: 'Confirm booking', text: 'After confirmation, you will receive all necessary information about the meeting point and program.' }
 		]
@@ -386,7 +386,7 @@ export const howToBookBoatTrip = {
 		description: 'Простое руководство по бронированию прогулки на лодке из портов Корморан',
 		steps: [
 			{ name: 'Выберите тип круиза', text: 'Решите, хотите ли вы частный круиз, групповую экскурсию или корпоративное мероприятие.' },
-			{ name: 'Свяжитесь с нами', text: 'Позвоните по номеру +421 903 727 168 или напишите на pristav@brossforpartners.sk.' },
+			{ name: 'Свяжитесь с нами', text: 'Позвоните по номеру +421 902 199 480 или напишите на robertj@seidner.sk.' },
 			{ name: 'Согласуйте дату', text: 'Выберите предпочтительную дату и время в зависимости от наличия.' },
 			{ name: 'Подтвердите бронирование', text: 'После подтверждения вы получите всю необходимую информацию о месте встречи и программе.' }
 		]

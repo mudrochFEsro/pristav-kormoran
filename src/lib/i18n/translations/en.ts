@@ -127,7 +127,7 @@ export const en: Translations = {
 		description:
 			'Botel Kormorán provides accommodation with a capacity of 49 people. The Botel also includes a restaurant with a capacity of 32 seats and a bar with a terrace with a capacity of 60 seats. In addition to these spaces, a conference room with a capacity of 20 seats is available. The Botel offers the possibility of organizing corporate events, trainings, family celebrations, and other social events.',
 		contactInfo:
-			'If you are interested in accommodation or rental of Botel spaces, please contact pristav@brossforpartners.sk. We will be happy to prepare a price offer according to your requirements.',
+			'If you are interested in accommodation or rental of Botel spaces, please contact robertj@seidner.sk. We will be happy to prepare a price offer according to your requirements.',
 		roomTypes: 'Accommodation in rooms with various capacities - 2-bed, 3-bed, 4-bed, 6-bed'
 	},
 

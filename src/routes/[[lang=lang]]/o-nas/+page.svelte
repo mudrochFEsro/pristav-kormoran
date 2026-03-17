@@ -33,7 +33,7 @@
 	<p><strong>{translations.about.corporateEvents}</strong></p>
 	<p>
 		{translations.about.corporateEventsText} {translations.common.moreInfo}
-		<a href="mailto:pristav@brossforpartners.sk">pristav@brossforpartners.sk</a>.
+		<a href="mailto:robertj@seidner.sk">robertj@seidner.sk</a>.
 	</p>
 	<p><img src="/images/teambuild.webp" alt="Teambuilding" loading="lazy" decoding="async" /></p>
 </div>

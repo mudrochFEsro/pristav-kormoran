@@ -28,13 +28,13 @@
 <div class="static-text address" use:scrollReveal={{ variant: 'fade', delay: 100 }}>
 	<p>
 		<strong>{translations.contact.portManager}</strong>
-		<span>Andrej Barát</span>
+		<span>Robert Seidner</span>
 	</p>
 	<p>
-		<span class="icon-phone"></span><a href="tel:+421903727168">+421 903 727 168</a>
+		<span class="icon-phone"></span><a href="tel:+421902199480">+421 902 199 480</a>
 		<br />
-		<span class="icon-mail"></span><a href="mailto:pristav@brossforpartners.sk"
-			>pristav@brossforpartners.sk</a
+		<span class="icon-mail"></span><a href="mailto:robertj@seidner.sk"
+			>robertj@seidner.sk</a
 		>
 	</p>
 	<p class="section-break">
