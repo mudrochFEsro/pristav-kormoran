@@ -203,6 +203,34 @@ export const faq = {
 		{
 			question: 'Aké sú otváracie hodiny prístavov?',
 			answer: 'Prístavy sú otvorené pondelok až piatok od 8:00 do 18:00, v sobotu od 9:00 do 17:00 a v nedeľu od 10:00 do 16:00. Pre príchod mimo otváracích hodín nás kontaktujte vopred.'
+		},
+		{
+			question: 'Ako sa dostanem do prístavu Kormorán v Čilistove?',
+			answer: 'Z Bratislavy smerom na Šamorín, pred Šamorínom odbočte doprava na Čilistov. Prístav sa nachádza pri Hoteli Kormorán. GPS súradnice: 48.0167, 17.3167. Parkovanie je k dispozícii priamo v areáli.'
+		},
+		{
+			question: 'Aké typy lodí môžu kotviť v prístave?',
+			answer: 'V prístavoch Kormorán môžu kotviť kajutové lode, motorové člny, jachty aj výletné lode. Maximálna dĺžka plavidla závisí od konkrétneho prístavu - v Čilistove až do 25 metrov.'
+		},
+		{
+			question: 'Ponúkate teambuilding na lodi?',
+			answer: 'Áno, organizujeme firemné teambuildingy na lodi Ondava aj v areáli prístavu. Ponúkame plavby po Dunaji s cateringom, outdoor aktivity, súťaže a kompletný eventový servis pre skupiny 10-60 osôb.'
+		},
+		{
+			question: 'Je v prístave možné tankovať palivo?',
+			answer: 'Áno, v Prístave Kormorán I. v Čilistove je k dispozícii tankovacia stanica pre lode. Ponúkame naftu aj benzín. Pre väčšie množstvá odporúčame vopred kontaktovať prístavného kapitána.'
+		},
+		{
+			question: 'Aké atrakcie sú v okolí prístavu?',
+			answer: 'V okolí nájdete Žitný ostrov s cyklotrasami, termálne kúpaliská v Dunajskej Strede, Vodné dielo Gabčíkovo, historické centrum Bratislavy, hrad Devín a vinice Malých Karpát.'
+		},
+		{
+			question: 'Môžem si prenajať loď bez posádky?',
+			answer: 'Áno, ponúkame prenájom menších motorových člnov bez posádky pre držiteľov vodičského preukazu na vedenie plavidla. Pre väčšie lode a výletné plavby je posádka súčasťou prenájmu.'
+		},
+		{
+			question: 'Je prístav prístupný pre invalidov?',
+			answer: 'Áno, Prístav Kormorán v Čilistove aj Botel Kormorán sú bezbariérové. Máme upravené prístupy pre vozičkárov a bezbariérové toalety. Pri rezervácii nás informujte o špeciálnych potrebách.'
 		}
 	],
 	en: [
@@ -237,6 +265,34 @@ export const faq = {
 		{
 			question: 'What are the port opening hours?',
 			answer: 'Ports are open Monday to Friday from 8:00 to 18:00, Saturday from 9:00 to 17:00, and Sunday from 10:00 to 16:00. For arrival outside opening hours, please contact us in advance.'
+		},
+		{
+			question: 'How do I get to Kormoran Port in Čilistov?',
+			answer: 'From Bratislava, head towards Šamorín and turn right to Čilistov before reaching the town. The port is located at Hotel Kormoran. GPS coordinates: 48.0167, 17.3167. Free parking is available on site.'
+		},
+		{
+			question: 'What types of boats can moor at the port?',
+			answer: 'Kormoran Ports accommodate cabin boats, motorboats, yachts, and cruise ships. Maximum vessel length depends on the specific port - up to 25 meters in Čilistov.'
+		},
+		{
+			question: 'Do you offer corporate team building on boats?',
+			answer: 'Yes, we organize corporate team buildings on the Ondava boat and at the port premises. We offer Danube cruises with catering, outdoor activities, competitions, and complete event services for groups of 10-60 people.'
+		},
+		{
+			question: 'Is fuel available at the port?',
+			answer: 'Yes, Kormoran Port I. in Čilistov has a boat fueling station. We offer diesel and gasoline. For larger quantities, please contact the port captain in advance.'
+		},
+		{
+			question: 'What attractions are near the port?',
+			answer: 'Nearby attractions include Žitný ostrov with cycling trails, thermal spas in Dunajská Streda, Gabčíkovo Dam, historic Bratislava city center, Devín Castle, and the Small Carpathian wine region.'
+		},
+		{
+			question: 'Can I rent a boat without a crew?',
+			answer: 'Yes, we offer small motorboat rentals without crew for holders of a boat driving license. For larger vessels and sightseeing cruises, crew is included in the rental.'
+		},
+		{
+			question: 'Is the port wheelchair accessible?',
+			answer: 'Yes, Kormoran Port in Čilistov and Botel Kormoran are barrier-free. We have wheelchair-accessible entrances and accessible restrooms. Please inform us of any special needs when booking.'
 		}
 	],
 	ru: [
@@ -271,6 +327,34 @@ export const faq = {
 		{
 			question: 'Какие часы работы портов?',
 			answer: 'Порты открыты с понедельника по пятницу с 8:00 до 18:00, в субботу с 9:00 до 17:00 и в воскресенье с 10:00 до 16:00. Для прибытия в нерабочее время свяжитесь с нами заранее.'
+		},
+		{
+			question: 'Как добраться до порта Корморан в Чилистове?',
+			answer: 'Из Братиславы направляйтесь в сторону Шаморина, перед городом поверните направо на Чилистов. Порт находится у отеля Корморан. GPS-координаты: 48.0167, 17.3167. Бесплатная парковка на территории.'
+		},
+		{
+			question: 'Какие типы лодок могут швартоваться в порту?',
+			answer: 'Порты Корморан принимают каютные лодки, моторные катера, яхты и круизные суда. Максимальная длина судна зависит от конкретного порта - до 25 метров в Чилистове.'
+		},
+		{
+			question: 'Вы организуете корпоративные тимбилдинги на лодке?',
+			answer: 'Да, мы организуем корпоративные тимбилдинги на корабле Ондава и на территории порта. Предлагаем круизы по Дунаю с кейтерингом, активности на свежем воздухе, конкурсы и полный эвент-сервис для групп 10-60 человек.'
+		},
+		{
+			question: 'Есть ли в порту заправка для лодок?',
+			answer: 'Да, в порту Корморан I. в Чилистове есть заправочная станция для лодок. Мы предлагаем дизельное топливо и бензин. Для больших объемов свяжитесь с капитаном порта заранее.'
+		},
+		{
+			question: 'Какие достопримечательности есть рядом с портом?',
+			answer: 'Поблизости находятся Житный остров с велодорожками, термальные курорты в Дунайской Среде, ГЭС Габчиково, исторический центр Братиславы, замок Девин и винодельческий регион Малых Карпат.'
+		},
+		{
+			question: 'Можно ли арендовать лодку без экипажа?',
+			answer: 'Да, мы предлагаем аренду небольших моторных лодок без экипажа для владельцев лицензии на управление судном. Для больших судов и экскурсий экипаж включен в аренду.'
+		},
+		{
+			question: 'Доступен ли порт для инвалидов?',
+			answer: 'Да, порт Корморан в Чилистове и ботель Корморан безбарьерные. У нас есть входы для инвалидных колясок и доступные туалеты. Сообщите нам о специальных потребностях при бронировании.'
 		}
 	]
 };

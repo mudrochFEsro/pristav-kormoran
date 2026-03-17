@@ -128,12 +128,19 @@
 		'@type': ['LocalBusiness', 'Marina', 'TouristAttraction'],
 		'@id': `${siteConfig.url}/#localbusiness`,
 		name: siteConfig.name,
+		alternateName: ['Pristav Kormoran', 'Kormoran Port', 'Marina Kormoran', 'Порт Корморан'],
 		description: description,
 		url: siteConfig.url,
 		telephone: siteConfig.phone,
 		email: siteConfig.email,
 		priceRange: siteConfig.priceRange,
-		image: `${siteConfig.url}${siteConfig.defaultImage}`,
+		currenciesAccepted: 'EUR',
+		paymentAccepted: 'Cash, Credit Card, Bank Transfer',
+		image: [
+			`${siteConfig.url}${siteConfig.defaultImage}`,
+			`${siteConfig.url}/images/botel-ubytovanie-restauracia1.webp`,
+			`${siteConfig.url}/images/lod-pristav-5-pano.webp`
+		],
 		logo: `${siteConfig.url}${siteConfig.logo}`,
 		address: {
 			'@type': 'PostalAddress',
@@ -144,6 +151,7 @@
 			latitude: locations.main.geo.latitude,
 			longitude: locations.main.geo.longitude
 		},
+		hasMap: 'https://www.google.com/maps?q=48.0167,17.3167',
 		openingHoursSpecification: [
 			{
 				'@type': 'OpeningHoursSpecification',
@@ -176,6 +184,39 @@
 				position: index + 1
 			}))
 		},
+		potentialAction: [
+			{
+				'@type': 'ReserveAction',
+				target: {
+					'@type': 'EntryPoint',
+					urlTemplate: `${siteConfig.url}/kontakt/`,
+					actionPlatform: [
+						'http://schema.org/DesktopWebPlatform',
+						'http://schema.org/MobileWebPlatform'
+					]
+				},
+				result: {
+					'@type': 'Reservation',
+					name: 'Boat Trip Reservation'
+				}
+			},
+			{
+				'@type': 'CommunicateAction',
+				target: {
+					'@type': 'EntryPoint',
+					telephone: siteConfig.phone,
+					email: siteConfig.email
+				}
+			}
+		],
+		amenityFeature: [
+			{ '@type': 'LocationFeatureSpecification', name: 'Boat Fueling Station', value: true },
+			{ '@type': 'LocationFeatureSpecification', name: 'Free Parking', value: true },
+			{ '@type': 'LocationFeatureSpecification', name: 'Wheelchair Accessible', value: true },
+			{ '@type': 'LocationFeatureSpecification', name: 'Restaurant', value: true },
+			{ '@type': 'LocationFeatureSpecification', name: 'Accommodation', value: true },
+			{ '@type': 'LocationFeatureSpecification', name: 'Event Venue', value: true }
+		],
 		areaServed: {
 			'@type': 'GeoCircle',
 			geoMidpoint: {
@@ -185,7 +226,17 @@
 			},
 			geoRadius: '100000'
 		},
-		sameAs: [siteConfig.social.facebook, siteConfig.social.instagram]
+		sameAs: [siteConfig.social.facebook, siteConfig.social.instagram],
+		knowsAbout: [
+			'Danube River',
+			'Boat trips',
+			'Marina services',
+			'Corporate events',
+			'Weddings on boats',
+			'Gabčíkovo Dam',
+			'Žitný ostrov'
+		],
+		slogan: lang === 'sk' ? 'Vaša brána na Dunaj' : lang === 'en' ? 'Your gateway to the Danube' : 'Ваши ворота на Дунай'
 	});
 
 	// JSON-LD: WebSite with SearchAction
@@ -195,6 +246,7 @@
 		'@id': `${siteConfig.url}/#website`,
 		url: siteConfig.url,
 		name: siteConfig.name,
+		alternateName: ['Pristav Kormoran', 'Kormoran Port'],
 		description: description,
 		publisher: {
 			'@id': `${siteConfig.url}/#organization`
@@ -203,6 +255,52 @@
 			{ '@type': 'Language', name: 'Slovak', alternateName: 'sk' },
 			{ '@type': 'Language', name: 'English', alternateName: 'en' },
 			{ '@type': 'Language', name: 'Russian', alternateName: 'ru' }
+		],
+		potentialAction: {
+			'@type': 'SearchAction',
+			target: {
+				'@type': 'EntryPoint',
+				urlTemplate: `${siteConfig.url}/?q={search_term_string}`
+			},
+			'query-input': 'required name=search_term_string'
+		}
+	});
+
+	// JSON-LD: TouristDestination (GEO optimization)
+	const touristDestinationSchema = $derived({
+		'@context': 'https://schema.org',
+		'@type': 'TouristDestination',
+		'@id': `${siteConfig.url}/#destination`,
+		name: lang === 'sk' ? 'Dunaj - Žitný ostrov' : lang === 'en' ? 'Danube - Žitný Island' : 'Дунай - Житный остров',
+		description: lang === 'sk'
+			? 'Najväčší riečny ostrov v Európe na juhozápade Slovenska. Ideálne miesto pre vodné športy, cykloturistiku a relax pri Dunaji.'
+			: lang === 'en'
+			? 'The largest river island in Europe in southwestern Slovakia. Ideal destination for water sports, cycling, and relaxation by the Danube.'
+			: 'Крупнейший речной остров в Европе на юго-западе Словакии. Идеальное место для водных видов спорта, велотуризма и отдыха у Дуная.',
+		geo: {
+			'@type': 'GeoCoordinates',
+			latitude: 48.0167,
+			longitude: 17.3167
+		},
+		touristType: [
+			'Water sports enthusiasts',
+			'Cyclists',
+			'Nature lovers',
+			'Corporate groups',
+			'Wedding parties',
+			'Boating enthusiasts'
+		],
+		includesAttraction: [
+			{
+				'@type': 'TouristAttraction',
+				name: 'Gabčíkovo Dam',
+				description: 'Hydroelectric dam with boat locks on the Danube River'
+			},
+			{
+				'@type': 'TouristAttraction',
+				name: 'Botel Kormorán',
+				description: 'Floating hotel on the Danube with restaurant and event facilities'
+			}
 		]
 	});
 
@@ -295,7 +393,7 @@
 
 	// Combined JSON-LD graph
 	const jsonLdGraph = $derived(() => {
-		const graph: Record<string, unknown>[] = [organizationSchema, localBusinessSchema, websiteSchema, webPageSchema, breadcrumbSchema];
+		const graph: Record<string, unknown>[] = [organizationSchema, localBusinessSchema, websiteSchema, webPageSchema, breadcrumbSchema, touristDestinationSchema];
 		if (faqSchema) graph.push(faqSchema);
 		if (howToSchema) graph.push(howToSchema);
 		return {
