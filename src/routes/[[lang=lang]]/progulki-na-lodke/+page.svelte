@@ -2,6 +2,7 @@
 	import type { PageData } from './$types';
 	import { t } from '$lib/i18n';
 	import { SEO } from '$lib/seo';
+	import { responsive } from '$lib/images';
 	import PageTitle from '$lib/components/ui/PageTitle.svelte';
 	import Divider from '$lib/components/ui/Divider.svelte';
 	import { scrollReveal } from '$lib/actions/scrollReveal';
@@ -20,10 +21,9 @@
 	description={translations.seo.boatTrips}
 	lang={data.lang}
 	includeHowTo={true}
-	noindex={true}
 />
 
-<img class="main-img" src="/images/plavby-lodou-ondava-neng.webp" alt="" use:scrollReveal={{ variant: 'fade' }} />
+<img class="main-img" {...responsive('/images/plavby-lodou-ondava-neng.webp')} sizes="(max-width: 1100px) 100vw, 1100px" alt="" use:scrollReveal={{ variant: 'fade' }} />
 <div use:scrollReveal={{ variant: 'fade', delay: 100 }}>
 	<PageTitle title={translations.boatTrips.title} hasImage={true} />
 </div>

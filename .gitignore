@@ -28,3 +28,6 @@ npm-debug.log*
 .cache/
 
 .vercel
+
+# Playwright MCP artifacts
+.playwright-mcp/

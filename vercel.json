@@ -3,6 +3,23 @@
 	"framework": "sveltekit",
 	"buildCommand": "pnpm build",
 	"installCommand": "pnpm install",
+	"redirects": [
+		{
+			"source": "/ru/novinky(/?)",
+			"destination": "/ru/novosti/",
+			"permanent": true
+		},
+		{
+			"source": "/ru/pristavy(/?)",
+			"destination": "/ru/porty/",
+			"permanent": true
+		},
+		{
+			"source": "/ru/vylety-lodou(/?)",
+			"destination": "/ru/progulki-na-lodke/",
+			"permanent": true
+		}
+	],
 	"headers": [
 		{
 			"source": "/fonts/(.*)",

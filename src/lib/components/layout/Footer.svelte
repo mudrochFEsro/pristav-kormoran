@@ -128,7 +128,7 @@
 	}
 
 	.footer__info span {
-		opacity: 0.7;
+		opacity: 0.85; /* ≥ 4.5:1 contrast on footer bg */
 	}
 
 	.footer__social {
@@ -199,7 +199,7 @@
 		font-size: 11px;
 		text-transform: uppercase;
 		letter-spacing: 0.5px;
-		opacity: 0.5;
+		opacity: 0.75; /* ≥ 4.5:1 contrast on footer bg */
 	}
 
 	/* Tablet */

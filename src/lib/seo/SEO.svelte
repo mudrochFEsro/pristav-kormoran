@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import { siteConfig, locations, services, keywords, faq, howToBookBoatTrip, speakableSelectors } from './config';
-	import type { LanguageCode } from '$lib/i18n';
+	import { siteConfig, locations, venues, services, keywords, faq, howToBookBoatTrip, speakableSelectors, firstSentence } from './config';
+	import { LANGUAGES, findPage, getAlternatePaths, getNavRoutes, t, type LanguageCode } from '$lib/i18n';
 
 	interface Props {
 		title: string;
@@ -31,65 +31,26 @@
 		article
 	}: Props = $props();
 
-	// Build canonical URL with proper domain
-	const canonicalUrl = $derived(() => {
-		const path = $page.url.pathname;
-		// Ensure trailing slash for all pages
-		const normalizedPath = path.endsWith('/') ? path : `${path}/`;
-		return `${siteConfig.url}${normalizedPath}`;
-	});
+	// Localized URL of this page in every language (shared page map in $lib/i18n)
+	const alternatePaths = $derived(getAlternatePaths($page.url.pathname));
+
+	// Canonical URL - always the page's own language version, with trailing slash
+	const canonicalUrl = $derived(`${siteConfig.url}${alternatePaths[lang]}`);
 
 	// Full title with site name (avoid duplication if title already contains site name)
 	const fullTitle = $derived(
 		title.includes(siteConfig.name) ? title : `${title} | ${siteConfig.name}`
 	);
 
-	// Locale mapping
-	const localeMap = {
-		sk: 'sk_SK',
-		en: 'en_US',
-		ru: 'ru_RU'
-	};
-	const locale = $derived(localeMap[lang]);
+	// Open Graph locales (from i18n config)
+	const locale = $derived(LANGUAGES.find(({ code }) => code === lang)!.ogLocale);
+	const alternateLocales = $derived(
+		LANGUAGES.filter(({ code }) => code !== lang).map(({ ogLocale }) => ogLocale)
+	);
 
-	// Alternate language URLs
-	const alternateUrls = $derived(() => {
-		const path = $page.url.pathname;
-		const basePath = path
-			.replace(/^\/en\//, '/')
-			.replace(/^\/ru\//, '/')
-			.replace(/^\/en$/, '/')
-			.replace(/^\/ru$/, '/');
-
-		// Map Slovak paths to other languages
-		const pathMappings: Record<string, Record<string, string>> = {
-			'/': { sk: '/', en: '/en/', ru: '/ru/' },
-			'/o-nas/': { sk: '/o-nas/', en: '/en/about-us/', ru: '/ru/o-nas/' },
-			'/novinky/': { sk: '/novinky/', en: '/en/news/', ru: '/ru/novosti/' },
-			'/region/': { sk: '/region/', en: '/en/region/', ru: '/ru/region/' },
-			'/pristavy/': { sk: '/pristavy/', en: '/en/ports/', ru: '/ru/porty/' },
-			'/botel-kormoran/': { sk: '/botel-kormoran/', en: '/en/botel-kormoran/', ru: '/ru/botel-kormoran/' },
-			'/vylety-lodou/': { sk: '/vylety-lodou/', en: '/en/boat-trips/', ru: '/ru/progulki-na-lodke/' },
-			'/kontakt/': { sk: '/kontakt/', en: '/en/contact/', ru: '/ru/kontakt/' }
-		};
-
-		// Find the base path key
-		let baseKey = '/';
-		for (const key of Object.keys(pathMappings)) {
-			const mapping = pathMappings[key];
-			if (Object.values(mapping).some((p) => path === p || path === p.slice(0, -1))) {
-				baseKey = key;
-				break;
-			}
-		}
-
-		const mapping = pathMappings[baseKey] || pathMappings['/'];
-		return {
-			sk: `${siteConfig.url}${mapping.sk}`,
-			en: `${siteConfig.url}${mapping.en}`,
-			ru: `${siteConfig.url}${mapping.ru}`
-		};
-	});
+	// Which page this is - ports and the winter bar are only described where they appear
+	const pageKey = $derived(findPage($page.url.pathname)?.key ?? 'home');
+	const translations = $derived(t(lang));
 
 	// JSON-LD: Organization
 	const organizationSchema = $derived({
@@ -112,7 +73,7 @@
 		sameAs: [siteConfig.social.facebook, siteConfig.social.instagram],
 		address: {
 			'@type': 'PostalAddress',
-			...locations.main.address
+			...siteConfig.address
 		},
 		contactPoint: {
 			'@type': 'ContactPoint',
@@ -122,10 +83,11 @@
 		}
 	});
 
-	// JSON-LD: LocalBusiness (Marina)
+	// JSON-LD: LocalBusiness (marina network - schema.org has no Marina type, so Wikidata names it)
 	const localBusinessSchema = $derived({
 		'@context': 'https://schema.org',
-		'@type': ['LocalBusiness', 'Marina', 'TouristAttraction'],
+		'@type': ['LocalBusiness', 'TouristAttraction'],
+		additionalType: 'https://www.wikidata.org/wiki/Q721207',
 		'@id': `${siteConfig.url}/#localbusiness`,
 		name: siteConfig.name,
 		alternateName: ['Pristav Kormoran', 'Kormoran Port', 'Marina Kormoran', 'Порт Корморан'],
@@ -151,27 +113,7 @@
 			latitude: locations.main.geo.latitude,
 			longitude: locations.main.geo.longitude
 		},
-		hasMap: 'https://www.google.com/maps?q=48.0167,17.3167',
-		openingHoursSpecification: [
-			{
-				'@type': 'OpeningHoursSpecification',
-				dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
-				opens: '08:00',
-				closes: '18:00'
-			},
-			{
-				'@type': 'OpeningHoursSpecification',
-				dayOfWeek: 'Saturday',
-				opens: '09:00',
-				closes: '17:00'
-			},
-			{
-				'@type': 'OpeningHoursSpecification',
-				dayOfWeek: 'Sunday',
-				opens: '10:00',
-				closes: '16:00'
-			}
-		],
+		hasMap: `https://www.google.com/maps?q=${locations.main.geo.latitude},${locations.main.geo.longitude}`,
 		hasOfferCatalog: {
 			'@type': 'OfferCatalog',
 			name: 'Services',
@@ -184,31 +126,21 @@
 				position: index + 1
 			}))
 		},
-		potentialAction: [
-			{
-				'@type': 'ReserveAction',
-				target: {
-					'@type': 'EntryPoint',
-					urlTemplate: `${siteConfig.url}/kontakt/`,
-					actionPlatform: [
-						'http://schema.org/DesktopWebPlatform',
-						'http://schema.org/MobileWebPlatform'
-					]
-				},
-				result: {
-					'@type': 'Reservation',
-					name: 'Boat Trip Reservation'
-				}
+		potentialAction: {
+			'@type': 'ReserveAction',
+			target: {
+				'@type': 'EntryPoint',
+				urlTemplate: `${siteConfig.url}${getNavRoutes(lang).contact}`,
+				actionPlatform: [
+					'https://schema.org/DesktopWebPlatform',
+					'https://schema.org/MobileWebPlatform'
+				]
 			},
-			{
-				'@type': 'CommunicateAction',
-				target: {
-					'@type': 'EntryPoint',
-					telephone: siteConfig.phone,
-					email: siteConfig.email
-				}
+			result: {
+				'@type': 'Reservation',
+				name: 'Mooring and Botel Kormorán reservation'
 			}
-		],
+		},
 		amenityFeature: [
 			{ '@type': 'LocationFeatureSpecification', name: 'Boat Fueling Station', value: true },
 			{ '@type': 'LocationFeatureSpecification', name: 'Free Parking', value: true },
@@ -239,7 +171,7 @@
 		slogan: lang === 'sk' ? 'Vaša brána na Dunaj' : lang === 'en' ? 'Your gateway to the Danube' : 'Ваши ворота на Дунай'
 	});
 
-	// JSON-LD: WebSite with SearchAction
+	// JSON-LD: WebSite
 	const websiteSchema = $derived({
 		'@context': 'https://schema.org',
 		'@type': 'WebSite',
@@ -255,15 +187,7 @@
 			{ '@type': 'Language', name: 'Slovak', alternateName: 'sk' },
 			{ '@type': 'Language', name: 'English', alternateName: 'en' },
 			{ '@type': 'Language', name: 'Russian', alternateName: 'ru' }
-		],
-		potentialAction: {
-			'@type': 'SearchAction',
-			target: {
-				'@type': 'EntryPoint',
-				urlTemplate: `${siteConfig.url}/?q={search_term_string}`
-			},
-			'query-input': 'required name=search_term_string'
-		}
+		]
 	});
 
 	// JSON-LD: TouristDestination (GEO optimization)
@@ -279,8 +203,7 @@
 			: 'Крупнейший речной остров в Европе на юго-западе Словакии. Идеальное место для водных видов спорта, велотуризма и отдыха у Дуная.',
 		geo: {
 			'@type': 'GeoCoordinates',
-			latitude: 48.0167,
-			longitude: 17.3167
+			...locations.main.geo
 		},
 		touristType: [
 			'Water sports enthusiasts',
@@ -308,8 +231,8 @@
 	const webPageSchema = $derived({
 		'@context': 'https://schema.org',
 		'@type': type === 'article' ? 'Article' : 'WebPage',
-		'@id': `${canonicalUrl()}/#webpage`,
-		url: canonicalUrl(),
+		'@id': `${canonicalUrl}#webpage`,
+		url: canonicalUrl,
 		name: fullTitle,
 		description: description,
 		inLanguage: lang,
@@ -318,6 +241,11 @@
 		},
 		about: {
 			'@id': `${siteConfig.url}/#localbusiness`
+		},
+		// Speakable (AEO - voice assistants)
+		speakable: {
+			'@type': 'SpeakableSpecification',
+			cssSelector: speakableSelectors
 		},
 		...(article && {
 			datePublished: article.publishedTime,
@@ -333,7 +261,7 @@
 	const faqSchema = $derived(includeFaq ? {
 		'@context': 'https://schema.org',
 		'@type': 'FAQPage',
-		'@id': `${canonicalUrl()}/#faq`,
+		'@id': `${canonicalUrl}#faq`,
 		mainEntity: faq[lang].map((item) => ({
 			'@type': 'Question',
 			name: item.question,
@@ -348,7 +276,7 @@
 	const howToSchema = $derived(includeHowTo ? {
 		'@context': 'https://schema.org',
 		'@type': 'HowTo',
-		'@id': `${canonicalUrl()}/#howto`,
+		'@id': `${canonicalUrl}#howto`,
 		name: howToBookBoatTrip[lang].name,
 		description: howToBookBoatTrip[lang].description,
 		step: howToBookBoatTrip[lang].steps.map((step, index) => ({
@@ -360,40 +288,71 @@
 		totalTime: 'PT10M'
 	} : null);
 
-	// JSON-LD: Speakable Schema (AEO - Voice Search)
-	const speakableSchema = $derived({
-		'@context': 'https://schema.org',
-		'@type': 'WebPage',
-		speakable: {
-			'@type': 'SpeakableSpecification',
-			cssSelector: speakableSelectors
-		}
-	});
-
 	// JSON-LD: BreadcrumbList (GEO - Navigation understanding)
+	const homeUrl = $derived(`${siteConfig.url}${getNavRoutes(lang).home}`);
 	const breadcrumbSchema = $derived({
 		'@context': 'https://schema.org',
 		'@type': 'BreadcrumbList',
-		'@id': `${canonicalUrl()}/#breadcrumb`,
+		'@id': `${canonicalUrl}#breadcrumb`,
 		itemListElement: [
 			{
 				'@type': 'ListItem',
 				position: 1,
-				name: 'Domov',
-				item: `${siteConfig.url}/`
+				name: siteConfig.name,
+				item: homeUrl
 			},
-			{
-				'@type': 'ListItem',
-				position: 2,
-				name: title,
-				item: canonicalUrl()
-			}
+			...(canonicalUrl === homeUrl
+				? []
+				: [{ '@type': 'ListItem', position: 2, name: title, item: canonicalUrl }])
 		]
+	});
+
+	// JSON-LD: the six ports as separate places (GEO - local queries like "prístav Štúrovo")
+	const portsUrl = $derived(`${siteConfig.url}${getNavRoutes(lang).ports}`);
+	const portSchemas = $derived(
+		Object.values(locations).map((port) => {
+			const key = `port${port.number}` as const;
+			return {
+				'@type': ['LocalBusiness', 'BoatTerminal'],
+				'@id': `${siteConfig.url}/#port-${port.number}`,
+				name: port.name,
+				// First sentence of the port's text on the Prístavy page (river km, bank)
+				description: `${translations.ports[`${key}Title`]} ${firstSentence(translations.ports[`${key}Text`])}`,
+				url: portsUrl,
+				telephone: siteConfig.phone,
+				address: { '@type': 'PostalAddress', ...port.address },
+				...('geo' in port && {
+					geo: { '@type': 'GeoCoordinates', ...port.geo }
+				}),
+				parentOrganization: { '@id': `${siteConfig.url}/#organization` }
+			};
+		})
+	);
+
+	// JSON-LD: SUNSET winter boat bar (only venue with published opening hours)
+	const sunsetSchema = $derived({
+		'@type': 'BarOrPub',
+		'@id': `${siteConfig.url}/#sunset`,
+		name: `${venues.sunsetBar.name} – ${translations.news.eyebrow.split('·')[1].trim()}`,
+		description: translations.news.articleText,
+		url: `${siteConfig.url}${getNavRoutes(lang).news}`,
+		image: `${siteConfig.url}/images/sunset-lod-vecer.jpg`,
+		telephone: siteConfig.phone,
+		address: { '@type': 'PostalAddress', ...locations.main.address },
+		geo: { '@type': 'GeoCoordinates', ...locations.main.geo },
+		containedInPlace: { '@id': `${siteConfig.url}/#port-1` },
+		openingHoursSpecification: {
+			'@type': 'OpeningHoursSpecification',
+			...venues.sunsetBar.openingHours
+		},
+		parentOrganization: { '@id': `${siteConfig.url}/#organization` }
 	});
 
 	// Combined JSON-LD graph
 	const jsonLdGraph = $derived(() => {
 		const graph: Record<string, unknown>[] = [organizationSchema, localBusinessSchema, websiteSchema, webPageSchema, breadcrumbSchema, touristDestinationSchema];
+		if (pageKey === 'home' || pageKey === 'ports') graph.push(...portSchemas);
+		if (pageKey === 'home' || pageKey === 'news') graph.push(sunsetSchema);
 		if (faqSchema) graph.push(faqSchema);
 		if (howToSchema) graph.push(howToSchema);
 		return {
@@ -403,7 +362,6 @@
 	});
 
 	const keywordString = $derived(keywords[lang].join(', '));
-	const alts = $derived(alternateUrls());
 </script>
 
 <svelte:head>
@@ -421,15 +379,15 @@
 	{/if}
 
 	<!-- Canonical & Language Alternates -->
-	<link rel="canonical" href={canonicalUrl()} />
-	<link rel="alternate" hreflang="sk" href={alts.sk} />
-	<link rel="alternate" hreflang="en" href={alts.en} />
-	<link rel="alternate" hreflang="ru" href={alts.ru} />
-	<link rel="alternate" hreflang="x-default" href={alts.sk} />
+	<link rel="canonical" href={canonicalUrl} />
+	{#each LANGUAGES as { code } (code)}
+		<link rel="alternate" hreflang={code} href="{siteConfig.url}{alternatePaths[code]}" />
+	{/each}
+	<link rel="alternate" hreflang="x-default" href="{siteConfig.url}{alternatePaths.sk}" />
 
 	<!-- Open Graph / Facebook -->
 	<meta property="og:type" content={type === 'article' ? 'article' : 'website'} />
-	<meta property="og:url" content={canonicalUrl()} />
+	<meta property="og:url" content={canonicalUrl} />
 	<meta property="og:title" content={fullTitle} />
 	<meta property="og:description" content={description} />
 	<meta property="og:image" content="{siteConfig.url}{image}" />
@@ -437,9 +395,9 @@
 	<meta property="og:image:height" content="630" />
 	<meta property="og:image:alt" content={title} />
 	<meta property="og:locale" content={locale} />
-	<meta property="og:locale:alternate" content="sk_SK" />
-	<meta property="og:locale:alternate" content="en_US" />
-	<meta property="og:locale:alternate" content="ru_RU" />
+	{#each alternateLocales as alternateLocale (alternateLocale)}
+		<meta property="og:locale:alternate" content={alternateLocale} />
+	{/each}
 	<meta property="og:site_name" content={siteConfig.name} />
 
 	{#if article}
@@ -452,15 +410,15 @@
 
 	<!-- Twitter -->
 	<meta name="twitter:card" content="summary_large_image" />
-	<meta name="twitter:url" content={canonicalUrl()} />
+	<meta name="twitter:url" content={canonicalUrl} />
 	<meta name="twitter:title" content={fullTitle} />
 	<meta name="twitter:description" content={description} />
 	<meta name="twitter:image" content="{siteConfig.url}{image}" />
 	<meta name="twitter:image:alt" content={title} />
 
 	<!-- Geographic Meta Tags -->
-	<meta name="geo.region" content="SK-BL" />
-	<meta name="geo.placename" content="Bratislava, Slovakia" />
+	<meta name="geo.region" content={locations.main.regionCode} />
+	<meta name="geo.placename" content="{locations.main.address.addressLocality}, Slovakia" />
 	<meta name="geo.position" content="{locations.main.geo.latitude};{locations.main.geo.longitude}" />
 	<meta name="ICBM" content="{locations.main.geo.latitude}, {locations.main.geo.longitude}" />
 
@@ -470,6 +428,4 @@
 
 	<!-- JSON-LD Structured Data (SEO + AEO + GEO) -->
 	{@html `<script type="application/ld+json">${JSON.stringify(jsonLdGraph())}</script>`}
-	<!-- Speakable Schema for Voice Assistants -->
-	{@html `<script type="application/ld+json">${JSON.stringify(speakableSchema)}</script>`}
 </svelte:head>

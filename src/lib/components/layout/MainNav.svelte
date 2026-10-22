@@ -85,7 +85,7 @@
 
 		<!-- Logo - first on left -->
 		<a href={resolve(routes.home)} class="nav__logo" aria-label="Homepage">
-			<img src="/images/logo-pristav.svg" alt="Prístav Kormorán" width="90" height="90" fetchpriority="high" />
+			<img src="/images/logo-pristav.svg" alt="Prístav Kormorán" width="90" height="90" />
 		</a>
 
 		<!-- Navigation items -->

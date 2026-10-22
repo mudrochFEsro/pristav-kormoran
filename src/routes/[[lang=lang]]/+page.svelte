@@ -1,9 +1,11 @@
 <script lang="ts">
 	import type { PageData } from './$types';
 	import { t } from '$lib/i18n';
-	import { SEO } from '$lib/seo';
+	import { SEO, faq } from '$lib/seo';
+	import { responsive } from '$lib/images';
 	import Divider from '$lib/components/ui/Divider.svelte';
 	import CategoryCard from '$lib/components/ui/CategoryCard.svelte';
+	import Faq from '$lib/components/ui/Faq.svelte';
 	import { scrollReveal } from '$lib/actions/scrollReveal';
 
 	interface Props {
@@ -22,7 +24,7 @@
 	includeFaq={true}
 />
 
-<img class="main-img" src="/images/static-main.webp" alt="Prístav Kormorán - prístavy na Dunaji" fetchpriority="high" decoding="async" />
+<img class="main-img" {...responsive('/images/static-main.webp')} sizes="(max-width: 1100px) 100vw, 1100px" alt="Prístav Kormorán - prístavy na Dunaji" fetchpriority="high" decoding="async" />
 <h1 class="main-title" use:scrollReveal={{ variant: 'fade' }}>
 	{translations.home.title}
 </h1>
@@ -84,12 +86,17 @@
 		title="Čilistovská lagúna - práve skolaudované! K novému bývaniu zdarma kotvenie vášho plavidla v prístave Kormorán"
 	>
 		<img
-			src="/images/banner-laguna.webp"
+			{...responsive('/images/banner-laguna.webp')}
+			sizes="(max-width: 860px) 100vw, 820px"
 			alt="Čilistovská lagúna - práve skolaudované! K novému bývaniu zdarma kotvenie vášho plavidla v prístave Kormorán"
 			loading="lazy"
 			decoding="async"
 		/>
 	</a>
+</div>
+
+<div use:scrollReveal={{ variant: 'fade' }}>
+	<Faq title={translations.home.faq} items={faq[data.lang]} />
 </div>
 
 <style>
@@ -104,7 +111,8 @@
 		font-family: var(--font-primary);
 		font-weight: var(--font-weight-medium);
 		font-size: var(--size-heading-lg);
-		color: var(--color-primary);
+		/* primary-dark at ≥ 24px meets the 3:1 large-text contrast on white */
+		color: var(--color-primary-dark);
 		margin-bottom: var(--space-4);
 	}
 
@@ -123,7 +131,7 @@
 		}
 
 		.home-section__title {
-			font-size: 22px;
+			font-size: 24px;
 		}
 	}
 </style>

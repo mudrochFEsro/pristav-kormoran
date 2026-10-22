@@ -2,6 +2,7 @@
 	import type { PageData } from './$types';
 	import { t } from '$lib/i18n';
 	import { SEO } from '$lib/seo';
+	import { responsive } from '$lib/images';
 	import PageTitle from '$lib/components/ui/PageTitle.svelte';
 	import Divider from '$lib/components/ui/Divider.svelte';
 	import { scrollReveal } from '$lib/actions/scrollReveal';
@@ -31,10 +32,10 @@
 		{translations.botel.contactInfo}
 	</p>
 	<p>
-		<img src="/images/botel-ubytovanie-restauracia1.webp" alt="Botel Restaurant" loading="lazy" decoding="async" />
+		<img {...responsive('/images/botel-ubytovanie-restauracia1.webp')} sizes="(max-width: 900px) 100vw, 820px" alt="Botel Restaurant" loading="lazy" decoding="async" />
 	</p>
-	<p><img src="/images/sundeck-chillout-zona.webp" alt="Sundeck" loading="lazy" decoding="async" /></p>
+	<p><img {...responsive('/images/sundeck-chillout-zona.webp')} sizes="(max-width: 900px) 100vw, 820px" alt="Sundeck" loading="lazy" decoding="async" /></p>
 	<p>{translations.botel.roomTypes}</p>
-	<p><img src="/images/img3409.webp" alt="Room" loading="lazy" decoding="async" /></p>
-	<p><img src="/images/img3416-1.webp" alt="Room interior" loading="lazy" decoding="async" /></p>
+	<p><img {...responsive('/images/img3409.webp')} sizes="(max-width: 900px) 100vw, 820px" alt="Room" loading="lazy" decoding="async" /></p>
+	<p><img {...responsive('/images/img3416-1.webp')} sizes="(max-width: 900px) 100vw, 820px" alt="Room interior" loading="lazy" decoding="async" /></p>
 </div>

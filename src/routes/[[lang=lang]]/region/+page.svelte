@@ -2,6 +2,7 @@
 	import type { PageData } from './$types';
 	import { t } from '$lib/i18n';
 	import { SEO } from '$lib/seo';
+	import { responsive } from '$lib/images';
 	import PageTitle from '$lib/components/ui/PageTitle.svelte';
 	import Divider from '$lib/components/ui/Divider.svelte';
 	import { scrollReveal } from '$lib/actions/scrollReveal';
@@ -29,8 +30,8 @@
 	<p><strong>{translations.region.zitnyOstrov}</strong></p>
 	<p>{translations.region.zitnyOstrovText}</p>
 	<p>
-		<img src="/images/kormoran-cilistov-i-a-ii-kopia.webp" alt="Kormorán Čilistov" loading="lazy" decoding="async" />
+		<img {...responsive('/images/kormoran-cilistov-i-a-ii-kopia.webp')} sizes="(max-width: 900px) 100vw, 820px" alt="Kormorán Čilistov" loading="lazy" decoding="async" />
 	</p>
 	<p><strong>{translations.region.cyclePath}</strong></p>
-	<p><img src="/images/cyklotrasa.webp" alt={translations.region.cyclePath} loading="lazy" decoding="async" /></p>
+	<p><img {...responsive('/images/cyklotrasa.webp')} sizes="(max-width: 900px) 100vw, 820px" alt={translations.region.cyclePath} loading="lazy" decoding="async" /></p>
 </div>

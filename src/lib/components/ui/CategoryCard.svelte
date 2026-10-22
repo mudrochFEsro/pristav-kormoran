@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { scrollReveal } from '$lib/actions/scrollReveal';
+	import { responsive } from '$lib/images';
 
 	interface Props {
 		image: string;
@@ -22,7 +23,8 @@
 	use:scrollReveal={{ variant: 'fade', delay: animationDelay }}
 >
 	<img
-		src={image}
+		{...responsive(image)}
+		sizes="{imageWidth}px"
 		alt={imageAlt}
 		width={imageWidth}
 		height={imageHeight}

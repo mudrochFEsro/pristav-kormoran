@@ -274,35 +274,38 @@ MainNav používa `flex: 1 1 0` pre rovnomernú šírku položiek:
 ### Štruktúrované dáta (JSON-LD)
 
 Všetky schémy sú v `src/lib/seo/SEO.svelte`:
-- **Organization** - firemné údaje
-- **LocalBusiness + Marina + TouristAttraction** - prístavné služby
-- **WebSite** - s SearchAction
-- **WebPage** - pre každú stránku
-- **FAQPage** - 15 otázok v každom jazyku (AEO)
-- **HowTo** - návod na rezerváciu (AEO)
-- **BreadcrumbList** - navigácia (GEO)
+- **Organization** - firemné údaje, sídlo (Hollého 1, Bratislava)
+- **LocalBusiness + TouristAttraction** - sieť prístavov (marina cez Wikidata `additionalType`, schema.org nemá typ Marina)
+- **LocalBusiness + BoatTerminal** - 6 prístavov ako samostatné miesta (home + Prístavy)
+- **BarOrPub** - zimný bar SUNSET s otváracími hodinami (home + Novinky)
+- **WebSite**, **WebPage** (+ Speakable), **BreadcrumbList**
+- **FAQPage** - 13 otázok v každom jazyku, **zobrazené aj na home** (`Faq.svelte`) - musia sa zhodovať
+- **HowTo** - návod na rezerváciu (stránky výletov loďou)
 - **TouristDestination** - región Žitný ostrov (GEO)
-- **Speakable** - pre voice search (AEO)
+
+Canonical, hreflang, `sitemap.xml` a `llms.txt` sa generujú zo spoločnej mapy stránok (`getNavRoutes` v `$lib/i18n`).
+Do FAQ ani dát nepridávaj neoverené fakty (hodiny, ceny, GPS) - zobrazujú sa v Google a AI odpovediach.
 
 ### Konfigurácia
 
 Všetky SEO dáta sú centralizované v `src/lib/seo/config.ts`:
-- `siteConfig` - základné info, kontakty, social
-- `locations` - GPS súradnice všetkých prístavov
-- `services` - služby v 3 jazykoch
-- `faq` - FAQ otázky a odpovede
-- `howToBookBoatTrip` - HowTo schéma
-- `keywords` - kľúčové slová vrátane preklepov
+- `siteConfig` - základné info, kontakty, sídlo, social
+- `locations` - 6 prístavov (presné GPS len Čilistov)
+- `venues` - sezónne prevádzky s hodinami (SUNSET) - drž v súlade s Novinkami
+- `hiddenPages` - dočasne skryté stránky (mimo sitemap a llms.txt)
+- `services`, `faq`, `howToBookBoatTrip`, `keywords`
 
 ### Obrázky
 
-Všetky obrázky sú v **WebP formáte** pre optimálnu veľkosť. Pri pridávaní nových obrázkov konvertuj na WebP s kvalitou 80-85.
+Masters sú v `static/images/` (WebP, kvalita 80-85). Na stránkach používaj `responsive()`:
+`<img {...responsive('/images/x.webp')} sizes="…" alt="" />`. Responzívne varianty (`static/images/webp/*-{w}.webp`)
+a manifest vygeneruje `pnpm images` (potrebuje `cwebp`).
 
 ## Poznámky pre vývoj
 
 - Pri pridávaní novej stránky nezabudni na `+page.ts` s `entries()`
 - Preklady pridaj do všetkých 3 súborov: `sk.ts`, `en.ts`, `ru.ts`
-- Obrázky dávaj do `/static/images/` vo formáte **WebP**
+- Obrázky dávaj do `/static/images/` vo formáte **WebP** a spusti `pnpm images`
 - CSS triedy používaj z global.css, nevytváraj nové ak nie je nutné
 - **Spacing:** Vždy používaj `var(--space-X)` namiesto px hodnôt
 - **Animácie:** Rešpektuj `prefers-reduced-motion` pre accessibility

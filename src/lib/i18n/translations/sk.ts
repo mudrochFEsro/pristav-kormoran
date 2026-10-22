@@ -13,7 +13,7 @@ export const sk: Translations = {
 		news: 'Novinky a aktuality z prístavov Kormorán. Aktuálne informácie o plavbách, eventoch a novinkách z Dunaja.',
 		region: 'Žitný ostrov - najväčší riečny ostrov v Európe. Termálne kúpaliská, cyklotrasy, vodné dielo Gabčíkovo a Hotel Kormorán v Šamoríne-Čilistov.',
 		ports: 'Prístavy Kormorán na Dunaji - 6 prístavísk v Bratislave, Čilistove a Štúrove. Služby pre kajutové plavidlá, výletné lode a malé plavidlá.',
-		botel: 'Botel Kormorán - ubytovanie na lodi v Bratislave. 49 lôžok, reštaurácia, bar s terasou, kongresová sála. Ideálne pre firemné akcie a oslavy.',
+		botel: 'Botel Kormorán - ubytovanie na lodi v Čilistove pri Šamoríne. 49 lôžok, reštaurácia, bar s terasou, kongresová sála. Ideálne pre firemné akcie a oslavy.',
 		boatTrips: 'Výlety loďou po Dunaji - plavby z Bratislavy a Čilistova. Firemné teambuildingy, svadby, oslavy a súkromné plavby loďou Ondava.',
 		contact: 'Kontakt na Prístav Kormorán. Port manager, prevádzkovateľ, fakturačné údaje. Rezervácie prístavísk a plavby loďou.'
 	},
@@ -50,7 +50,8 @@ export const sk: Translations = {
 			'Okrem prístavných služieb ponúkame ubytovanie na Boteli Kormorán s kapacitou 49 lôžok, reštauráciou a barom s terasou. Organizujeme výlety loďou po Dunaji, firemné teambuildingy, svadby na lodi, rodinné oslavy a rôzne spoločenské podujatia. Naša loď Ondava je ideálna pre súkromné plavby aj skupinové výlety.',
 		location: 'Strategická poloha',
 		locationText:
-			'Prístavy Kormorán sa nachádzajú na Žitnom ostrove - najväčšom riečnom ostrove v Európe. V blízkosti prístavov nájdete termálne kúpaliská, cyklotrasy vedúce pozdĺž Dunaja, historické pamiatky a vodné dielo Gabčíkovo. Hotel Kormorán v Čilistove ponúka wellness, fitness a športoviská pre aktívny oddych.'
+			'Prístavy Kormorán sa nachádzajú na Žitnom ostrove - najväčšom riečnom ostrove v Európe. V blízkosti prístavov nájdete termálne kúpaliská, cyklotrasy vedúce pozdĺž Dunaja, historické pamiatky a vodné dielo Gabčíkovo. Hotel Kormorán v Čilistove ponúka wellness, fitness a športoviská pre aktívny oddych.',
+		faq: 'Časté otázky'
 	},
 
 	categories: {
@@ -85,10 +86,20 @@ export const sk: Translations = {
 
 	news: {
 		title: 'Novinky',
-		articleTitle: 'Sladké pokušenie počas prechádzky',
-		articleText:
-			'Aj keď už plavby loďou v tejto sezóne skončili, prechádzky popri Prístave Kormorán v Čilistove sú vždy pekným zážitkom. Počas prechádzky si môžete objednať v Hoteli Kormorán úžasné domáce pečivo.',
-		contactOrders: 'Kontakt pre objednávky sladkých koláčikov'
+		date: '22. 10. 2026',
+		eyebrow: 'SUNSET · zimný lodný bar',
+		headline: 'Otvárame od 6.\u00a011.',
+		lead: 'Prechádzka po hrádzi? Zohrejte sa u nás.',
+		highlights: 'Horúce nápoje · niečo malé pod zub · stolné hry',
+		hours: 'Piatok – nedeľa · 11:00 – 19:00',
+		location: 'Prístav Kormorán, Čilistov',
+		articleTitle: 'Zimný SUNSET: zohrejte sa počas prechádzky',
+		articleText: 'Prechádzka po hrádzi v Čilistove? Od 6. novembra sa môžete zastaviť zohriať na palubu zimného lodného baru SUNSET v Prístave Kormorán. Čaká vás varené víno, punč aj nealko punč, horúca čokoláda, niečo malé pod zub a stolné hry.',
+		openingHoursLabel: 'Otvorené',
+		openingHours: 'piatok – nedeľa, 11:00 – 19:00',
+		imageAltBar: 'Bar na palube SUNSET',
+		imageAltSunset: 'Západ slnka nad vodou z paluby',
+		imageAltBoat: 'Osvetlená loď v Prístave Kormorán večer'
 	},
 
 	region: {

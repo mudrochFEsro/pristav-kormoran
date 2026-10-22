@@ -49,6 +49,7 @@ export interface Translations {
 		servicesText: string;
 		location: string;
 		locationText: string;
+		faq: string;
 	};
 
 	// Categories
@@ -84,9 +85,20 @@ export interface Translations {
 	// News page
 	news: {
 		title: string;
+		date: string;
+		eyebrow: string;
+		headline: string;
+		lead: string;
+		highlights: string;
+		hours: string;
+		location: string;
 		articleTitle: string;
 		articleText: string;
-		contactOrders: string;
+		openingHoursLabel: string;
+		openingHours: string;
+		imageAltBar: string;
+		imageAltSunset: string;
+		imageAltBoat: string;
 	};
 
 	// Region page

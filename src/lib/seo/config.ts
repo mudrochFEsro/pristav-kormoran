@@ -3,6 +3,8 @@
  * Centralized configuration for all SEO and GEO data
  */
 
+import type { PageKey } from '$lib/i18n';
+
 export const siteConfig = {
 	// Basic site info
 	name: 'Prístav Kormorán',
@@ -18,6 +20,14 @@ export const siteConfig = {
 	social: {
 		facebook: 'https://www.facebook.com/pristavkormoran',
 		instagram: 'https://www.instagram.com/pristavkormoran'
+	},
+
+	// Registered office of the operator (as on the Kontakt page and in the footer)
+	address: {
+		streetAddress: 'Hollého 1',
+		addressLocality: 'Bratislava',
+		postalCode: '811 08',
+		addressCountry: 'SK'
 	},
 
 	// Business registration (Slovakia)
@@ -36,43 +46,53 @@ export const siteConfig = {
 	priceRange: '€€'
 };
 
-// Geographic locations for each port
+// Pages temporarily hidden from navigation - also left out of sitemap.xml and llms.txt
+export const hiddenPages: PageKey[] = ['boatTrips'];
+
+// Geographic locations for each port (numbers match the Prístavy page)
+const cilistovAddress = {
+	streetAddress: 'Čilistov',
+	addressLocality: 'Šamorín',
+	addressRegion: 'Trnavský kraj',
+	postalCode: '931 01',
+	addressCountry: 'SK'
+};
+
 export const locations = {
 	// Main location - Čilistov (Port I)
 	main: {
+		number: 1,
 		name: 'Prístav Kormorán I. - Čilistov',
-		address: {
-			streetAddress: 'Čilistov',
-			addressLocality: 'Šamorín',
-			addressRegion: 'Trnavský kraj',
-			postalCode: '931 01',
-			addressCountry: 'SK'
-		},
+		regionCode: 'SK-TA',
+		address: cilistovAddress,
 		geo: {
-			latitude: 48.0167,
-			longitude: 17.3167
-		},
-		googleMapsUrl: 'https://goo.gl/maps/pristavkormoran'
+			latitude: 48.009144,
+			longitude: 17.304332
+		}
+	},
+
+	// Čilistov - Port II (small boats, Botel Kormorán)
+	cilistov2: {
+		number: 2,
+		name: 'Prístav Kormorán II. - Čilistov',
+		address: cilistovAddress
 	},
 
 	// Bratislava - Port III (Danube right bank)
 	bratislava1: {
+		number: 3,
 		name: 'Prístav Kormorán III. - Bratislava',
 		address: {
-			streetAddress: 'Dunajská nábrežie',
-			addressLocality: 'Bratislava',
+			addressLocality: 'Bratislava - Petržalka',
 			addressRegion: 'Bratislavský kraj',
-			postalCode: '811 02',
+			postalCode: '851 01',
 			addressCountry: 'SK'
-		},
-		geo: {
-			latitude: 48.1417,
-			longitude: 17.1167
 		}
 	},
 
-	// Bratislava - Port IV (Under castle)
+	// Bratislava - Port IV (under the castle)
 	bratislava2: {
+		number: 4,
 		name: 'Prístav Kormorán IV. - Bratislava (Hrad)',
 		address: {
 			streetAddress: 'Pod Bratislavským hradom',
@@ -80,42 +100,50 @@ export const locations = {
 			addressRegion: 'Bratislavský kraj',
 			postalCode: '811 01',
 			addressCountry: 'SK'
-		},
-		geo: {
-			latitude: 48.1420,
-			longitude: 17.1000
 		}
 	},
 
 	// Bratislava - Port V (River Park)
 	bratislava3: {
+		number: 5,
 		name: 'Prístav Kormorán V. - River Park',
 		address: {
-			streetAddress: 'River Park, Dvořákovo nábrežie',
+			streetAddress: 'Dvořákovo nábrežie',
 			addressLocality: 'Bratislava',
 			addressRegion: 'Bratislavský kraj',
 			postalCode: '811 02',
 			addressCountry: 'SK'
-		},
-		geo: {
-			latitude: 48.1450,
-			longitude: 17.1050
 		}
 	},
 
 	// Štúrovo - Port VI
 	sturovo: {
+		number: 6,
 		name: 'Prístav Kormorán VI. - Štúrovo',
 		address: {
-			streetAddress: 'Pri Dunaji',
 			addressLocality: 'Štúrovo',
 			addressRegion: 'Nitriansky kraj',
 			postalCode: '943 01',
 			addressCountry: 'SK'
-		},
-		geo: {
-			latitude: 47.7978,
-			longitude: 18.7181
+		}
+	}
+} as const;
+
+/** First sentence of a text - ignores abbreviations like "r.k. 31,2" (sentence ends before a capital letter). */
+export function firstSentence(text: string): string {
+	const end = text.search(/\.\s(?=[A-ZÁÄČĎÉÍĽĹŇÓÔŔŠŤÚÝŽА-ЯЁ])/);
+	return end === -1 ? text : text.slice(0, end + 1);
+}
+
+// Seasonal venues with known opening hours (keep in sync with the news section)
+export const venues = {
+	sunsetBar: {
+		name: 'SUNSET',
+		openingHours: {
+			dayOfWeek: ['Friday', 'Saturday', 'Sunday'],
+			opens: '11:00',
+			closes: '19:00',
+			validFrom: '2026-11-06'
 		}
 	}
 };
@@ -127,13 +155,6 @@ export const serviceArea = {
 	centerLatitude: 48.1,
 	centerLongitude: 17.2
 };
-
-// Business hours
-export const openingHours = [
-	'Mo-Fr 08:00-18:00',
-	'Sa 09:00-17:00',
-	'Su 10:00-16:00'
-];
 
 // Services offered
 export const services = {
@@ -181,32 +202,24 @@ export const faq = {
 			answer: 'Ponúkame prístavné služby pre kajutové plavidlá a výletné lode, parkovanie malých plavidiel, výlety loďou po Dunaji, ubytovanie na Boteli Kormorán, organizáciu firemných eventov, teambuildingov, svadieb a osláv na lodi.'
 		},
 		{
-			question: 'Ako si môžem rezervovať výlet loďou?',
-			answer: 'Výlet loďou si môžete rezervovať telefonicky na čísle +421 902 199 480 alebo emailom na robertj@seidner.sk. Ponúkame súkromné plavby aj skupinové výlety po Dunaji.'
-		},
-		{
 			question: 'Koľko stojí kotvenie v prístave Kormorán?',
-			answer: 'Ceny kotvenia závisia od veľkosti plavidla a dĺžky pobytu. Pre aktuálny cenník kontaktujte port managera na +421 903 614 663 alebo emailom info@pristavkormoran.sk.'
+			answer: 'Ceny kotvenia závisia od veľkosti plavidla a dĺžky pobytu. Pre aktuálny cenník kontaktujte port managera na +421 902 199 480 alebo emailom robertj@seidner.sk.'
 		},
 		{
 			question: 'Môžem usporiadať svadbu na lodi?',
-			answer: 'Áno, ponúkame organizáciu svadieb na lodi Ondava aj v Prístave Kormorán v Čilistove. Zabezpečíme catering, výzdobu, ozvučenie a kompletný svadobný servis. Kapacita lode je ideálna pre intimate svadby.'
+			answer: 'Áno, ponúkame organizáciu svadieb na lodi Ondava aj v Prístave Kormorán v Čilistove. Zabezpečíme catering, výzdobu, ozvučenie a kompletný svadobný servis. Kapacita lode je ideálna pre komorné svadby.'
 		},
 		{
 			question: 'Aká je kapacita Botela Kormorán?',
 			answer: 'Botel Kormorán má kapacitu 49 lôžok. Súčasťou je reštaurácia s 32 miestami, bar s terasou pre 60 hostí a kongresová sála pre 20 osôb.'
 		},
 		{
-			question: 'Je možné navštíviť vodné dielo Gabčíkovo loďou?',
-			answer: 'Áno, z Prístavu Kormorán v Čilistove organizujeme výlety loďou na vodné dielo Gabčíkovo. Plavba trvá približne 2-3 hodiny a zahŕňa prechod cez plavebné komory.'
-		},
-		{
-			question: 'Aké sú otváracie hodiny prístavov?',
-			answer: 'Prístavy sú otvorené pondelok až piatok od 8:00 do 18:00, v sobotu od 9:00 do 17:00 a v nedeľu od 10:00 do 16:00. Pre príchod mimo otváracích hodín nás kontaktujte vopred.'
+			question: 'Kedy je otvorený zimný lodný bar SUNSET?',
+			answer: 'Zimný lodný bar SUNSET v Prístave Kormorán v Čilistove je otvorený od 6. novembra, piatok – nedeľa od 11:00 do 19:00. Ponúka varené víno, punč aj nealko punč, horúcu čokoládu, niečo malé pod zub a stolné hry.'
 		},
 		{
 			question: 'Ako sa dostanem do prístavu Kormorán v Čilistove?',
-			answer: 'Z Bratislavy smerom na Šamorín, pred Šamorínom odbočte doprava na Čilistov. Prístav sa nachádza pri Hoteli Kormorán. GPS súradnice: 48.0167, 17.3167. Parkovanie je k dispozícii priamo v areáli.'
+			answer: 'Z Bratislavy smerom na Šamorín, pred Šamorínom odbočte doprava na Čilistov. Prístav sa nachádza pri Hoteli Kormorán. GPS súradnice: 48.009144, 17.304332. Parkovanie je k dispozícii priamo v areáli.'
 		},
 		{
 			question: 'Aké typy lodí môžu kotviť v prístave?',
@@ -243,12 +256,8 @@ export const faq = {
 			answer: 'We offer port services for cabin vessels and cruise ships, small boat parking, boat trips on the Danube, accommodation at Botel Kormoran, corporate events, team buildings, weddings and celebrations on board.'
 		},
 		{
-			question: 'How can I book a boat trip?',
-			answer: 'You can book a boat trip by phone at +421 902 199 480 or by email at robertj@seidner.sk. We offer private cruises and group trips on the Danube.'
-		},
-		{
 			question: 'How much does mooring at Kormoran Port cost?',
-			answer: 'Mooring prices depend on vessel size and length of stay. For current prices, contact the port manager at +421 903 614 663 or email info@pristavkormoran.sk.'
+			answer: 'Mooring prices depend on vessel size and length of stay. For current prices, contact the port manager at +421 902 199 480 or email robertj@seidner.sk.'
 		},
 		{
 			question: 'Can I organize a wedding on a boat?',
@@ -259,16 +268,12 @@ export const faq = {
 			answer: 'Botel Kormoran has a capacity of 49 beds. It includes a restaurant with 32 seats, a bar with terrace for 60 guests, and a conference hall for 20 people.'
 		},
 		{
-			question: 'Is it possible to visit Gabčíkovo Dam by boat?',
-			answer: 'Yes, from Kormoran Port in Čilistov we organize boat trips to Gabčíkovo Dam. The cruise takes approximately 2-3 hours and includes passage through the locks.'
-		},
-		{
-			question: 'What are the port opening hours?',
-			answer: 'Ports are open Monday to Friday from 8:00 to 18:00, Saturday from 9:00 to 17:00, and Sunday from 10:00 to 16:00. For arrival outside opening hours, please contact us in advance.'
+			question: 'When is the SUNSET winter boat bar open?',
+			answer: 'The SUNSET winter boat bar at Kormoran Port in Čilistov is open from 6 November, Friday – Sunday, 11:00 – 19:00. It serves mulled wine, punch and alcohol-free punch, hot chocolate, small snacks and board games.'
 		},
 		{
 			question: 'How do I get to Kormoran Port in Čilistov?',
-			answer: 'From Bratislava, head towards Šamorín and turn right to Čilistov before reaching the town. The port is located at Hotel Kormoran. GPS coordinates: 48.0167, 17.3167. Free parking is available on site.'
+			answer: 'From Bratislava, head towards Šamorín and turn right to Čilistov before reaching the town. The port is located at Hotel Kormoran. GPS coordinates: 48.009144, 17.304332. Free parking is available on site.'
 		},
 		{
 			question: 'What types of boats can moor at the port?',
@@ -305,12 +310,8 @@ export const faq = {
 			answer: 'Мы предлагаем портовые услуги для каютных судов и круизных лайнеров, парковку малых судов, прогулки на лодке по Дунаю, проживание на ботеле Корморан, корпоративные мероприятия, тимбилдинги, свадьбы и праздники на корабле.'
 		},
 		{
-			question: 'Как забронировать прогулку на лодке?',
-			answer: 'Вы можете забронировать прогулку по телефону +421 902 199 480 или по электронной почте robertj@seidner.sk. Мы предлагаем частные круизы и групповые туры по Дунаю.'
-		},
-		{
 			question: 'Сколько стоит швартовка в порту Корморан?',
-			answer: 'Цены на швартовку зависят от размера судна и продолжительности пребывания. Для актуальных цен свяжитесь с портовым менеджером по телефону +421 903 614 663 или по почте info@pristavkormoran.sk.'
+			answer: 'Цены на швартовку зависят от размера судна и продолжительности пребывания. Для актуальных цен свяжитесь с портовым менеджером по телефону +421 902 199 480 или по почте robertj@seidner.sk.'
 		},
 		{
 			question: 'Можно ли организовать свадьбу на корабле?',
@@ -321,16 +322,12 @@ export const faq = {
 			answer: 'Ботель Корморан вмещает 49 спальных мест. В нем есть ресторан на 32 места, бар с террасой на 60 гостей и конференц-зал на 20 человек.'
 		},
 		{
-			question: 'Можно ли посетить ГЭС Габчиково на лодке?',
-			answer: 'Да, из порта Корморан в Чилистове мы организуем экскурсии на лодке к ГЭС Габчиково. Круиз длится примерно 2-3 часа и включает проход через шлюзы.'
-		},
-		{
-			question: 'Какие часы работы портов?',
-			answer: 'Порты открыты с понедельника по пятницу с 8:00 до 18:00, в субботу с 9:00 до 17:00 и в воскресенье с 10:00 до 16:00. Для прибытия в нерабочее время свяжитесь с нами заранее.'
+			question: 'Когда открыт зимний бар SUNSET на корабле?',
+			answer: 'Зимний бар SUNSET на корабле в порту Корморан в Чилистове открыт с 6 ноября, пятница – воскресенье, с 11:00 до 19:00. Глинтвейн, пунш и безалкогольный пунш, горячий шоколад, лёгкие закуски и настольные игры.'
 		},
 		{
 			question: 'Как добраться до порта Корморан в Чилистове?',
-			answer: 'Из Братиславы направляйтесь в сторону Шаморина, перед городом поверните направо на Чилистов. Порт находится у отеля Корморан. GPS-координаты: 48.0167, 17.3167. Бесплатная парковка на территории.'
+			answer: 'Из Братиславы направляйтесь в сторону Шаморина, перед городом поверните направо на Чилистов. Порт находится у отеля Корморан. GPS-координаты: 48.009144, 17.304332. Бесплатная парковка на территории.'
 		},
 		{
 			question: 'Какие типы лодок могут швартоваться в порту?',
@@ -408,7 +405,7 @@ export const entities = {
 		botel: {
 			name: 'Botel Kormorán',
 			type: 'Accommodation',
-			description: 'Plávajúci hotel na Dunaji v Bratislave s 49 lôžkami, reštauráciou a kongresovou sálou.',
+			description: 'Plávajúci hotel na Dunaji v Čilistove pri Šamoríne s 49 lôžkami, reštauráciou a kongresovou sálou.',
 			capacity: 49
 		},
 		ondava: {

@@ -2,6 +2,7 @@
 	import type { PageData } from './$types';
 	import { t } from '$lib/i18n';
 	import { SEO } from '$lib/seo';
+	import { responsive } from '$lib/images';
 	import PageTitle from '$lib/components/ui/PageTitle.svelte';
 	import Divider from '$lib/components/ui/Divider.svelte';
 	import { scrollReveal } from '$lib/actions/scrollReveal';
@@ -35,5 +36,5 @@
 		{translations.about.corporateEventsText} {translations.common.moreInfo}
 		<a href="mailto:robertj@seidner.sk">robertj@seidner.sk</a>.
 	</p>
-	<p><img src="/images/teambuild.webp" alt="Teambuilding" loading="lazy" decoding="async" /></p>
+	<p><img {...responsive('/images/teambuild.webp')} sizes="(max-width: 900px) 100vw, 820px" alt="Teambuilding" loading="lazy" decoding="async" /></p>
 </div>

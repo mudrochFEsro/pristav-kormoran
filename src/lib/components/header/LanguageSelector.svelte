@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import { resolve } from '$app/paths';
-	import { LANGUAGES, type LanguageCode } from '$lib/i18n';
+	import { LANGUAGES, getAlternatePaths, type LanguageCode } from '$lib/i18n';
 
 	interface Props {
 		currentLang: LanguageCode;
@@ -9,25 +9,8 @@
 
 	let { currentLang }: Props = $props();
 
-	// Build href for each language based on current path
-	function getLanguageHref(langCode: LanguageCode, currentPath: string): string {
-		// Remove current language prefix from path
-		let pathWithoutLang = currentPath;
-		for (const lang of LANGUAGES) {
-			if (currentPath.startsWith(`/${lang.code}/`)) {
-				pathWithoutLang = currentPath.slice(lang.code.length + 1);
-				break;
-			} else if (currentPath === `/${lang.code}`) {
-				pathWithoutLang = '/';
-				break;
-			}
-		}
-
-		if (langCode === 'sk') {
-			return pathWithoutLang || '/';
-		}
-		return `/${langCode}${pathWithoutLang === '/' ? '' : pathWithoutLang}`;
-	}
+	// Localized URL of the current page in each language (e.g. /novinky/ -> /en/news/)
+	const alternates = $derived(getAlternatePaths($page.url.pathname));
 
 	// Short labels for display
 	const shortLabels: Record<LanguageCode, string> = {
@@ -42,11 +25,12 @@
 		{#each LANGUAGES as langConfig (langConfig.code)}
 			<li>
 				<a
-					href={resolve(getLanguageHref(langConfig.code, $page.url.pathname))}
+					href={resolve(alternates[langConfig.code])}
 					class="lang-switcher__link"
 					class:lang-switcher__link--active={currentLang === langConfig.code}
 					aria-current={currentLang === langConfig.code ? 'page' : undefined}
-					aria-label={langConfig.label}
+					aria-label={`${shortLabels[langConfig.code]} – ${langConfig.label}`}
+					hreflang={langConfig.htmlLang}
 					data-sveltekit-noscroll
 				>
 					{shortLabels[langConfig.code]}

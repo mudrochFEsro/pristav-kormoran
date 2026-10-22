@@ -13,7 +13,7 @@ export const en: Translations = {
 		news: 'News and updates from Kormoran Ports. Current information about cruises, events and news from the Danube river.',
 		region: 'Žitný ostrov - the largest river island in Europe. Thermal spas, cycling routes, Gabčíkovo Dam and Hotel Kormoran in Šamorín-Čilistov.',
 		ports: 'Kormoran Ports on the Danube - 6 marinas in Bratislava, Čilistov and Štúrovo. Services for cabin vessels, cruise ships and small boats.',
-		botel: 'Botel Kormoran - accommodation on a boat in Bratislava. 49 beds, restaurant, bar with terrace, conference hall. Ideal for corporate events.',
+		botel: 'Botel Kormoran - accommodation on a boat in Čilistov near Šamorín. 49 beds, restaurant, bar with terrace, conference hall. Ideal for corporate events.',
 		boatTrips: 'Boat trips on the Danube - cruises from Bratislava and Čilistov. Corporate team buildings, weddings, celebrations and private cruises.',
 		contact: 'Contact Kormoran Ports. Port manager, operator, billing information. Marina reservations and boat trip bookings.'
 	},
@@ -50,7 +50,8 @@ export const en: Translations = {
 			'In addition to marina services, we offer accommodation at Botel Kormoran with a capacity of 49 beds, a restaurant, and a bar with terrace. We organize boat trips on the Danube, corporate team buildings, weddings on board, family celebrations, and various social events. Our boat Ondava is ideal for private cruises and group excursions.',
 		location: 'Strategic location',
 		locationText:
-			'Kormoran Ports are located on Žitný ostrov - the largest river island in Europe. Near the ports you will find thermal spas, cycling routes along the Danube, historical monuments, and the Gabčíkovo Dam. Hotel Kormoran in Čilistov offers wellness, fitness, and sports facilities for active relaxation.'
+			'Kormoran Ports are located on Žitný ostrov - the largest river island in Europe. Near the ports you will find thermal spas, cycling routes along the Danube, historical monuments, and the Gabčíkovo Dam. Hotel Kormoran in Čilistov offers wellness, fitness, and sports facilities for active relaxation.',
+		faq: 'Frequently asked questions'
 	},
 
 	categories: {
@@ -85,10 +86,20 @@ export const en: Translations = {
 
 	news: {
 		title: 'News',
-		articleTitle: 'Sweet temptation during a walk',
-		articleText:
-			'Even though boat trips have ended this season, walks along Kormoran Port in Čilistov are always a nice experience. During your walk you can order amazing homemade pastries at Hotel Kormorán.',
-		contactOrders: 'Contact for sweet pastry orders'
+		date: '22 October 2026',
+		eyebrow: 'SUNSET · winter boat bar',
+		headline: 'Open from 6\u00a0November',
+		lead: 'Walking along the dam? Come in and warm up.',
+		highlights: 'Hot drinks · a little something to eat · board games',
+		hours: 'Friday – Sunday · 11:00 – 19:00',
+		location: 'Kormoran Port, Čilistov',
+		articleTitle: 'Winter SUNSET: warm up during your walk',
+		articleText: 'Taking a walk along the dam in Čilistov? From 6 November you can stop by and warm up on board the SUNSET winter boat bar at Kormoran Port. Mulled wine, punch and alcohol-free punch, hot chocolate, a little something to eat and board games are waiting for you.',
+		openingHoursLabel: 'Open',
+		openingHours: 'Friday – Sunday, 11:00 – 19:00',
+		imageAltBar: 'Bar on board SUNSET',
+		imageAltSunset: 'Sunset over the water seen from the deck',
+		imageAltBoat: 'Illuminated boat at Kormoran Port in the evening'
 	},
 
 	region: {

@@ -132,6 +132,12 @@
 	});
 </script>
 
+<svelte:head>
+	{#if data.lang === 'ru'}
+		<link rel="preload" as="font" type="font/woff2" href="/fonts/inter/inter-cyrillic.woff2" crossorigin="anonymous" />
+	{/if}
+</svelte:head>
+
 <!-- Mobile menu rendered outside view-transition wrappers for position: fixed to work -->
 <MobileMenu lang={data.lang} isOpen={isMobileMenuOpen} onClose={closeMobileMenu} triggerElement={hamburgerTriggerRef} />
 

@@ -2,8 +2,7 @@
 	import type { PageData } from './$types';
 	import { t } from '$lib/i18n';
 	import { SEO } from '$lib/seo';
-	import Divider from '$lib/components/ui/Divider.svelte';
-	import { scrollReveal } from '$lib/actions/scrollReveal';
+	import NewsContent from '$lib/components/news/NewsContent.svelte';
 
 	interface Props {
 		data: PageData;
@@ -19,14 +18,8 @@
 	description={translations.seo.news}
 	lang={data.lang}
 	type="article"
-	article={{ publishedTime: '2020-11-03' }}
+	image="/images/botel-ubytovanie-restauracia1.webp"
+	article={{ publishedTime: '2026-10-22' }}
 />
 
-<h1 class="static-title static-title-no-img" use:scrollReveal={{ variant: 'fade' }}>{translations.news.articleTitle}</h1>
-<Divider />
-<div class="static-date" use:scrollReveal={{ variant: 'fade', delay: 50 }}>3.11.2020</div>
-<div class="static-text" use:scrollReveal={{ variant: 'fade', delay: 100 }}>
-	<p>{translations.news.articleText}</p>
-	<p>{translations.news.contactOrders}: <a href="tel:+421903614663">+421 903 614 663</a></p>
-	<p><img src="/images/ondava-2.webp" alt="Ondava" /></p>
-</div>
+<NewsContent lang={data.lang} />
