@@ -35,7 +35,15 @@ export const en: Translations = {
 		loading: 'Loading...',
 		error: 'Failed to load weather',
 		humidity: 'Humidity',
-		windSpeed: 'Wind speed'
+		windSpeed: 'Wind speed',
+		waterLevel: 'Danube water level',
+		waterTemp: 'Water temperature',
+		trendUp: 'rising',
+		trendDown: 'falling',
+		trendSteady: 'steady',
+		station: 'gauge',
+		measuredAt: 'measured',
+		source: 'Source'
 	},
 
 	home: {

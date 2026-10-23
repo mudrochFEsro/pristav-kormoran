@@ -37,6 +37,14 @@ export interface Translations {
 		error: string;
 		humidity: string;
 		windSpeed: string;
+		waterLevel: string;
+		waterTemp: string;
+		trendUp: string;
+		trendDown: string;
+		trendSteady: string;
+		station: string;
+		measuredAt: string;
+		source: string;
 	};
 
 	// Homepage

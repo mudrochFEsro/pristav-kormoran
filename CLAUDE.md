@@ -12,6 +12,7 @@ SvelteKit 5 webstránka pre Prístav Kormorán - slovenská firma prevádzkujúc
 pnpm dev          # Development server (http://localhost:5173)
 pnpm build        # Production build (output: /build)
 pnpm preview      # Preview production build
+pnpm test         # Unit testy (node --test, src/**/*.test.ts)
 npx svelte-check  # TypeScript a Svelte kontrola
 ```
 
@@ -91,7 +92,13 @@ Projekt používa Svelte 5 runes syntax:
 - `Image.svelte` - Lazy-loaded obrázok
 
 **Header:**
-- `WeatherWidget.svelte` - Počasie z Open-Meteo API
+- `WeatherWidget.svelte` - Počasie z Open-Meteo API + hladina a teplota Dunaja z `/api/danube`
+
+**Dunaj (`src/lib/server/danube.ts`, route `src/routes/api/danube/+server.ts`):**
+- Hladina + trend (3 h, ±2 cm) zo SHMÚ: Bratislava, Hamuliakovo (Šamorín), Dobrohošť (Čilistov)
+- Teplota vody BA z Danube HIS (CC BY-NC-SA), fallback Wildungsmauer (Land NÖ); zdroj je v tooltipe
+- Zdroje nemajú API ani CORS - parsuje sa HTML/JSON na serveri, Vercel ISR obnovuje každých 15 min
+- Zlyhaný alebo starý (> 3 h) zdroj len skryje hodnotu; testy s reálnymi fixtures v `src/lib/server/fixtures/`
 - `LanguageSelector.svelte` - Prepínač jazykov
 - `SocialLinks.svelte` - Facebook, Instagram
 

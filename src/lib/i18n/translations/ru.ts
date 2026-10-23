@@ -35,7 +35,15 @@ export const ru: Translations = {
 		loading: 'Загрузка...',
 		error: 'Не удалось загрузить погоду',
 		humidity: 'Влажность',
-		windSpeed: 'Скорость ветра'
+		windSpeed: 'Скорость ветра',
+		waterLevel: 'Уровень Дуная',
+		waterTemp: 'Температура воды',
+		trendUp: 'растёт',
+		trendDown: 'падает',
+		trendSteady: 'стабильный',
+		station: 'станция',
+		measuredAt: 'измерено',
+		source: 'Источник'
 	},
 
 	home: {

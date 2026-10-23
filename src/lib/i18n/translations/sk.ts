@@ -35,7 +35,15 @@ export const sk: Translations = {
 		loading: 'Načítavam...',
 		error: 'Nepodarilo sa načítať počasie',
 		humidity: 'Vlhkosť',
-		windSpeed: 'Rýchlosť vetra'
+		windSpeed: 'Rýchlosť vetra',
+		waterLevel: 'Hladina Dunaja',
+		waterTemp: 'Teplota vody',
+		trendUp: 'stúpa',
+		trendDown: 'klesá',
+		trendSteady: 'stabilná',
+		station: 'stanica',
+		measuredAt: 'meranie',
+		source: 'Zdroj'
 	},
 
 	home: {

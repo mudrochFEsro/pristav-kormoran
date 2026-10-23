@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
-	import type { LanguageCode } from '$lib/i18n';
+	import { t, type LanguageCode } from '$lib/i18n';
+	import type { CityKey, DanubeData, LevelReading, Trend, WaterTempReading } from '$lib/server/danube';
 
 	interface Props {
 		lang: LanguageCode;
@@ -8,7 +9,10 @@
 
 	let { lang }: Props = $props();
 
+	const translations = $derived(t(lang).weather);
+
 	interface City {
+		key: CityKey;
 		name: string;
 		nameSk: string;
 		nameEn: string;
@@ -27,6 +31,7 @@
 
 	const CITIES: City[] = [
 		{
+			key: 'bratislava',
 			name: 'Bratislava',
 			nameSk: 'Bratislava',
 			nameEn: 'Bratislava',
@@ -35,6 +40,7 @@
 			lon: 17.1077
 		},
 		{
+			key: 'samorin',
 			name: 'Šamorín',
 			nameSk: 'Šamorín',
 			nameEn: 'Šamorín',
@@ -43,6 +49,7 @@
 			lon: 17.3119
 		},
 		{
+			key: 'cilistov',
 			name: 'Čilistov',
 			nameSk: 'Čilistov',
 			nameEn: 'Čilistov',
@@ -53,8 +60,67 @@
 	];
 
 	let weatherData = $state<WeatherData[]>([]);
+	let danube = $state<DanubeData | null>(null);
 	let isLoading = $state(true);
 	let error = $state<string | null>(null);
+
+	const LOCALES: Record<LanguageCode, string> = { sk: 'sk-SK', en: 'en-GB', ru: 'ru-RU' };
+
+	const TREND_ARROWS: Record<Trend, string> = { up: '↑', down: '↓', steady: '→' };
+
+	// One water temperature is shown under every city; the tooltip names where it was measured
+	const WATER_TEMP_STATIONS: Record<WaterTempReading['source'], string> = {
+		danubehis: 'Bratislava',
+		noe: 'Wildungsmauer (AT)'
+	};
+
+	const WATER_TEMP_SOURCES: Record<WaterTempReading['source'], string> = {
+		danubehis: 'Danube HIS',
+		noe: 'Land NÖ'
+	};
+
+	function formatTime(time: number): string {
+		return new Intl.DateTimeFormat(LOCALES[lang], {
+			hour: '2-digit',
+			minute: '2-digit',
+			timeZone: 'Europe/Bratislava'
+		}).format(time);
+	}
+
+	function formatWaterTemp(value: number): string {
+		return new Intl.NumberFormat(LOCALES[lang], { maximumFractionDigits: 1 }).format(value);
+	}
+
+	function getTrendLabel(trend: Trend): string {
+		const labels: Record<Trend, string> = {
+			up: translations.trendUp,
+			down: translations.trendDown,
+			steady: translations.trendSteady
+		};
+		return labels[trend];
+	}
+
+	// Tooltips also credit the data source
+	function getLevelTitle(level: LevelReading): string {
+		return `${translations.waterLevel} – ${translations.station} ${level.station}, ${translations.measuredAt} ${formatTime(level.time)}. ${translations.source}: SHMÚ`;
+	}
+
+	function getWaterTempTitle(temp: WaterTempReading): string {
+		return `${translations.waterTemp} – ${translations.station} ${WATER_TEMP_STATIONS[temp.source]}, ${translations.measuredAt} ${formatTime(temp.time)}. ${translations.source}: ${WATER_TEMP_SOURCES[temp.source]}`;
+	}
+
+	// Same-origin ISR endpoint; a failure only hides the Danube values
+	async function fetchDanube(signal?: AbortSignal): Promise<DanubeData | null> {
+		try {
+			const response = await fetch('/api/danube', { signal });
+			if (!response.ok) throw new Error(`HTTP ${response.status}`);
+			return await response.json();
+		} catch (err) {
+			if (err instanceof Error && err.name === 'AbortError') throw err;
+			console.error('Failed to fetch Danube data:', err);
+			return null;
+		}
+	}
 
 	// Weather icon mapping
 	const WEATHER_ICONS: Map<number, string> = new Map([
@@ -90,25 +156,31 @@
 
 		try {
 			error = null;
-			const results = await Promise.allSettled(
-				CITIES.map(async (city) => {
-					const url = `https://api.open-meteo.com/v1/forecast?latitude=${city.lat}&longitude=${city.lon}&current=temperature_2m,relative_humidity_2m,weather_code,wind_speed_10m&timezone=Europe/Bratislava`;
-					const response = await fetch(url, { signal });
+			// Loaded together so the bar renders once (no extra layout shift)
+			const [results, danubeData] = await Promise.all([
+				Promise.allSettled(
+					CITIES.map(async (city) => {
+						const url = `https://api.open-meteo.com/v1/forecast?latitude=${city.lat}&longitude=${city.lon}&current=temperature_2m,relative_humidity_2m,weather_code,wind_speed_10m&timezone=Europe/Bratislava`;
+						const response = await fetch(url, { signal });
 
-					if (!response.ok) {
-						throw new Error(`HTTP ${response.status}`);
-					}
+						if (!response.ok) {
+							throw new Error(`HTTP ${response.status}`);
+						}
 
-					const json = await response.json();
-					return {
-						city,
-						temp: Math.round(json.current.temperature_2m),
-						weatherCode: json.current.weather_code,
-						humidity: Math.round(json.current.relative_humidity_2m),
-						windSpeed: Math.round(json.current.wind_speed_10m)
-					};
-				})
-			);
+						const json = await response.json();
+						return {
+							city,
+							temp: Math.round(json.current.temperature_2m),
+							weatherCode: json.current.weather_code,
+							humidity: Math.round(json.current.relative_humidity_2m),
+							windSpeed: Math.round(json.current.wind_speed_10m)
+						};
+					})
+				),
+				fetchDanube(signal)
+			]);
+
+			danube = danubeData;
 
 			// Filter only successful results
 			const successfulData = results
@@ -176,6 +248,8 @@
 			<div class="weather-bar__error" role="alert">{error}</div>
 		{:else}
 			{#each weatherData as data (data.city.name)}
+				{@const level = danube?.levels[data.city.key]}
+				{@const waterTemp = danube?.waterTemp}
 				<div class="weather-bar__location">
 					<span class="weather-bar__temp">{data.temp}°C</span>
 					<div class="weather-bar__details">
@@ -187,6 +261,21 @@
 						<span class="weather-bar__extra">
 							<span aria-label="Humidity" role="img">💧</span> {data.humidity}% | <span aria-label="Wind speed" role="img">💨</span> {data.windSpeed} km/h
 						</span>
+						{#if level || waterTemp}
+							<span class="weather-bar__water">
+								{#if level}
+									<span class="weather-bar__level" title={getLevelTitle(level)}>
+										<span aria-label={translations.waterLevel} role="img">🌊</span> {level.value} cm
+										<span aria-label={getTrendLabel(level.trend)} role="img">{TREND_ARROWS[level.trend]}</span>
+									</span>
+								{/if}
+								{#if waterTemp}
+									<span class="weather-bar__water-temp" title={getWaterTempTitle(waterTemp)}>
+										<span aria-label={translations.waterTemp} role="img">🌡️</span> {formatWaterTemp(waterTemp.value)}°C
+									</span>
+								{/if}
+							</span>
+						{/if}
 					</div>
 				</div>
 			{/each}
@@ -204,6 +293,8 @@
 		display: grid;
 		grid-template-columns: repeat(3, 1fr);
 		gap: var(--space-4);
+		/* Height of the loaded bar (weather + Danube lines), reserved for the skeleton to avoid layout shift */
+		min-height: 77px;
 		max-width: var(--container-max-width);
 		margin: 0 auto;
 		padding: 0 var(--space-8);
@@ -250,6 +341,16 @@
 		color: var(--color-text-secondary);
 		display: block;
 		margin-top: 2px;
+	}
+
+	.weather-bar__water {
+		font-size: 10px;
+		color: var(--color-text-secondary);
+		display: block;
+	}
+
+	.weather-bar__level + .weather-bar__water-temp::before {
+		content: '| ';
 	}
 
 	.weather-bar__icon {
@@ -340,6 +441,7 @@
 			grid-template-columns: repeat(3, 1fr) !important;
 			gap: 8px;
 			padding: 0 12px;
+			min-height: 86px;
 		}
 
 		.weather-bar__location {
@@ -371,6 +473,15 @@
 
 		.weather-bar__extra {
 			display: none;
+		}
+
+		.weather-bar__level,
+		.weather-bar__water-temp {
+			display: block;
+		}
+
+		.weather-bar__level + .weather-bar__water-temp::before {
+			content: none;
 		}
 
 		.weather-bar__details {

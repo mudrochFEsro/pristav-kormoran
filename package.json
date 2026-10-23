@@ -6,7 +6,8 @@
     "dev": "vite dev",
     "build": "vite build",
     "preview": "vite preview",
-    "images": "node scripts/optimize-images.mjs"
+    "images": "node scripts/optimize-images.mjs",
+    "test": "node --test --experimental-strip-types --no-warnings 'src/**/*.test.ts'"
   },
   "type": "module",
   "devDependencies": {
