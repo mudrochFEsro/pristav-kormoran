@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { smoothDetails } from '$lib/actions/smoothDetails';
+
 	interface Props {
 		title: string;
 		items: ReadonlyArray<{ question: string; answer: string }>;
@@ -12,7 +14,7 @@
 	<h2 id="faq-title" class="faq__title">{title}</h2>
 	<div class="faq__list">
 		{#each items as item (item.question)}
-			<details class="faq__item">
+			<details class="faq__item" use:smoothDetails>
 				<summary class="faq__question">{item.question}</summary>
 				<p class="faq__answer">{item.answer}</p>
 			</details>
@@ -38,6 +40,8 @@
 	}
 
 	.faq__item {
+		/* Border-box so the animated height (smoothDetails) includes the borders */
+		box-sizing: border-box;
 		border-bottom: 1px solid var(--color-border-light);
 	}
 
@@ -76,7 +80,8 @@
 		transition: transform var(--transition-normal);
 	}
 
-	.faq__item[open] .faq__question::after {
+	/* data-closing: the cross turns back while the close animation runs */
+	.faq__item[open]:not([data-closing]) .faq__question::after {
 		transform: translateY(-50%) rotate(45deg);
 	}
 

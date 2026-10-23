@@ -286,7 +286,7 @@ Všetky schémy sú v `src/lib/seo/SEO.svelte`:
 - **LocalBusiness + BoatTerminal** - 6 prístavov ako samostatné miesta (home + Prístavy)
 - **BarOrPub** - zimný bar SUNSET s otváracími hodinami (home + Novinky)
 - **WebSite**, **WebPage** (+ Speakable), **BreadcrumbList**
-- **FAQPage** - 13 otázok v každom jazyku, **zobrazené aj na home** (`Faq.svelte`) - musia sa zhodovať
+- **FAQPage** - 10 otázok v každom jazyku, **zobrazené aj na home** (`Faq.svelte`) - musia sa zhodovať
 - **HowTo** - návod na rezerváciu (stránky výletov loďou)
 - **TouristDestination** - región Žitný ostrov (GEO)
 

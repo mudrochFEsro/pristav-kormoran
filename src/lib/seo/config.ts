@@ -230,20 +230,8 @@ export const faq = {
 			answer: 'Áno, organizujeme firemné teambuildingy na lodi Ondava aj v areáli prístavu. Ponúkame plavby po Dunaji s cateringom, outdoor aktivity, súťaže a kompletný eventový servis pre skupiny 10-60 osôb.'
 		},
 		{
-			question: 'Je v prístave možné tankovať palivo?',
-			answer: 'Áno, v Prístave Kormorán I. v Čilistove je k dispozícii tankovacia stanica pre lode. Ponúkame naftu aj benzín. Pre väčšie množstvá odporúčame vopred kontaktovať prístavného kapitána.'
-		},
-		{
 			question: 'Aké atrakcie sú v okolí prístavu?',
 			answer: 'V okolí nájdete Žitný ostrov s cyklotrasami, termálne kúpaliská v Dunajskej Strede, Vodné dielo Gabčíkovo, historické centrum Bratislavy, hrad Devín a vinice Malých Karpát.'
-		},
-		{
-			question: 'Môžem si prenajať loď bez posádky?',
-			answer: 'Áno, ponúkame prenájom menších motorových člnov bez posádky pre držiteľov vodičského preukazu na vedenie plavidla. Pre väčšie lode a výletné plavby je posádka súčasťou prenájmu.'
-		},
-		{
-			question: 'Je prístav prístupný pre invalidov?',
-			answer: 'Áno, Prístav Kormorán v Čilistove aj Botel Kormorán sú bezbariérové. Máme upravené prístupy pre vozičkárov a bezbariérové toalety. Pri rezervácii nás informujte o špeciálnych potrebách.'
 		}
 	],
 	en: [
@@ -284,20 +272,8 @@ export const faq = {
 			answer: 'Yes, we organize corporate team buildings on the Ondava boat and at the port premises. We offer Danube cruises with catering, outdoor activities, competitions, and complete event services for groups of 10-60 people.'
 		},
 		{
-			question: 'Is fuel available at the port?',
-			answer: 'Yes, Kormoran Port I. in Čilistov has a boat fueling station. We offer diesel and gasoline. For larger quantities, please contact the port captain in advance.'
-		},
-		{
 			question: 'What attractions are near the port?',
 			answer: 'Nearby attractions include Žitný ostrov with cycling trails, thermal spas in Dunajská Streda, Gabčíkovo Dam, historic Bratislava city center, Devín Castle, and the Small Carpathian wine region.'
-		},
-		{
-			question: 'Can I rent a boat without a crew?',
-			answer: 'Yes, we offer small motorboat rentals without crew for holders of a boat driving license. For larger vessels and sightseeing cruises, crew is included in the rental.'
-		},
-		{
-			question: 'Is the port wheelchair accessible?',
-			answer: 'Yes, Kormoran Port in Čilistov and Botel Kormoran are barrier-free. We have wheelchair-accessible entrances and accessible restrooms. Please inform us of any special needs when booking.'
 		}
 	],
 	ru: [
@@ -338,20 +314,8 @@ export const faq = {
 			answer: 'Да, мы организуем корпоративные тимбилдинги на корабле Ондава и на территории порта. Предлагаем круизы по Дунаю с кейтерингом, активности на свежем воздухе, конкурсы и полный эвент-сервис для групп 10-60 человек.'
 		},
 		{
-			question: 'Есть ли в порту заправка для лодок?',
-			answer: 'Да, в порту Корморан I. в Чилистове есть заправочная станция для лодок. Мы предлагаем дизельное топливо и бензин. Для больших объемов свяжитесь с капитаном порта заранее.'
-		},
-		{
 			question: 'Какие достопримечательности есть рядом с портом?',
 			answer: 'Поблизости находятся Житный остров с велодорожками, термальные курорты в Дунайской Среде, ГЭС Габчиково, исторический центр Братиславы, замок Девин и винодельческий регион Малых Карпат.'
-		},
-		{
-			question: 'Можно ли арендовать лодку без экипажа?',
-			answer: 'Да, мы предлагаем аренду небольших моторных лодок без экипажа для владельцев лицензии на управление судном. Для больших судов и экскурсий экипаж включен в аренду.'
-		},
-		{
-			question: 'Доступен ли порт для инвалидов?',
-			answer: 'Да, порт Корморан в Чилистове и ботель Корморан безбарьерные. У нас есть входы для инвалидных колясок и доступные туалеты. Сообщите нам о специальных потребностях при бронировании.'
 		}
 	]
 };
