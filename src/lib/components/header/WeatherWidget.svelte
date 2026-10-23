@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
 	import { t, type LanguageCode } from '$lib/i18n';
-	import type { CityKey, DanubeData, LevelReading, Trend, WaterTempReading } from '$lib/server/danube';
+	import type { CityKey, DanubeData, Trend, WaterTempReading } from '$lib/server/danube';
 
 	interface Props {
 		lang: LanguageCode;
@@ -100,13 +100,8 @@
 		return labels[trend];
 	}
 
-	// Tooltips also credit the data source
-	function getLevelTitle(level: LevelReading): string {
-		return `${translations.waterLevel} – ${translations.station} ${level.station}, ${translations.measuredAt} ${formatTime(level.time)}. ${translations.source}: SHMÚ`;
-	}
-
-	function getWaterTempTitle(temp: WaterTempReading): string {
-		return `${translations.waterTemp} – ${translations.station} ${WATER_TEMP_STATIONS[temp.source]}, ${translations.measuredAt} ${formatTime(temp.time)}. ${translations.source}: ${WATER_TEMP_SOURCES[temp.source]}`;
+	function getMeasuredLine(station: string, time: number): string {
+		return `${translations.station} ${station}, ${translations.measuredAt} ${formatTime(time)}`;
 	}
 
 	// Same-origin ISR endpoint; a failure only hides the Danube values
@@ -264,14 +259,34 @@
 						{#if level || waterTemp}
 							<span class="weather-bar__water">
 								{#if level}
-									<span class="weather-bar__level" title={getLevelTitle(level)}>
+									<!-- svelte-ignore a11y_no_noninteractive_tabindex -->
+									<span
+										class="weather-bar__level weather-bar__hint"
+										tabindex="0"
+										aria-describedby="danube-level-{data.city.key}"
+									>
 										<span aria-label={translations.waterLevel} role="img">🌊</span> {level.value} cm
 										<span aria-label={getTrendLabel(level.trend)} role="img">{TREND_ARROWS[level.trend]}</span>
+										<span class="weather-bar__tooltip" id="danube-level-{data.city.key}" role="tooltip">
+											<strong>{translations.waterLevel}</strong>
+											<span>{getMeasuredLine(level.station, level.time)}</span>
+											<span>{translations.source}: SHMÚ</span>
+										</span>
 									</span>
 								{/if}
 								{#if waterTemp}
-									<span class="weather-bar__water-temp" title={getWaterTempTitle(waterTemp)}>
+									<!-- svelte-ignore a11y_no_noninteractive_tabindex -->
+									<span
+										class="weather-bar__water-temp weather-bar__hint"
+										tabindex="0"
+										aria-describedby="danube-temp-{data.city.key}"
+									>
 										<span aria-label={translations.waterTemp} role="img">🌡️</span> {formatWaterTemp(waterTemp.value)}°C
+										<span class="weather-bar__tooltip" id="danube-temp-{data.city.key}" role="tooltip">
+											<strong>{translations.waterTemp}</strong>
+											<span>{getMeasuredLine(WATER_TEMP_STATIONS[waterTemp.source], waterTemp.time)}</span>
+											<span>{translations.source}: {WATER_TEMP_SOURCES[waterTemp.source]}</span>
+										</span>
 									</span>
 								{/if}
 							</span>
@@ -351,6 +366,91 @@
 
 	.weather-bar__level + .weather-bar__water-temp::before {
 		content: '| ';
+	}
+
+	/* Custom tooltip: shows instantly on hover / focus (tap on mobile), unlike the native title */
+	.weather-bar__hint {
+		position: relative;
+		cursor: help;
+		outline: none;
+	}
+
+	.weather-bar__hint:focus-visible {
+		border-radius: var(--radius-sm);
+		box-shadow: 0 0 0 2px var(--color-primary);
+	}
+
+	.weather-bar__tooltip {
+		position: absolute;
+		top: calc(100% + var(--space-1));
+		left: 50%;
+		z-index: 1000;
+		display: flex;
+		flex-direction: column;
+		gap: 2px;
+		width: max-content;
+		max-width: min(260px, calc(100vw - 2 * var(--space-4)));
+		padding: var(--space-2) var(--space-3);
+		border-radius: var(--radius-md);
+		background: var(--color-bg-footer);
+		box-shadow: var(--shadow-md);
+		color: var(--color-white);
+		font-family: var(--font-primary);
+		font-size: 12px;
+		line-height: 1.4;
+		text-align: left;
+		white-space: normal;
+		opacity: 0;
+		visibility: hidden;
+		pointer-events: none;
+		transform: translate(-50%, -2px);
+		transition:
+			opacity var(--transition-fast),
+			transform var(--transition-fast),
+			visibility 0s linear 150ms;
+	}
+
+	.weather-bar__tooltip strong {
+		font-weight: var(--font-weight-medium);
+	}
+
+	.weather-bar__hint:hover .weather-bar__tooltip,
+	.weather-bar__hint:focus .weather-bar__tooltip {
+		opacity: 1;
+		visibility: visible;
+		transform: translate(-50%, 0);
+		/* Appear instantly, only hiding fades out */
+		transition: none;
+	}
+
+	/* Keep the outer columns' tooltips inside the viewport */
+	.weather-bar__location:nth-child(1) .weather-bar__tooltip {
+		left: 0;
+		transform: translateY(-2px);
+	}
+
+	.weather-bar__location:nth-child(1) .weather-bar__hint:hover .weather-bar__tooltip,
+	.weather-bar__location:nth-child(1) .weather-bar__hint:focus .weather-bar__tooltip {
+		transform: none;
+	}
+
+	.weather-bar__location:nth-child(3) .weather-bar__tooltip {
+		left: auto;
+		right: 0;
+		transform: translateY(-2px);
+	}
+
+	.weather-bar__location:nth-child(3) .weather-bar__hint:hover .weather-bar__tooltip,
+	.weather-bar__location:nth-child(3) .weather-bar__hint:focus .weather-bar__tooltip {
+		transform: none;
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.weather-bar__tooltip,
+		.weather-bar__hint:hover .weather-bar__tooltip,
+		.weather-bar__hint:focus .weather-bar__tooltip {
+			transition: none;
+		}
 	}
 
 	.weather-bar__icon {

@@ -206,9 +206,12 @@
 		background: var(--color-white);
 	}
 
-	/* Weather widget - not sticky */
+	/* Weather widget - not sticky. view-transition-name makes it a stacking context,
+	   so it sits above .layout-sticky to let the Danube tooltips overlap the header */
 	.layout-weather {
 		view-transition-name: layout-weather;
+		position: relative;
+		z-index: 101;
 	}
 
 	/* Sticky header + nav combined */
