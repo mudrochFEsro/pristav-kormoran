@@ -18,6 +18,21 @@
 			"source": "/ru/vylety-lodou(/?)",
 			"destination": "/ru/progulki-na-lodke/",
 			"permanent": true
+		},
+		{
+			"source": "/sk(/?)",
+			"destination": "/",
+			"permanent": true
+		},
+		{
+			"source": "/sk/:path+/",
+			"destination": "/:path+/",
+			"permanent": true
+		},
+		{
+			"source": "/sk/:path+",
+			"destination": "/:path+/",
+			"permanent": true
 		}
 	],
 	"headers": [

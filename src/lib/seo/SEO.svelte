@@ -142,9 +142,7 @@
 			}
 		},
 		amenityFeature: [
-			{ '@type': 'LocationFeatureSpecification', name: 'Boat Fueling Station', value: true },
 			{ '@type': 'LocationFeatureSpecification', name: 'Free Parking', value: true },
-			{ '@type': 'LocationFeatureSpecification', name: 'Wheelchair Accessible', value: true },
 			{ '@type': 'LocationFeatureSpecification', name: 'Restaurant', value: true },
 			{ '@type': 'LocationFeatureSpecification', name: 'Accommodation', value: true },
 			{ '@type': 'LocationFeatureSpecification', name: 'Event Venue', value: true }
